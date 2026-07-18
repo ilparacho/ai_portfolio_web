@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">AI Project Hub</div>
+        <nav>
+            <ul id="gnb">
+                <li><a href="#" data-target="home" class="active">Home</a></li>
+                <li><a href="#" data-target="games">Games</a></li>
+                <li><a href="#" data-target="novels">Novels</a></li>
+                <li><a href="#" data-target="dev">Dev & AI</a></li>
+                <li><a href="#" data-target="about">About</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle">🌓 Dark/Light</button>
+    </header>
+
+    <main id="content-area">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <h1>환영합니다!</h1>
+            <p>15년차 게임 기획자 및 스토리 작가의 개인 프로젝트 아카이브입니다.</p>
+            <div class="highlight-cards">
+                <div class="card">
+                    <h3>최근 업데이트: 카르드라실 크로니클</h3>
+                    <p>트럼프 카드 결합형 RPG 핵심 기획서 업데이트 완료.</p>
+                </div>
+                <div class="card">
+                    <h3>진행 중: DBZ 스타일 MUD</h3>
+                    <p>전투 시스템 웹 프로토타입 구현 중.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="content-section">
+            <h1>Games (게임 프로젝트)</h1>
+            <div class="project-list">
+                <div class="project-item">
+                    <h2>카르드라실 크로니클</h2>
+                    <p>트럼프 카드를 활용한 하이브리드 RPG. 유니티 기반 개발 예정.</p>
+                    <button class="btn">기획서 보기</button>
+                </div>
+                <div class="project-item">
+                    <h2>DBZ 스타일 MUD 웹게임</h2>
+                    <p>텍스트 기반의 카드 전투 프로토타입 시스템.</p>
+                    <button class="btn">플레이하기 (준비중)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Novels Section -->
+        <section id="novels" class="content-section">
+            <h1>Novels (소설 및 세계관)</h1>
+            <p>창작 중인 웹소설과 게임 세계관(카르드라실 등) 아카이브입니다.</p>
+            <ul class="novel-list">
+                <li>📖 미공개 단편 스토리 1</li>
+                <li>📜 카르드라실 크로니클: 설정 백과사전</li>
+            </ul>
+        </section>
+
+        <!-- Dev & AI Section -->
+        <section id="dev" class="content-section">
+            <h1>Dev & AI (개발 및 AI 실험)</h1>
+            <p>AI(Hermes)와 협업하여 생성한 스크립트, 프롬프트 방법론 등을 기록합니다.</p>
+            <ul>
+                <li>⚙️ AI를 활용한 빠른 웹 프로토타이핑 방법론</li>
+                <li>⚙️ 데이터베이스 마크다운 설계 템플릿</li>
+            </ul>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="content-section">
+            <h1>About</h1>
+            <p><strong>Park.SH 의 AI 작업 공간</strong></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

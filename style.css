@@ -1,0 +1,158 @@
+/* 기본 변수 (다크/라이트 모드 지원) */
+:root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #bb86fc;
+    --header-bg: #1f1f1f;
+    --card-bg: #2d2d2d;
+    --border-color: #333;
+}
+
+[data-theme="light"] {
+    --bg-color: #f5f5f5;
+    --text-color: #333333;
+    --primary-color: #6200ee;
+    --header-bg: #ffffff;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
+}
+
+/* 초기화 및 폰트 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+[data-theme="light"] body {
+    background-image: linear-gradient(rgba(245, 245, 245, 0.85), rgba(245, 245, 245, 0.95)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
+}
+
+/* 헤더 & 네비게이션 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: rgba(31, 31, 31, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    padding: 0.5rem;
+}
+
+nav a:hover, nav a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#theme-toggle:hover {
+    background-color: var(--border-color);
+}
+
+/* 메인 컨텐츠 영역 */
+main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.content-section {
+    display: none; /* 기본적으로 숨김 */
+}
+
+.content-section.active {
+    display: block; /* 활성화된 탭만 표시 */
+}
+
+h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+/* 카드 UI */
+.highlight-cards, .project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card, .project-item {
+    background-color: rgba(45, 45, 45, 0.7);
+    backdrop-filter: blur(5px);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card h3, .project-item h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 리스트 스타일 */
+.novel-list, ul {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.novel-list li, ul li {
+    margin-bottom: 0.5rem;
+}
