@@ -59,8 +59,14 @@
         <section id="novels" class="content-section">
             <h1>Novels (소설 및 세계관)</h1>
             <p>창작 중인 웹소설과 게임 세계관(카르드라실 등) 아카이브입니다.</p>
-            <ul class="novel-list">
-                <li>📖 미공개 단편 스토리 1</li>
+            <div class="project-list">
+                <div class="project-item" style="border-color: #9b59b6; background: rgba(155, 89, 182, 0.1);">
+                    <h2 style="color: #9b59b6;">새 부리 가면을 쓴 천재 의사</h2>
+                    <p>AI와 협업하여 집필 중인 다크 판타지 메디컬 소설 (1~10화 연재중)</p>
+                    <button class="btn" style="background: #8e44ad;" onclick="location.href='novel_doctor.html'">📖 소설 읽기 및 리뷰 남기기</button>
+                </div>
+            </div>
+            <ul class="novel-list" style="margin-top: 20px;">
                 <li>📜 카르드라실 크로니클: 설정 백과사전</li>
             </ul>
         </section>
@@ -77,8 +83,23 @@
 
         <!-- About Section -->
         <section id="about" class="content-section">
-            <h1>About</h1>
+            <h1>About & Contact</h1>
             <p><strong>Park.SH 의 AI 작업 공간</strong></p>
+            <div style="margin-top: 30px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; border: 1px solid #444;">
+                <h2 style="color: #f39c12; margin-bottom: 15px;">📬 Contact Me</h2>
+                <p style="color: #ccc; margin-bottom: 20px; font-size: 0.95rem;">게임 기획, 스토리 작가 협업 및 기타 문의 사항이 있으시다면 아래로 연락해 주세요.</p>
+                
+                <form onsubmit="event.preventDefault(); alert('컨택 메일 시스템은 준비 중입니다. 차후 서브 메일이 연결됩니다.');" style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
+                    <input type="text" placeholder="보내시는 분 성함 또는 소속" style="padding: 10px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff;" required>
+                    <input type="email" placeholder="답장 받으실 이메일 주소" style="padding: 10px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff;" required>
+                    <textarea rows="5" placeholder="문의 내용을 작성해 주세요." style="padding: 10px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff; resize: vertical;" required></textarea>
+                    <button type="submit" class="btn" style="background: #f39c12; color: #fff; border: none;">메일 보내기</button>
+                </form>
+                
+                <div style="margin-top: 20px; font-size: 0.85rem; color: #888;">
+                    * <strong>비즈니스 서브 메일:</strong> (추가 예정)
+                </div>
+            </div>
         </section>
     </main>
 

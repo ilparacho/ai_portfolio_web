@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 부리 가면을 쓴 천재 의사 - AI Project Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .novel-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .novel-header { display: flex; gap: 20px; margin-bottom: 30px; align-items: flex-start; }
+        .novel-cover { width: 200px; height: 300px; background-color: #333; border-radius: 8px; object-fit: cover; display: flex; align-items: center; justify-content: center; color: #888; text-align: center; font-size: 0.9rem; }
+        .novel-info { flex: 1; }
+        .novel-title { font-size: 2rem; color: #f39c12; margin-bottom: 10px; }
+        .novel-desc { line-height: 1.6; margin-bottom: 20px; color: #ccc; }
+        .episode-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .episode-list li { background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
+        .episode-list li:hover { background: rgba(243, 156, 18, 0.1); border-color: #f39c12; }
+        
+        .comments-section { margin-top: 50px; border-top: 2px dashed #444; padding-top: 30px; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: #f39c12; text-decoration: none; font-weight: bold; }
+        .back-btn:hover { text-decoration: underline; }
+    </style>
+</head>
+<body class="dark-mode">
+    <header>
+        <div class="logo">AI Project Hub</div>
+    </header>
+
+    <main class="novel-container">
+        <a href="index.html" class="back-btn">← 허브로 돌아가기</a>
+        
+        <div class="novel-header">
+            <!-- 임시 표지 이미지 (구글 드라이브 이미지를 다운받아 교체 필요) -->
+            <img src="cover_placeholder.jpg" alt="소설 표지" class="novel-cover" onerror="this.outerHTML='<div class=\'novel-cover\'>표지 이미지<br>(cover.jpg 필요)</div>'">
+            
+            <div class="novel-info">
+                <h1 class="novel-title">새 부리 가면을 쓴 천재 의사</h1>
+                <p class="novel-desc">
+                    AI와 협업하여 집필 중인 다크 판타지 메디컬 소설.<br>
+                    흑사병이 창궐하던 시대, 기괴한 새 부리 가면을 쓴 천재 의사가 보여주는 광기와 구원의 이야기.
+                </p>
+                <div class="tags">
+                    <span style="background: #e74c3c; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; color: white;">연재중</span>
+                    <span style="background: #34495e; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; color: white;">다크 판타지</span>
+                    <span style="background: #34495e; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; color: white;">의학</span>
+                </div>
+            </div>
+        </div>
+
+        <h2>에피소드 목록 (1~10화)</h2>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">* 현재 프론트엔드 UI 뼈대만 구성되어 있습니다. 실제 원고 텍스트를 연동할 예정입니다.</p>
+        <ul class="episode-list">
+            <li>1화 - 실습은 끝났다</li>
+            <li>2화 - 미숙한 의사, 야만을 만나다</li>
+            <li>3화 - 아름다운 절규</li>
+            <li>4화 - 겁쟁이와 천재의 매듭</li>
+            <li>5화 - 빵 한 조각의 진찰료</li>
+            <li>6화 - 미친 의사의 청결법</li>
+            <li>7화 - 뒤틀린 세계의 이발사</li>
+            <li>8화 - 목숨을 건 도박</li>
+            <li>9화 - 구더기와 기사</li>
+            <li>10화 - 나비의 날개짓</li>
+        </ul>
+
+        <!-- 댓글 시스템 (Giscus 연동) -->
+        <div class="comments-section">
+            <h2>💬 독자 리뷰 및 피드백</h2>
+            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 20px;">깃허브 계정으로 로그인하여 자유롭게 의견을 남겨주세요.</p>
+            
+            <!-- Giscus Script (GitHub Discussions 기반 무료 댓글 시스템) -->
+            <script src="https://giscus.app/client.js"
+                    data-repo="ilparacho/ai_portfolio_web"
+                    data-repo-id="R_kgDOM7R-sQ"
+                    data-category="Announcements"
+                    data-category-id="DIC_kwDOM7R-sc4CjU_J"
+                    data-mapping="pathname"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="bottom"
+                    data-theme="transparent_dark"
+                    data-lang="ko"
+                    crossorigin="anonymous"
+                    async>
+            </script>
+        </div>
+    </main>
+</body>
+</html>
