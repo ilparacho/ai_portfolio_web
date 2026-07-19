@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소설 뷰어 - AI Project Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .viewer-container { max-width: 700px; margin: 0 auto; padding: 20px; background: #111; min-height: 100vh; }
+        .viewer-header { border-bottom: 2px solid #333; padding-bottom: 15px; margin-bottom: 30px; text-align: center; }
+        .viewer-title { font-size: 1.8rem; color: #f39c12; margin-bottom: 10px; }
+        .viewer-content { font-size: 1.1rem; line-height: 1.8; color: #ddd; white-space: pre-wrap; font-family: 'KoPub Batang', 'Malgun Gothic', serif; }
+        .viewer-nav { display: flex; justify-content: space-between; margin-top: 50px; padding-top: 20px; border-top: 1px solid #333; }
+        .btn-nav { background: #333; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+        .btn-nav:hover { background: #f39c12; color: #000; }
+        .btn-nav.disabled { opacity: 0.5; pointer-events: none; }
+        .top-bar { margin-bottom: 20px; }
+        .top-bar a { color: #f39c12; text-decoration: none; font-weight: bold; }
+        .top-bar a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body class="dark-mode" style="background-color: #000;">
+    <div class="viewer-container">
+        <div class="top-bar">
+            <a href="novel_doctor.html">← 목차로 돌아가기</a>
+        </div>
+        
+        <div class="viewer-header">
+            <h1 id="ep-title" class="viewer-title">로딩 중...</h1>
+        </div>
+        
+        <div id="ep-content" class="viewer-content">
+            본문을 불러오는 중입니다...
+        </div>
+        
+        <div class="viewer-nav">
+            <a href="#" id="btn-prev" class="btn-nav">이전화</a>
+            <a href="novel_doctor.html" class="btn-nav" style="background:#555;">목차</a>
+            <a href="#" id="btn-next" class="btn-nav">다음화</a>
+        </div>
+    </div>
+
+    <script src="novel_data.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const epId = parseInt(urlParams.get('ep')) || 1;
+        
+        const epData = novelEpisodes.find(e => e.id === epId);
+        
+        if (epData) {
+            document.getElementById('ep-title').innerText = epData.title;
+            // 빈 줄을 단락으로 처리
+            const formattedContent = epData.content.replace(/\n\n/g, '<br><br>');
+            document.getElementById('ep-content').innerHTML = formattedContent;
+            document.title = epData.title + " - 새 부리 가면을 쓴 천재 의사";
+            
+            // 네비게이션
+            const prevBtn = document.getElementById('btn-prev');
+            const nextBtn = document.getElementById('btn-next');
+            
+            if (novelEpisodes.find(e => e.id === epId - 1)) {
+                prevBtn.href = `viewer.html?ep=${epId - 1}`;
+            } else {
+                prevBtn.classList.add('disabled');
+            }
+            
+            if (novelEpisodes.find(e => e.id === epId + 1 && e.content.length > 50)) {
+                nextBtn.href = `viewer.html?ep=${epId + 1}`;
+            } else {
+                nextBtn.classList.add('disabled');
+            }
+        } else {
+            document.getElementById('ep-title').innerText = "에피소드를 찾을 수 없습니다.";
+            document.getElementById('ep-content').innerHTML = "아직 업데이트되지 않은 회차이거나 잘못된 접근입니다.";
+            document.getElementById('btn-prev').style.display = 'none';
+            document.getElementById('btn-next').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

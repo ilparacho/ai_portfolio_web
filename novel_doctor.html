@@ -8,14 +8,16 @@
     <style>
         .novel-container { max-width: 800px; margin: 0 auto; padding: 20px; }
         .novel-header { display: flex; gap: 20px; margin-bottom: 30px; align-items: flex-start; }
-        .novel-cover { width: 200px; height: 300px; background-color: #333; border-radius: 8px; object-fit: cover; display: flex; align-items: center; justify-content: center; color: #888; text-align: center; font-size: 0.9rem; }
+        .novel-cover { width: 200px; height: 300px; background-color: #333; border-radius: 8px; object-fit: cover; display: flex; align-items: center; justify-content: center; color: #888; text-align: center; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .novel-info { flex: 1; }
         .novel-title { font-size: 2rem; color: #f39c12; margin-bottom: 10px; }
         .novel-desc { line-height: 1.6; margin-bottom: 20px; color: #ccc; }
-        .episode-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .episode-list li { background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
-        .episode-list li:hover { background: rgba(243, 156, 18, 0.1); border-color: #f39c12; }
-        
+        .episode-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr; gap: 10px; }
+        @media (min-width: 600px) { .episode-list { grid-template-columns: 1fr 1fr; } }
+        .episode-list li { background: rgba(255,255,255,0.05); border-radius: 5px; transition: 0.2s; border: 1px solid #333; }
+        .episode-list li a { display: block; padding: 15px; color: #eee; text-decoration: none; font-weight: bold; }
+        .episode-list li:hover { background: rgba(243, 156, 18, 0.1); border-color: #f39c12; transform: translateY(-2px); }
+        .episode-list li a:hover { color: #f39c12; }
         .comments-section { margin-top: 50px; border-top: 2px dashed #444; padding-top: 30px; }
         .back-btn { display: inline-block; margin-bottom: 20px; color: #f39c12; text-decoration: none; font-weight: bold; }
         .back-btn:hover { text-decoration: underline; }
@@ -30,7 +32,6 @@
         <a href="index.html" class="back-btn">← 허브로 돌아가기</a>
         
         <div class="novel-header">
-            <!-- 임시 표지 이미지 (구글 드라이브 이미지를 다운받아 교체 필요) -->
             <img src="cover.jpg" alt="소설 표지" class="novel-cover">
             
             <div class="novel-info">
@@ -47,27 +48,19 @@
             </div>
         </div>
 
-        <h2>에피소드 목록 (1~10화)</h2>
-        <p style="font-size: 0.9rem; color: #888; margin-bottom: 15px;">* 현재 프론트엔드 UI 뼈대만 구성되어 있습니다. 실제 원고 텍스트를 연동할 예정입니다.</p>
-        <ul class="episode-list">
-            <li>1화 - 실습은 끝났다</li>
-            <li>2화 - 미숙한 의사, 야만을 만나다</li>
-            <li>3화 - 아름다운 절규</li>
-            <li>4화 - 겁쟁이와 천재의 매듭</li>
-            <li>5화 - 빵 한 조각의 진찰료</li>
-            <li>6화 - 미친 의사의 청결법</li>
-            <li>7화 - 뒤틀린 세계의 이발사</li>
-            <li>8화 - 목숨을 건 도박</li>
-            <li>9화 - 구더기와 기사</li>
-            <li>10화 - 나비의 날개짓</li>
+        <h2>📖 에피소드 목차</h2>
+        <ul class="episode-list" id="episode-container">
+            <!-- 자바스크립트로 렌더링 됨 -->
         </ul>
 
         <!-- 댓글 시스템 (Giscus 연동) -->
         <div class="comments-section">
             <h2>💬 독자 리뷰 및 피드백</h2>
-            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 20px;">깃허브 계정으로 로그인하여 자유롭게 의견을 남겨주세요.</p>
+            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 20px;">
+                💡 <strong>오류가 뜨나요?</strong> 깃허브 권한 설정이 필요합니다.<br>
+                <a href="https://github.com/apps/giscus" target="_blank" style="color: #f39c12;">[여기]</a>를 눌러 Giscus 앱을 현재 깃허브 저장소에 <strong>설치(승인)</strong>해주셔야 독자들이 댓글을 남길 수 있습니다.
+            </p>
             
-            <!-- Giscus Script (GitHub Discussions 기반 무료 댓글 시스템) -->
             <script src="https://giscus.app/client.js"
                     data-repo="ilparacho/ai_portfolio_web"
                     data-repo-id="R_kgDOM7R-sQ"
@@ -85,5 +78,21 @@
             </script>
         </div>
     </main>
+
+    <script src="novel_data.js"></script>
+    <script>
+        const container = document.getElementById('episode-container');
+        // 1화~10화 등 내용이 있는 에피소드만 필터링 (내용 길이가 너무 짧으면 미등록 회차로 간주)
+        const validEpisodes = novelEpisodes.filter(ep => ep.content && ep.content.length > 50);
+        
+        validEpisodes.forEach(ep => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `viewer.html?ep=${ep.id}`;
+            a.innerText = ep.title;
+            li.appendChild(a);
+            container.appendChild(li);
+        });
+    </script>
 </body>
 </html>
