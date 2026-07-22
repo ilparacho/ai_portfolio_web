@@ -4,7 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Project Hub</title>
+
+    <!-- SEO 및 공유(Open Graph) 메타태그 -->
+    <meta name="description" content="인간의 상상력과 AI의 연산력이 교차하는 크리에이티브 아카이브. 게임 프로토타입, 웹소설, AI 실험 프로젝트 허브.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AI Project Hub">
+    <meta property="og:description" content="게임 프로토타입, 웹소설, AI 실험이 모인 크리에이티브 아카이브.">
+    <meta property="og:image" content="https://ilparacho.github.io/ai_portfolio_web/cover.jpg">
+    <meta property="og:url" content="https://ilparacho.github.io/ai_portfolio_web/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- 이모지 SVG 파비콘 (별도 파일 불필요) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%80%3C/text%3E%3C/svg%3E">
+
     <link rel="stylesheet" href="style.css">
+    <!-- 페인트 전 테마 복원 (라이트모드 깜빡임 방지) -->
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
 </head>
 <body>
     <header>
@@ -25,21 +40,21 @@
         <!-- Home Section -->
         <section id="home" class="content-section active">
             <h1>환영합니다!</h1>
-            <p style="font-size: 1.1rem; line-height: 1.6; color: #e0e0e0; margin-bottom: 15px;">
+            <p class="home-intro">
                 <strong>인간의 상상력과 AI의 무한한 연산력이 교차하는 실험실.</strong><br>
                 다양한 AI 툴을 활용하여 세계관을 구축하고, 텍스트를 직조하며, 게임 프로토타입을 현실로 만들어내는 크리에이티브 아카이브입니다.
             </p>
-            <p style="font-size: 0.95rem; color: #f39c12; margin-bottom: 30px; font-weight: bold; background: rgba(243, 156, 18, 0.1); padding: 10px 15px; border-radius: 5px; border-left: 4px solid #f39c12; display: inline-block;">
+            <p class="ai-notice">
                 💡 포트폴리오 페이지 제작부터 내부 컨텐츠 제작까지 모두 AI만 활용하여 제작하고 있습니다.
             </p>
             <div class="highlight-cards">
                 <div class="card">
                     <h3>🚀 최신 업데이트</h3>
-                    <ul style="padding-left: 20px; color: #ccc; font-size: 0.95rem; line-height: 1.8;">
-                        <li><span style="color: #7f8c8d; font-size: 0.85rem; margin-right: 5px;">[2026.07.21]</span> <strong>[웹게임]</strong> <span style="color: #f39c12;">DBZ MUD</span> 100% 클라이언트 사이드 정적 웹게임(서버리스)으로 아키텍처 개편 및 업데이트 적용 완료</li>
-                        <li><span style="color: #7f8c8d; font-size: 0.85rem; margin-right: 5px;">[2026.07.19]</span> <strong>[웹소설]</strong> <span style="color: #9b59b6;">새 부리 가면을 쓴 천재 의사</span> 연재 페이지 오픈</li>
-                        <li><span style="color: #7f8c8d; font-size: 0.85rem; margin-right: 5px;">[2026.07.19]</span> <strong>[웹게임]</strong> <span style="color: #f39c12;">DBZ MUD</span> 베타 버전 플레이 연동 완료</li>
-                        <li><span style="color: #7f8c8d; font-size: 0.85rem; margin-right: 5px;">[2026.07.19]</span> <strong>[시스템]</strong> 포트폴리오 허브 독자 리뷰(Giscus) 및 Contact UI 적용</li>
+                    <ul class="update-list">
+                        <li><span class="update-date">[2026.07.21]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 100% 클라이언트 사이드 정적 웹게임(서버리스)으로 아키텍처 개편 및 업데이트 적용 완료</li>
+                        <li><span class="update-date">[2026.07.19]</span> <strong>[웹소설]</strong> <span class="accent-purple">새 부리 가면을 쓴 천재 의사</span> 연재 페이지 오픈</li>
+                        <li><span class="update-date">[2026.07.19]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 베타 버전 플레이 연동 완료</li>
+                        <li><span class="update-date">[2026.07.19]</span> <strong>[시스템]</strong> 포트폴리오 허브 독자 리뷰(Giscus) 및 Contact UI 적용</li>
                     </ul>
                 </div>
             </div>
@@ -67,13 +82,13 @@
             <h1>Novels (소설 및 세계관)</h1>
             <p>창작 중인 웹소설과 게임 세계관(카르드라실 등) 아카이브입니다.</p>
             <div class="project-list">
-                <div class="project-item" style="border-color: #9b59b6; background: rgba(155, 89, 182, 0.1);">
-                    <h2 style="color: #9b59b6;">새 부리 가면을 쓴 천재 의사</h2>
+                <div class="project-item novel">
+                    <h2>새 부리 가면을 쓴 천재 의사</h2>
                     <p>AI와 협업하여 집필 중인 다크 판타지 메디컬 소설 (1~10화 연재중)</p>
-                    <button class="btn" style="background: #8e44ad;" onclick="location.href='novel_doctor.html'">📖 소설 읽기 및 리뷰 남기기</button>
+                    <button class="btn btn-purple" onclick="location.href='novel_doctor.html'">📖 소설 읽기 및 리뷰 남기기</button>
                 </div>
             </div>
-            <ul class="novel-list" style="margin-top: 20px;">
+            <ul class="novel-list">
                 <li>📜 카르드라실 크로니클: 설정 백과사전</li>
             </ul>
         </section>
@@ -92,27 +107,27 @@
         <section id="about" class="content-section">
             <h1>About & Contact</h1>
             <p><strong>Park.SH 의 AI 작업 공간</strong></p>
-            <div style="margin-top: 30px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; border: 1px solid #444;">
-                <h2 style="color: #f39c12; margin-bottom: 15px;">📬 Contact Me</h2>
-                <p style="color: #ccc; margin-bottom: 20px; font-size: 0.95rem;">게임 기획, 스토리 작가 협업 및 기타 문의 사항이 있으시다면 아래로 연락해 주세요.</p>
-                
-                <form onsubmit="event.preventDefault(); alert('컨택 메일 시스템은 준비 중입니다. 차후 서브 메일이 연결됩니다.');" style="display: flex; flex-direction: column; gap: 15px; max-width: 500px;">
-                    <input type="text" placeholder="보내시는 분 성함 또는 소속" style="padding: 10px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff;" required>
-                    <input type="email" placeholder="답장 받으실 이메일 주소" style="padding: 10px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff;" required>
-                    <textarea rows="5" placeholder="문의 내용을 작성해 주세요." style="padding: 10px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff; resize: vertical;" required></textarea>
-                    <button type="submit" class="btn" style="background: #f39c12; color: #fff; border: none;">메일 보내기</button>
+            <div class="contact-box">
+                <h2>📬 Contact Me</h2>
+                <p>게임 기획, 스토리 작가 협업 및 기타 문의 사항이 있으시다면 아래로 연락해 주세요.</p>
+
+                <form id="contact-form" class="contact-form">
+                    <input type="text" name="name" aria-label="성함 또는 소속" placeholder="보내시는 분 성함 또는 소속" required>
+                    <input type="email" name="email" aria-label="이메일 주소" placeholder="답장 받으실 이메일 주소" required>
+                    <textarea rows="5" name="message" aria-label="문의 내용" placeholder="문의 내용을 작성해 주세요." required></textarea>
+                    <button type="submit" class="btn btn-orange">메일 보내기</button>
                 </form>
-                
-                <div style="margin-top: 20px; font-size: 0.85rem; color: #888;">
+
+                <div class="contact-note">
                     * <strong>비즈니스 서브 메일:</strong> (추가 예정)
                 </div>
             </div>
         </section>
     </main>
 
-    <footer style="text-align: center; padding: 40px 20px 20px; border-top: 1px dashed #444; margin-top: 20px;">
-        <p style="color: #888; font-size: 0.85rem; margin-bottom: 10px;">Visitor Statistics</p>
-        <!-- HITS counter replaced with visitorbadge.io for stability -->
+    <footer>
+        <p class="footer-label">Visitor Statistics</p>
+        <!-- 안정성을 위해 HITS 카운터를 visitorbadge.io로 교체함 -->
         <a href="https://visitorbadge.io/status?path=https%3A%2F%2Filparacho.github.io%2Fai_portfolio_web">
             <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Filparacho.github.io%2Fai_portfolio_web&countColor=%23f39c12" alt="Visitor Counter" />
         </a>

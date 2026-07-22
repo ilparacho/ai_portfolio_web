@@ -2,19 +2,44 @@
 :root {
     --bg-color: #121212;
     --text-color: #e0e0e0;
+    --text-muted: #cccccc;   /* 본문 보조 텍스트 */
+    --text-dim: #8a8a8a;      /* 날짜/각주 등 흐린 텍스트 */
     --primary-color: #bb86fc;
+    --accent-orange: #f39c12; /* 게임/하이라이트 강조색 */
+    --accent-purple: #9b59b6; /* 소설 강조색 */
+    --accent-purple-btn: #8e44ad;
     --header-bg: #1f1f1f;
     --card-bg: #2d2d2d;
     --border-color: #333;
+    --input-bg: #222;
+    --input-border: #555;
+    --overlay-card: rgba(45, 45, 45, 0.7); /* 카드 반투명 배경 */
+    --banner-bg: rgba(243, 156, 18, 0.1);
+    --contact-box-bg: rgba(0, 0, 0, 0.3);
+    /* 배경 오버레이 그라디언트 (라이트에서 밝게 전환) */
+    --bg-overlay-top: rgba(18, 18, 18, 0.85);
+    --bg-overlay-bottom: rgba(18, 18, 18, 0.95);
 }
 
 [data-theme="light"] {
     --bg-color: #f5f5f5;
     --text-color: #333333;
+    --text-muted: #555555;
+    --text-dim: #888888;
     --primary-color: #6200ee;
+    --accent-orange: #c87f0a; /* 밝은 배경 대비 확보를 위해 더 진한 주황 */
+    --accent-purple: #7d3c98;
+    --accent-purple-btn: #8e44ad;
     --header-bg: #ffffff;
     --card-bg: #ffffff;
     --border-color: #dddddd;
+    --input-bg: #ffffff;
+    --input-border: #bbbbbb;
+    --overlay-card: rgba(255, 255, 255, 0.85);
+    --banner-bg: rgba(243, 156, 18, 0.15);
+    --contact-box-bg: rgba(0, 0, 0, 0.05);
+    --bg-overlay-top: rgba(245, 245, 245, 0.85);
+    --bg-overlay-bottom: rgba(245, 245, 245, 0.95);
 }
 
 /* 초기화 및 폰트 */
@@ -27,7 +52,7 @@
 body {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: var(--bg-color);
-    background-image: linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.95)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
+    background-image: linear-gradient(var(--bg-overlay-top), var(--bg-overlay-bottom)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -36,17 +61,14 @@ body {
     transition: background-color 0.2s, color 0.2s;
 }
 
-[data-theme="light"] body {
-    background-image: linear-gradient(rgba(245, 245, 245, 0.85), rgba(245, 245, 245, 0.95)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
-}
-
 /* 헤더 & 네비게이션 */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: rgba(31, 31, 31, 0.7);
+    background-color: var(--header-bg);
+    background-color: color-mix(in srgb, var(--header-bg) 70%, transparent);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
@@ -111,6 +133,42 @@ h1 {
     font-size: 2rem;
 }
 
+/* Home 섹션 */
+.home-intro {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.ai-notice {
+    font-size: 0.95rem;
+    color: var(--accent-orange);
+    margin-bottom: 30px;
+    font-weight: bold;
+    background: var(--banner-bg);
+    padding: 10px 15px;
+    border-radius: 5px;
+    border-left: 4px solid var(--accent-orange);
+    display: inline-block;
+}
+
+.update-list {
+    padding-left: 20px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.update-date {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+/* 강조색 유틸리티 */
+.accent-orange { color: var(--accent-orange); }
+.accent-purple { color: var(--accent-purple); }
+
 /* 카드 UI */
 .highlight-cards, .project-list {
     display: grid;
@@ -120,7 +178,7 @@ h1 {
 }
 
 .card, .project-item {
-    background-color: rgba(45, 45, 45, 0.7);
+    background-color: var(--overlay-card);
     backdrop-filter: blur(5px);
     padding: 1.5rem;
     border-radius: 8px;
@@ -130,6 +188,16 @@ h1 {
 .card h3, .project-item h2 {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
+}
+
+/* 소설 프로젝트 강조 변형 */
+.project-item.novel {
+    border-color: var(--accent-purple);
+    background: rgba(155, 89, 182, 0.1);
+}
+
+.project-item.novel h2 {
+    color: var(--accent-purple);
 }
 
 .btn {
@@ -147,6 +215,9 @@ h1 {
     opacity: 0.9;
 }
 
+.btn-purple { background-color: var(--accent-purple-btn); }
+.btn-orange { background-color: var(--accent-orange); color: #fff; border: none; }
+
 /* 리스트 스타일 */
 .novel-list, ul {
     margin-top: 1rem;
@@ -155,4 +226,86 @@ h1 {
 
 .novel-list li, ul li {
     margin-bottom: 0.5rem;
+}
+
+/* About & Contact */
+.contact-box {
+    margin-top: 30px;
+    background: var(--contact-box-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.contact-box h2 {
+    color: var(--accent-orange);
+    margin-bottom: 15px;
+}
+
+.contact-box > p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-note {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+/* 푸터 */
+footer {
+    text-align: center;
+    padding: 40px 20px 20px;
+    border-top: 1px dashed var(--border-color);
+    margin-top: 20px;
+}
+
+.footer-label {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+/* 반응형 (모바일) */
+@media (max-width: 640px) {
+    header {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .logo { font-size: 1.25rem; }
+    h1 { font-size: 1.6rem; }
+    main { margin: 1.25rem auto; }
 }
