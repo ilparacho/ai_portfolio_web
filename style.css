@@ -152,12 +152,60 @@ h1 {
     display: inline-block;
 }
 
+
+/* 업데이트 탭 UI */
+.update-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+.update-tab {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+.update-tab:hover {
+    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.05);
+}
+.update-tab.active {
+    color: var(--primary-color);
+    background: rgba(187, 134, 252, 0.1);
+}
+
+/* 업데이트 스크롤 박스 */
+.update-scroll-box {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.update-scroll-box::-webkit-scrollbar {
+    width: 6px;
+}
+.update-scroll-box::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+.update-scroll-box::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
 .update-list {
     padding-left: 20px;
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.8;
+    margin: 0;
 }
+
 
 .update-date {
     color: var(--text-dim);

@@ -50,15 +50,23 @@
             <div class="highlight-cards">
                 <div class="card">
                     <h3>🚀 최신 업데이트</h3>
-                    <ul class="update-list">
-                        <li><span class="update-date">[2026.07.27]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 기획 및 밸런싱 편의성을 위한 구글 시트(DB) 기반 캐릭터/스킬 연동 아키텍처 구축</li>
-                        <li><span class="update-date">[2026.07.27]</span> <strong>[기획]</strong> 카르드라실 크로니클 기획서 전용 페이지(V1.1) 추가 및 메인 허브 연동</li>
-                        <li><span class="update-date">[2026.07.22]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 전투 시스템 대규모 버그 픽스 (HP 실시간 동기화, 사망 UI, 잘림 현상 해결 및 전투 잔여물 초기화)</li>
-                        <li><span class="update-date">[2026.07.21]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 100% 클라이언트 사이드 정적 웹게임(서버리스)으로 아키텍처 개편 및 업데이트 적용 완료</li>
-                        <li><span class="update-date">[2026.07.19]</span> <strong>[웹소설]</strong> <span class="accent-purple">새 부리 가면을 쓴 천재 의사</span> 연재 페이지 오픈</li>
-                        <li><span class="update-date">[2026.07.19]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 베타 버전 플레이 연동 완료</li>
-                        <li><span class="update-date">[2026.07.19]</span> <strong>[시스템]</strong> 포트폴리오 허브 독자 리뷰(Giscus) 및 Contact UI 적용</li>
-                    </ul>
+                    <div class="update-tabs">
+                        <button class="update-tab active" onclick="filterUpdates('all', this)">ALL</button>
+                        <button class="update-tab" onclick="filterUpdates('game', this)">Games</button>
+                        <button class="update-tab" onclick="filterUpdates('novel', this)">Novels</button>
+                        <button class="update-tab" onclick="filterUpdates('system', this)">기타</button>
+                    </div>
+                    <div class="update-scroll-box">
+                        <ul class="update-list" id="updateList">
+                            <li class="update-item" data-category="game"><span class="update-date">[2026.07.27]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 기획 및 밸런싱 편의성을 위한 구글 시트(DB) 기반 캐릭터/스킬 연동 아키텍처 구축</li>
+                            <li class="update-item" data-category="game"><span class="update-date">[2026.07.27]</span> <strong>[기획]</strong> 카르드라실 크로니클 기획서 전용 페이지(V1.1) 추가 및 메인 허브 연동</li>
+                            <li class="update-item" data-category="game"><span class="update-date">[2026.07.22]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 전투 시스템 대규모 버그 픽스 (HP 실시간 동기화, 사망 UI, 잘림 현상 해결 및 전투 잔여물 초기화)</li>
+                            <li class="update-item" data-category="game"><span class="update-date">[2026.07.21]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 100% 클라이언트 사이드 정적 웹게임(서버리스)으로 아키텍처 개편 및 업데이트 적용 완료</li>
+                            <li class="update-item" data-category="novel"><span class="update-date">[2026.07.19]</span> <strong>[웹소설]</strong> <span class="accent-purple">새 부리 가면을 쓴 천재 의사</span> 연재 페이지 오픈</li>
+                            <li class="update-item" data-category="game"><span class="update-date">[2026.07.19]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 베타 버전 플레이 연동 완료</li>
+                            <li class="update-item" data-category="system"><span class="update-date">[2026.07.19]</span> <strong>[시스템]</strong> 포트폴리오 허브 독자 리뷰(Giscus) 및 Contact UI 적용</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -137,5 +145,22 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <script>
+        function filterUpdates(category, btnElement) {
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.update-tab').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // 리스트 필터링
+            document.querySelectorAll('.update-item').forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'list-item';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
