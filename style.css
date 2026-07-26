@@ -1,24 +1,28 @@
 /* 기본 변수 (다크/라이트 모드 지원) */
 :root {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --text-muted: #cccccc;   /* 본문 보조 텍스트 */
-    --text-dim: #8a8a8a;      /* 날짜/각주 등 흐린 텍스트 */
-    --primary-color: #bb86fc;
-    --accent-orange: #f39c12; /* 게임/하이라이트 강조색 */
-    --accent-purple: #9b59b6; /* 소설 강조색 */
-    --accent-purple-btn: #8e44ad;
-    --header-bg: #1f1f1f;
-    --card-bg: #2d2d2d;
-    --border-color: #333;
-    --input-bg: #222;
-    --input-border: #555;
-    --overlay-card: rgba(45, 45, 45, 0.7); /* 카드 반투명 배경 */
-    --banner-bg: rgba(243, 156, 18, 0.1);
-    --contact-box-bg: rgba(0, 0, 0, 0.3);
-    /* 배경 오버레이 그라디언트 (라이트에서 밝게 전환) */
-    --bg-overlay-top: rgba(18, 18, 18, 0.85);
-    --bg-overlay-bottom: rgba(18, 18, 18, 0.95);
+    --bg-color: #0a0a0f;      /* 더 깊고 사이버틱한 다크톤 */
+    --text-color: #ffffff;
+    --text-muted: #b3b3b3;   
+    --text-dim: #7a7a7a;      
+    --primary-color: #00f0ff; /* 네온 시안 (게임 느낌) */
+    --primary-glow: rgba(0, 240, 255, 0.4);
+    --accent-orange: #ff3366; /* 네온 핑크/레드 */
+    --accent-purple: #b500ff; /* 네온 퍼플 */
+    --accent-purple-btn: #8a2be2;
+    --header-bg: #0a0a0f;
+    --card-bg: rgba(20, 20, 25, 0.75);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --input-bg: rgba(255,255,255,0.03);
+    --input-border: rgba(255,255,255,0.1);
+    --overlay-card: rgba(20, 20, 28, 0.75); 
+    --banner-bg: rgba(255, 51, 102, 0.1);
+    --contact-box-bg: rgba(0, 0, 0, 0.4);
+    
+    /* 게임 특화 그라디언트 텍스트용 */
+    --gradient-text: linear-gradient(90deg, #00f0ff, #b500ff);
+    
+    --bg-overlay-top: rgba(10, 10, 15, 0.90);
+    --bg-overlay-bottom: rgba(10, 10, 15, 0.98);
 }
 
 [data-theme="light"] {
@@ -52,8 +56,12 @@
 body {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: var(--bg-color);
-    background-image: linear-gradient(var(--bg-overlay-top), var(--bg-overlay-bottom)), url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
-    background-size: cover;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(181, 0, 255, 0.08), transparent 30%),
+        radial-gradient(circle at 85% 30%, rgba(0, 240, 255, 0.08), transparent 30%),
+        linear-gradient(var(--bg-overlay-top), var(--bg-overlay-bottom)), 
+        url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop');
+    background-size: 100% 100%, 100% 100%, cover, cover;
     background-attachment: fixed;
     background-position: center;
     color: var(--text-color);
@@ -77,9 +85,14 @@ header {
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
 }
 
 nav ul {
@@ -130,7 +143,15 @@ main {
 
 h1 {
     margin-bottom: 1rem;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+.content-section h1 {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
 /* Home 섹션 */
@@ -227,10 +248,19 @@ h1 {
 
 .card, .project-item {
     background-color: var(--overlay-card);
-    backdrop-filter: blur(5px);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1.8rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s, border-color 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.card:hover, .project-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--primary-glow);
+    border-color: rgba(0, 240, 255, 0.3);
 }
 
 .card h3, .project-item h2 {
@@ -240,9 +270,14 @@ h1 {
 
 /* 소설 프로젝트 강조 변형 */
 .project-item.novel {
-    border-color: var(--accent-purple);
-    background: rgba(155, 89, 182, 0.1);
+    border-color: rgba(181, 0, 255, 0.3);
+    background: rgba(181, 0, 255, 0.05);
 }
+.project-item.novel:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(181, 0, 255, 0.3);
+    border-color: rgba(181, 0, 255, 0.6);
+}
+
 
 .project-item.novel h2 {
     color: var(--accent-purple);
@@ -251,16 +286,24 @@ h1 {
 .btn {
     display: inline-block;
     margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: var(--primary-color);
-    color: #fff;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+    color: #000;
+    font-weight: bold;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    box-shadow: 0 0 15px var(--primary-glow);
 }
 
 .btn:hover {
-    opacity: 0.9;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+    color: #fff;
 }
 
 .btn-purple { background-color: var(--accent-purple-btn); }
