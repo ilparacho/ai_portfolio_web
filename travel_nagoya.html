@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나고야-게로 3박 4일 가족 여행 마스터플랜 - AI Project Hub</title>
+
+    <meta name="description" content="나고야-게로 3박 4일 가족 여행 마스터플랜 (예상 비용, 예매 오픈 규정, 타임테이블)">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="나고야-게로 3박 4일 가족 여행 마스터플랜">
+    <meta property="og:description" content="3인 가족 기준 예상 비용, 철도 예매 스케줄, 상세 타임테이블">
+    <meta property="og:image" content="https://ilparacho.github.io/ai_portfolio_web/cover.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9A%81%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+
+    <style>
+        .travel-container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-btn:hover { text-decoration: underline; }
+        
+        .travel-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .travel-header h1 { font-size: 2rem; color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .travel-header p { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem; }
+
+        .plan-section { background: var(--overlay-card); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .plan-section h2 { color: var(--primary-color); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Table Styling */
+        .table-wrapper { overflow-x: auto; margin-top: 1rem; }
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+        .custom-table th, .custom-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        .custom-table th { background: rgba(0, 240, 255, 0.1); color: var(--primary-color); font-weight: bold; white-space: nowrap; }
+        .custom-table td { color: var(--text-color); }
+        .custom-table tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+        /* Schedule / Notice List */
+        .notice-card { background: rgba(255, 51, 102, 0.08); border-left: 4px solid var(--accent-orange); padding: 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-color); }
+        .schedule-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+        .schedule-item h3 { color: var(--accent-purple); font-size: 1.05rem; margin-bottom: 0.5rem; }
+        .schedule-item ul { list-style: disc; padding-left: 1.2rem; color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Timeline Cards */
+        .day-card { border-left: 4px solid var(--primary-color); margin-bottom: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 0 8px 8px 0; padding: 1.2rem; }
+        .day-title { font-size: 1.15rem; color: var(--primary-color); font-weight: bold; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .day-title span.tag { font-size: 0.8rem; background: rgba(0, 240, 255, 0.15); color: var(--primary-color); padding: 3px 8px; border-radius: 4px; }
+        
+        .time-list { list-style: none; padding: 0; margin: 0; }
+        .time-list li { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.9rem; line-height: 1.5; }
+        .time-list li:last-child { border-bottom: none; }
+        .time-list .time { font-weight: bold; color: var(--accent-orange); white-space: nowrap; min-width: 100px; }
+        .time-list .desc { color: var(--text-color); }
+        .time-list .desc strong { color: var(--primary-color); }
+        .time-list .desc em { color: #f39c12; font-style: normal; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" style="cursor: pointer;" onclick="location.href='index.html'">AI Project Hub</div>
+        <button id="theme-toggle">🌓 Dark/Light</button>
+    </header>
+
+    <main class="travel-container">
+        <a href="index.html#travel" class="back-btn">← 메인 허브(Travel)로 돌아가기</a>
+
+        <div class="travel-header">
+            <h1>✈️ 나고야-게로 3박 4일 가족 여행 마스터플랜</h1>
+            <p>10월 예정 3인 가족 나고야-게로 온천 여행 총괄 일정 및 예상 예산 가이드</p>
+        </div>
+
+        <!-- 1. 전체 예상 비용 -->
+        <section class="plan-section">
+            <h2>💰 1. 전체 예상 비용 (3인 가족 기준)</h2>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>분류</th>
+                            <th>세부 항목</th>
+                            <th>예상 비용 (3인 총합)</th>
+                            <th>결제 방식</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>사전 결제</strong></td>
+                            <td>진에어 왕복 항공권</td>
+                            <td>약 140만 원</td>
+                            <td><span style="color: #2ecc71; font-weight: bold;">100% 완료</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>숙박비</strong></td>
+                            <td>나고야 메리어트(2박) + 스이메이칸(1박)</td>
+                            <td>약 230만 원 (약 25만 엔)</td>
+                            <td>현지 트래블카드 결제</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3"><strong>기차 교통비</strong></td>
+                            <td>메이테츠 뮤스카이 왕복 (공항 ↔ 나고야역)</td>
+                            <td>약 8,580엔</td>
+                            <td>사전 온라인 / 현장 예매</td>
+                        </tr>
+                        <tr>
+                            <td>메이테츠 특급 왕복 (나고야역 ↔ 이누야마)</td>
+                            <td>약 6,420엔</td>
+                            <td>현장 또는 온라인 예매</td>
+                        </tr>
+                        <tr>
+                            <td>JR 특급 히다 왕복 (나고야역 ↔ 게로역)</td>
+                            <td>약 27,720엔</td>
+                            <td><strong style="color: var(--accent-orange);">사전 온라인 예매 필수</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>기타 경비</strong></td>
+                            <td>식비(하브스 포함), 쇼핑, 택시, 에키벤 등</td>
+                            <td>약 5~10만 엔</td>
+                            <td>현금 + 트래블카드 병행</td>
+                        </tr>
+                        <tr style="background: rgba(0, 240, 255, 0.05);">
+                            <td><strong>총계</strong></td>
+                            <td><strong>여행 전체 필요 예산 (항공권 제외)</strong></td>
+                            <td><strong style="color: var(--primary-color); font-size: 1rem;">총 30만 ~ 40만 엔</strong></td>
+                            <td>계획 환전액(카드+현금) 넉넉함</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 2. 이동 수단 예약 스케줄 및 방법 -->
+        <section class="plan-section">
+            <h2>🎫 2. 이동 수단 예약 스케줄 및 방법</h2>
+            
+            <div class="notice-card">
+                📌 <strong>일본 철도 예매 오픈 규정:</strong> 탑승일 기준 <strong>정확히 1개월 전 오전 10시</strong>에 예약 가능
+            </div>
+
+            <div class="schedule-item">
+                <h3>① 나고야역 ↔ 게로역 (JR 특급 '히다' / 지정석 필수)</h3>
+                <ul>
+                    <li><strong>예매 오픈일:</strong>
+                        <ul>
+                            <li>가는 편 (10/30 탑승): <strong>2026.09.30 (수) 오전 10시 오픈</strong></li>
+                            <li>오는 편 (10/31 탑승): <strong>2026.10.01 (목) 오전 10시 오픈</strong></li>
+                        </ul>
+                    </li>
+                    <li><strong>예매처:</strong> JR 도카이 예약 사이트 (Smart EX 등)</li>
+                    <li><strong>가격:</strong> 1인 편도 약 4,620엔 (운임 2,310엔 + 지정석 약 2,310엔)</li>
+                </ul>
+            </div>
+
+            <div class="schedule-item">
+                <h3>② 공항 ↔ 나고야역 ↔ 이누야마 (메이테츠 '뮤스카이' 및 '특급')</h3>
+                <ul>
+                    <li><strong>예매 오픈일:</strong> 탑승일 기준 1개월 전 (공항 출발편은 2026.09.28 오픈)</li>
+                    <li><strong>예매처:</strong> 메이테츠 넷 예약 서비스 (온라인) 또는 당일 현장 발권</li>
+                    <li><strong>가격:</strong> 기본 운임 + <strong>지정석(뮤티켓) 비용 450엔</strong> 고정 추가</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. 나고야-게로 3박 4일 최종 타임테이블 -->
+        <section class="plan-section">
+            <h2>🗓️ 3. 나고야-게로 3박 4일 최종 타임테이블</h2>
+
+            <!-- 1일 차 -->
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 1일 차 (10/28 수): 나고야 입성 및 만찬</span>
+                    <span class="tag">나고야 시내</span>
+                </div>
+                <ul class="time-list">
+                    <li>
+                        <span class="time">09:30 ~ 11:30</span>
+                        <span class="desc">공항 도착 ➡️ 뮤스카이 탑승 ➡️ <strong>[메리어트 아소시아]</strong> 짐 보관</span>
+                    </li>
+                    <li>
+                        <span class="time">12:00 ~ 13:30</span>
+                        <span class="desc"><strong>[점심]</strong> 12층 식당가 <strong>'니자와센'</strong> (장어/히다규마부시 쉐어)</span>
+                    </li>
+                    <li>
+                        <span class="time">13:30 ~ 15:00</span>
+                        <span class="desc"><strong>[실내 산책]</strong> 15층 스카이 스트리트 전망 ➡️ B1F 식품관 고자소로 팥빵</span>
+                    </li>
+                    <li>
+                        <span class="time">15:00 ~ 15:30</span>
+                        <span class="desc">체크인 및 객실 휴식</span>
+                    </li>
+                    <li>
+                        <span class="time">15:30 ~ 17:30</span>
+                        <span class="desc"><strong>[오후 일정]</strong> 도보 이동 ➡️ 노리타케의 숲 & 이온몰 마트</span>
+                    </li>
+                    <li>
+                        <span class="time">17:30 ~ 19:30</span>
+                        <span class="desc"><strong>[저녁]</strong> 나고야역 프라이빗 룸 야키니쿠 (토라지/우시아부리)</span>
+                    </li>
+                    <li>
+                        <span class="time">19:30 ~ 21:00</span>
+                        <span class="desc"><strong>[야경]</strong> 택시 이동 ➡️ 오아시스 21 관광 ➡️ 택시 복귀 및 휴식</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 2일 차 -->
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 2일 차 (10/29 목): 킷사텐 감성과 집중 쇼핑 (하브스 포함)</span>
+                    <span class="tag">이누야마 & 쇼핑</span>
+                </div>
+                <ul class="time-list">
+                    <li>
+                        <span class="time">08:30 ~ 09:30</span>
+                        <span class="desc"><strong>[아침]</strong> 로컬 킷사텐 <strong>'카코(KAKO) 하나구루마 본점'</strong> 오구라 토스트 (도보)</span>
+                    </li>
+                    <li>
+                        <span class="time">10:00 ~ 13:30</span>
+                        <span class="desc"><strong>[오전 관광]</strong> 이누야마 성하 마을 산책 (메이테츠 특급) <em>(💡 우천 시 플랜 B: 오스 상점가)</em></span>
+                    </li>
+                    <li>
+                        <span class="time">14:00 ~ 15:30</span>
+                        <span class="desc"><strong>[늦은 점심]</strong> 12층 식당가 <strong>'스시노미도리'</strong></span>
+                    </li>
+                    <li>
+                        <span class="time">16:00 ~ 18:30</span>
+                        <span class="desc"><strong>[집중 쇼핑 & 🍰하브스]</strong> 타카시마야 식품관 ➡️ <strong>메이테츠 백화점 B1F 하브스(HARBS) 케이크 포장</strong> ➡️ 돈키호테 ➡️ 에스카 지하상가</span>
+                    </li>
+                    <li>
+                        <span class="time">19:00 ~ 20:00</span>
+                        <span class="desc"><strong>[저녁]</strong> 나고야 명물 <strong>'된장돈까스(미소카츠)'</strong></span>
+                    </li>
+                    <li>
+                        <span class="time">20:00</span>
+                        <span class="desc">숙소 복귀 ➡️ <strong>호텔 객실에서 하브스 밀크 크레이프 디저트 타임</strong> 및 휴식</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 3일 차 -->
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 3일 차 (10/30 금): 에키벤 낭만과 힐링 온천</span>
+                    <span class="tag">게로 온천</span>
+                </div>
+                <ul class="time-list">
+                    <li>
+                        <span class="time">09:30 ~ 10:00</span>
+                        <span class="desc">체크아웃 ➡️ 역 내 상점(델리카스테이션 등)에서 <strong>가벼운 에키벤 구매</strong></span>
+                    </li>
+                    <li>
+                        <span class="time">10:00 ~ 11:40</span>
+                        <span class="desc">게로역 이동 (JR 특급 히다 지정석 / <strong>[기차 내 에키벤 식사]</strong>)</span>
+                    </li>
+                    <li>
+                        <span class="time">12:00 ~ 14:30</span>
+                        <span class="desc">게로 온천 마을 산책 및 가벼운 현지 간식/추가 식사</span>
+                    </li>
+                    <li>
+                        <span class="time">15:00 ~</span>
+                        <span class="desc"><strong>[스이메이칸]</strong> 체크인 ➡️ 3대 대욕장 온천 집중 힐링 ➡️ 가이세키 저녁 식사</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 4일 차 -->
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 4일 차 (10/31 토): 공항 테마파크 및 쾌적 귀국</span>
+                    <span class="tag">귀국</span>
+                </div>
+                <ul class="time-list">
+                    <li>
+                        <span class="time">10:30 ~ 12:10</span>
+                        <span class="desc">스이메이칸 조식 후 체크아웃 ➡️ 나고야역 복귀 (JR 특급 히다 지정석)</span>
+                    </li>
+                    <li>
+                        <span class="time">12:30 ~ 14:30</span>
+                        <span class="desc">나고야역 주변 여유로운 점심 식사 및 휴식</span>
+                    </li>
+                    <li>
+                        <span class="time">14:40 ~ 15:20</span>
+                        <span class="desc">공항 이동 (뮤스카이 전 좌석 지정석)</span>
+                    </li>
+                    <li>
+                        <span class="time">15:30 ~ 18:00</span>
+                        <span class="desc"><strong>[공항 투어]</strong> 4층 스카이 타운/전망대 ➡️ 3층 [아마노 약국] 마지막 쇼핑</span>
+                    </li>
+                    <li>
+                        <span class="time">18:00 ~ 22:15</span>
+                        <span class="desc">진에어 수속(LJ292) ➡️ 저녁 식사 ➡️ 22:15 인천(T2) 무사 도착</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

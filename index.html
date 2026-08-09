@@ -29,6 +29,7 @@
                 <li><a href="#" data-target="home" class="active">Home</a></li>
                 <li><a href="#" data-target="games">Games</a></li>
                 <li><a href="#" data-target="novels">Novels</a></li>
+                <li><a href="#" data-target="travel">Travel</a></li>
                 <li><a href="#" data-target="dev">Dev & AI</a></li>
                 <li><a href="#" data-target="about">About</a></li>
             </ul>
@@ -54,10 +55,12 @@
                         <button class="update-tab active" onclick="filterUpdates('all', this)">ALL</button>
                         <button class="update-tab" onclick="filterUpdates('game', this)">Games</button>
                         <button class="update-tab" onclick="filterUpdates('novel', this)">Novels</button>
+                        <button class="update-tab" onclick="filterUpdates('travel', this)">Travel</button>
                         <button class="update-tab" onclick="filterUpdates('system', this)">기타</button>
                     </div>
                     <div class="update-scroll-box">
                         <ul class="update-list" id="updateList">
+                            <li class="update-item" data-category="travel"><span class="update-date">[2026.08.09]</span> <strong>[여행]</strong> <span class="accent-orange">나고야-게로 3박 4일</span> 가족 여행 마스터플랜 전용 페이지 추가 및 허브 연동</li>
                             <li class="update-item" data-category="system"><span class="update-date">[2026.07.27]</span> <strong>[시스템]</strong> 포트폴리오 허브 UI/UX 전면 개편 (Neon 게이밍 스타일 적용 및 로고 홈 이동 등 편의성 개선)</li>
                             <li class="update-item" data-category="game"><span class="update-date">[2026.07.27]</span> <strong>[웹게임]</strong> <span class="accent-orange">DBZ MUD</span> 기획 및 밸런싱 편의성을 위한 구글 시트(DB) 기반 캐릭터/스킬 연동 아키텍처 구축</li>
                             <li class="update-item" data-category="game"><span class="update-date">[2026.07.27]</span> <strong>[기획]</strong> 카르드라실 크로니클 기획서 전용 페이지(V1.1) 추가 및 메인 허브 연동</li>
@@ -103,6 +106,20 @@
             <ul class="novel-list">
                 <li>📜 카르드라실 크로니클: 설정 백과사전</li>
             </ul>
+        </section>
+
+
+        <!-- Travel Section -->
+        <section id="travel" class="content-section">
+            <h1>Travel & Life (여행 및 라이프)</h1>
+            <p>가족 여행 계획 및 라이프스타일 마스터플랜 아카이브입니다.</p>
+            <div class="project-list">
+                <div class="project-item">
+                    <h2>✈️ 나고야-게로 3박 4일 가족 여행 마스터플랜</h2>
+                    <p>10월 예정 3인 가족 여행 일정, 예상 예산(30만~40만 엔), 철도 예매 스케줄 및 상세 타임테이블.</p>
+                    <button class="btn btn-orange" onclick="location.href='travel_nagoya.html'">📖 여행 마스터플랜 보기</button>
+                </div>
+            </div>
         </section>
 
         <!-- Dev & AI Section -->
