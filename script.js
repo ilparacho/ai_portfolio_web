@@ -40,19 +40,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Contact 폼 처리 (mailto 연동)
+    // Contact 폼 처리 (ilparacho1@gmail.com 메일 전송 연동)
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = contactForm.querySelector('input[name="name"]').value;
-            const email = contactForm.querySelector('input[name="email"]').value;
-            const message = contactForm.querySelector('textarea[name="message"]').value;
-            
-            const subject = encodeURIComponent(`[AI Project Hub 문의] ${name}님의 문의`);
-            const body = encodeURIComponent(`보내는 사람: ${name}\n답장 이메일: ${email}\n\n[문의 내용]\n${message}`);
-            
-            window.location.href = `mailto:ilparacho1@gmail.com?subject=${subject}&body=${body}`;
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = '전송 중...';
+
+            const formData = new FormData(contactForm);
+            formData.append('_subject', '[AI Project Hub] 새로운 문의가 접수되었습니다.');
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/ilparacho1@gmail.com', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    alert('문의가 성공적으로 전송되었습니다! 확인 후 회신해 드리겠습니다.');
+                    contactForm.reset();
+                } else {
+                    throw new Error('전송 실패');
+                }
+            } catch (err) {
+                // AJAX 실패 시 mailto 방식으로 연동
+                const name = contactForm.querySelector('input[name="name"]').value;
+                const email = contactForm.querySelector('input[name="email"]').value;
+                const message = contactForm.querySelector('textarea[name="message"]').value;
+                const subject = encodeURIComponent(`[AI Project Hub 문의] ${name}님의 문의`);
+                const body = encodeURIComponent(`보내는 사람: ${name}\n답장 이메일: ${email}\n\n[문의 내용]\n${message}`);
+                window.location.href = `mailto:ilparacho1@gmail.com?subject=${subject}&body=${body}`;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
         });
     }
 });
