@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좌도의 눈 (가제) - 조선요괴 추리 비주얼 노벨 기획서 - AI Project Hub</title>
+
+    <meta name="description" content="임진왜란 직후 조선, 요괴와 인간의 이권이 뒤엉킨 추리·서스펜스 비주얼 노벨 기획서 및 프로토타입 개발 현황">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="좌도의 눈 (가제) - 조선요괴 추리 비주얼 노벨">
+    <meta property="og:description" content="카마이타치의 밤 스타일 텍스트/사운드 노벨. 1부 손각시 편 HTML/JS 웹 프로토타입 준비중">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9C%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+
+    <style>
+        .concept-container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-btn:hover { text-decoration: underline; }
+
+        .concept-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .concept-header h1 { font-size: clamp(1.2rem, 3.2vw, 2.2rem); color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .concept-header p { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem; }
+
+        .concept-section { background: var(--overlay-card); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .concept-section h2 { color: var(--accent-purple); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .concept-section p, .concept-section li { color: var(--text-color); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; }
+        .concept-section ul { padding-left: 1.2rem; }
+
+        /* Table Styling */
+        .table-wrapper { overflow-x: auto; margin-top: 1rem; }
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+        .custom-table th, .custom-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        .custom-table th { background: rgba(181, 0, 255, 0.15); color: var(--accent-purple); font-weight: bold; white-space: nowrap; }
+        .custom-table td { color: var(--text-color); }
+
+        .status-badge { display: inline-block; background: rgba(181, 0, 255, 0.2); color: var(--accent-purple); border: 1px solid rgba(181, 0, 255, 0.5); padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" style="cursor: pointer;" onclick="location.href='index.html'">AI Project Hub</div>
+        <button id="theme-toggle">🌓 Dark/Light</button>
+    </header>
+
+    <main class="concept-container">
+        <a href="index.html" class="back-btn">← 메인 허브로 돌아가기</a>
+
+        <div class="concept-header">
+            <h1><span class="status-badge">v0.1.3 프로토타입</span> 📜 좌도의 눈 (가제)</h1>
+            <p>임진왜란 직후 조선, 요괴 사건 뒤에 숨은 인간의 이권을 파헤치는 추리·서스펜스 사운드 노벨</p>
+        </div>
+
+        <!-- 1. 개요 및 레퍼런스 -->
+        <section class="concept-section">
+            <h2>🔮 1. 프로젝트 개요 & 핵심 컨셉</h2>
+            <p><strong>장르:</strong> 비주얼 노벨 / 추리·서스펜스 (사운드 노벨)</p>
+            <p><strong>시대 배경:</strong> 임진왜란·정유재란 직후(1600년대 초반) 조선</p>
+            <p><strong>레퍼런스:</strong> 『카마이타치의 밤』류 사운드 노벨 — 화려한 일러스트보다 **텍스트의 리듬과 음향(효과음·BGM)**에 집중하여 극도의 긴장감과 몰입감을 선사하는 구조입니다.</p>
+            <p><strong>핵심 테마:</strong> 요괴는 단순히 미지의 괴물이 아니라, 전쟁 직후 인간 군상의 원한·욕망·부패가 뒤틀려 발현된 존재입니다. 퇴마는 곧 인간의 추악한 이면과 대면하는 과정입니다.</p>
+        </section>
+
+        <!-- 2. 시놉시스 & 등장인물 -->
+        <section class="concept-section">
+            <h2>📜 2. 시놉시스 & 주인공</h2>
+            <p><strong>주인공: 신은호 (申隱昊)</strong></p>
+            <ul>
+                <li><strong>가문:</strong> 몰락한 광양 신씨 양반가 출신. 어린 시절 가문 몰살의 비극 속에서 요괴의 피를 뒤집어쓰고 괴이(怪異)를 보는 눈을 얻음.</li>
+                <li><strong>성격:</strong> 정통 사대부 사회에서 배척받는 좌도(左道)를 익힌 이단아. 재주와 과거를 숨긴 채 살아가는 냉소적 추리자.</li>
+            </ul>
+            <p><strong>스승: 전우치</strong></p>
+            <ul>
+                <li>장난기와 진지함을 오가는 트릭스터. 신은호에게 최소한의 좌도 기초만 가르친 뒤 실전으로 몰아넣는 방임형 스승. 결정적 순간에만 은밀히 조력함.</li>
+            </ul>
+        </section>
+
+        <!-- 3. 5부작 시리즈 구조 -->
+        <section class="concept-section">
+            <h2>🌌 3. 5부작 시리즈 연작 구성</h2>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>부</th>
+                            <th>등장 요괴</th>
+                            <th>서사적 역할 및 특징</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1부 (구현 완료)</strong></td>
+                            <td>손각시 (손말명)</td>
+                            <td>도입부 — 전후 피폐한 고을, 혼수 다툼 뒤에 숨겨진 인간들의 원한과 비극 탐문 (옴니버스)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2부</strong></td>
+                            <td>그슨대</td>
+                            <td>형체 없는 요괴를 통해 "누구를 믿을 것인가"라는 추리 특유의 불신 심화</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3부</strong></td>
+                            <td>두억시니</td>
+                            <td>중반 클라이맥스 — 가문 몰살 사건의 배후와 정치적 음모 본격 수면 위로 부상</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4부</strong></td>
+                            <td>이무기 / 불가사리</td>
+                            <td>누적 선택지에 따른 최종보스 분기 (권력욕의 한 vs 전쟁이 남긴 저주)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5부</strong></td>
+                            <td>최종장</td>
+                            <td>가문 몰락의 완전한 진상 규명 및 주인공의 선택에 따른 멀티 엔딩 (복수/용서/은둔)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 4. HTML/JS 웹 엔진 개발 준비 현황 -->
+        <section class="concept-section">
+            <h2>💻 4. HTML/JS 프로토타입 구현 및 준비 현황</h2>
+            <p>빌드 도구 없이 브라우저에서 즉시 실행되는 정적 클라이언트 독립형 웹 게임 엔진으로 구축 중입니다.</p>
+            <ul>
+                <li><strong>1부 손각시 편 시나리오 탑재:</strong> 총 44개 노드 수록, 정상 도달 및 4종 멀티 엔딩 트리 구현 완료.</li>
+                <li><strong>미니멀 비주얼 & 에셋 매칭:</strong> AI 연동으로 제작한 배경 이미지 4종 및 BGM 오디오 4트랙 연결 완료.</li>
+                <li><strong>상태 기반 분기 엔진:</strong> 단서 습득, 탐문 순서, 핵심 선택지에 따른 서사 분기 및 배드엔딩/굿엔딩 판정 구조 구축.</li>
+                <li><strong>자동 저장 & 회차 플레이:</strong> 로컬 스토리지 기반 자동 저장 및 클리어 엔딩 수집 시스템 적용.</li>
+            </ul>
+        </section>
+
+        <!-- 5. 1부 에셋 및 분위기 연출 -->
+        <section class="concept-section">
+            <h2>🎨 5. 1부 주요 에셋 & BGM 구성</h2>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>장면</th>
+                            <th>배경 비주얼 (Background)</th>
+                            <th>BGM 사운드트랙 (Suno AI)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>메인 타이틀</td>
+                            <td>불탄 마을 어귀 (Burnt Village)</td>
+                            <td>[BGM 1] 『좌도의 눈』 (The Eyes of Left Path)</td>
+                        </tr>
+                        <tr>
+                            <td>회상 참극</td>
+                            <td>불타는 양반가 저택 (Mansion in Flames)</td>
+                            <td>[BGM 4] 『재로 변한 가문』 (Remnants of Fire)</td>
+                        </tr>
+                        <tr>
+                            <td>마을 탐문</td>
+                            <td>전란 직후 불탄 마을 (Burnt Village)</td>
+                            <td>[BGM 2] 『재만 남은 마을』 (Silent Ash Village)</td>
+                        </tr>
+                        <tr>
+                            <td>아전/용의자 심문</td>
+                            <td>고을 아전의 동헌 (Joseon Indoor)</td>
+                            <td>[BGM 2] 『재만 남은 마을』 (Silent Ash Village)</td>
+                        </tr>
+                        <tr>
+                            <td>손각시 대면 (전투)</td>
+                            <td>금옥의 낡은 사당 (Ghostly Shrine)</td>
+                            <td>[BGM 3] 『손각시의 곡소리』 (Grief of Son-Gaksi)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
