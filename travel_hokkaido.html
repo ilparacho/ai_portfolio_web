@@ -21,7 +21,7 @@
         .back-btn:hover { text-decoration: underline; }
         
         .travel-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
-        .travel-header h1 { font-size: 2rem; color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .travel-header h1 { font-size: clamp(1.2rem, 3.2vw, 2rem); color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .travel-header p { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem; }
 
         .plan-section { background: var(--overlay-card); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
@@ -64,7 +64,7 @@
         <a href="index.html#travel" class="back-btn">← 메인 허브(Travel)로 돌아가기</a>
 
         <div class="travel-header">
-            <h1>✈️ 홋카이도 3박 4일 여행 마스터플랜</h1>
+            <h1><span class="badge badge-completed">[완료]</span>✈️ 홋카이도 3박 4일 여행 마스터플랜</h1>
             <p>2025.12.17 ~ 12.20 | 삿포로, 오타루, 조잔케이 온천 3박 4일 일정 및 세부 예산 가이드</p>
         </div>
 
