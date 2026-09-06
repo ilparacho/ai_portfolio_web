@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홋카이도 3박 4일 여행 마스터플랜 - AI Project Hub</title>
+
+    <meta name="description" content="2025년 12월 홋카이도(삿포로/오타루/조잔케이) 3박 4일 여행 일정 및 예산 가이드">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="홋카이도 3박 4일 여행 마스터플랜">
+    <meta property="og:description" content="1인당 예상 비용, 항공/숙소/교통 세부 내역 및 블로그/유튜브 참고 가이드">
+    <meta property="og:image" content="https://ilparacho.github.io/ai_portfolio_web/cover.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%92%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+
+    <style>
+        .travel-container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-btn:hover { text-decoration: underline; }
+        
+        .travel-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .travel-header h1 { font-size: 2rem; color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .travel-header p { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem; }
+
+        .plan-section { background: var(--overlay-card); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .plan-section h2 { color: var(--primary-color); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Table Styling */
+        .table-wrapper { overflow-x: auto; margin-top: 1rem; }
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+        .custom-table th, .custom-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        .custom-table th { background: rgba(0, 240, 255, 0.1); color: var(--primary-color); font-weight: bold; white-space: nowrap; }
+        .custom-table td { color: var(--text-color); }
+        .custom-table tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+        .notice-card { background: rgba(255, 153, 0, 0.08); border-left: 4px solid var(--accent-orange); padding: 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-color); }
+        
+        /* Links & Cards */
+        .link-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 6px; background: rgba(0, 240, 255, 0.1); color: var(--primary-color); text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid rgba(0, 240, 255, 0.3); transition: all 0.2s; }
+        .link-btn:hover { background: var(--primary-color); color: #000; }
+        .link-btn.youtube { background: rgba(255, 0, 0, 0.1); color: #ff4d4d; border-color: rgba(255, 0, 0, 0.3); }
+        .link-btn.youtube:hover { background: #ff4d4d; color: #fff; }
+
+        /* Day Cards */
+        .day-card { border-left: 4px solid var(--primary-color); margin-bottom: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 0 8px 8px 0; padding: 1.2rem; }
+        .day-title { font-size: 1.15rem; color: var(--primary-color); font-weight: bold; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .day-title span.tag { font-size: 0.8rem; background: rgba(0, 240, 255, 0.15); color: var(--primary-color); padding: 3px 8px; border-radius: 4px; }
+
+        .item-list { list-style: none; padding: 0; margin: 0; }
+        .item-list li { padding: 8px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.9rem; line-height: 1.5; color: var(--text-color); }
+        .item-list li:last-child { border-bottom: none; }
+        .item-list li strong { color: var(--primary-color); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" style="cursor: pointer;" onclick="location.href='index.html'">AI Project Hub</div>
+        <button id="theme-toggle">🌓 Dark/Light</button>
+    </header>
+
+    <main class="travel-container">
+        <a href="index.html#travel" class="back-btn">← 메인 허브(Travel)로 돌아가기</a>
+
+        <div class="travel-header">
+            <h1>✈️ 홋카이도 3박 4일 여행 마스터플랜</h1>
+            <p>2025.12.17 ~ 12.20 | 삿포로, 오타루, 조잔케이 온천 3박 4일 일정 및 세부 예산 가이드</p>
+        </div>
+
+        <!-- 1. 전체 예산 요약 표 -->
+        <section class="plan-section">
+            <h2>💰 1. 여행 세부 예산 (1인당 기준)</h2>
+            <div class="notice-card">
+                📌 <strong>참고사항:</strong> 엔화 구매 상품은 환율 <strong>950원</strong> 적용 기준입니다.
+            </div>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>상세 항목</th>
+                            <th>가격 (1인당)</th>
+                            <th>비고 및 참고 링크</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>항공권</strong></td>
+                            <td>출국: ZE621 / 입국: ZE624</td>
+                            <td><strong>₩ 590,900</strong></td>
+                            <td>하나투어 예약, 좌석 지정 완료</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"><strong>숙소</strong></td>
+                            <td>1~2일차: 삿포로 스스키노 스트림 호텔 (12/17 ~ 18)</td>
+                            <td><strong>₩ 567,610</strong></td>
+                            <td>
+                                <a href="https://m.blog.naver.com/yougetwhatyougive/223670957237" target="_blank" class="link-btn">📝 블로그 리뷰</a>
+                                <a href="https://www.youtube.com/watch?v=-MK1d_D1EDs" target="_blank" class="link-btn youtube">▶️ 유튜브 영상</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3일차: 조잔케이 하나모미지 온천 호텔 (12/19)</td>
+                            <td><strong>₩ 299,804</strong></td>
+                            <td>
+                                <a href="https://m.blog.naver.com/yeninistory/223624961459" target="_blank" class="link-btn">📝 온천 리뷰</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3"><strong>교통수단</strong></td>
+                            <td>시내 교통비 (교통카드)</td>
+                            <td>₩ 50,000</td>
+                            <td>시내 버스 및 지하철 이용</td>
+                        </tr>
+                        <tr>
+                            <td>JR 쾌속 (오타루 왕복)</td>
+                            <td>-</td>
+                            <td>오타루 이동 및 삿포로 복귀</td>
+                        </tr>
+                        <tr>
+                            <td>갓파 버스 (스스키노 ↔ 조잔케이) 및 예비 교통비</td>
+                            <td>₩ 46,280</td>
+                            <td>갓파 버스: ₩ 26,280 / 기타 교통비: ₩ 20,000</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5"><strong>기타 경비</strong></td>
+                            <td>식비</td>
+                            <td>₩ 100,000</td>
+                            <td>현지 주요 식사 경비</td>
+                        </tr>
+                        <tr>
+                            <td>군것질</td>
+                            <td>₩ 50,000</td>
+                            <td>디저트 및 간식비</td>
+                        </tr>
+                        <tr>
+                            <td>관광</td>
+                            <td>-</td>
+                            <td>시로이코이비토 파크 투어</td>
+                        </tr>
+                        <tr>
+                            <td>선물 쇼핑</td>
+                            <td>₩ 100,000</td>
+                            <td>기념품 및 선물 구매</td>
+                        </tr>
+                        <tr>
+                            <td>E-sim 구매</td>
+                            <td>₩ 14,000</td>
+                            <td>데이터 통신 로밍</td>
+                        </tr>
+                        <tr style="background: rgba(0, 240, 255, 0.08);">
+                            <td colspan="2"><strong>비용 총합 (1인당)</strong></td>
+                            <td colspan="2"><strong style="color: var(--primary-color); font-size: 1.1rem;">₩ 1,818,594</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 2. 일정 및 주요 동선 요약 -->
+        <section class="plan-section">
+            <h2>❄️ 2. 주요 일자별 동선 요약</h2>
+
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 1일 차 (12/17 수): 삿포로 입국 및 스스키노 탐방</span>
+                    <span class="tag">삿포로 중심가</span>
+                </div>
+                <ul class="item-list">
+                    <li><strong>[출국 & 이동]</strong> ZE621 편으로 신치토세 공항 도착 ➡️ 삿포로 시내 이동</li>
+                    <li><strong>[체크인]</strong> <strong>삿포로 스스키노 스트림 호텔</strong> 체크인 후 여독 풀기</li>
+                    <li><strong>[저녁 & 야경]</strong> 스스키노 거리 산책, 미소 라멘/징기스칸 저녁 식사 및 밤거리 관광</li>
+                </ul>
+            </div>
+
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 2일 차 (12/18 목): 오타루 운하 & 시로이코이비토 파크</span>
+                    <span class="tag">오타루 & 파크 투어</span>
+                </div>
+                <ul class="item-list">
+                    <li><strong>[오전]</strong> JR 쾌속 열차 타고 오타루 이동 ➡️ 오타루 운하, 오르골당, 사카이마치 도리 산책</li>
+                    <li><strong>[오후]</strong> 삿포로 복귀길에 <strong>'시로이코이비토 파크'</strong> 방문 및 초콜릿 팩토리 투어</li>
+                    <li><strong>[저녁]</strong> 스스키노 주변 맛집 탐방 및 간식/군것질 쇼핑</li>
+                </ul>
+            </div>
+
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 3일 차 (12/19 금): 갓파 버스 타고 조잔케이 힐링 온천</span>
+                    <span class="tag">조잔케이 온천</span>
+                </div>
+                <ul class="item-list">
+                    <li><strong>[이동]</strong> 스스키노에서 <strong>갓파 버스</strong> 탑승 ➡️ 조잔케이 온천 마을 이동</li>
+                    <li><strong>[체크인]</strong> <strong>조잔케이 하나모미지 온천 호텔</strong> 체크인</li>
+                    <li><strong>[온천 & 힐링]</strong> 설경 속 노천탕 온천욕, 온천 마을 산책 및 호텔 가이세키 정식 식사</li>
+                </ul>
+            </div>
+
+            <div class="day-card">
+                <div class="day-title">
+                    <span>■ 4일 차 (12/20 토): 삿포로 복귀 및 안전 귀국</span>
+                    <span class="tag">귀국</span>
+                </div>
+                <ul class="item-list">
+                    <li><strong>[아침]</strong> 호텔 조식 후 갓파 버스로 삿포로역/시내 복귀</li>
+                    <li><strong>[쇼핑 & 수속]</strong> 공항 이동 전 간단한 선물 및 기념품 쇼핑 ➡️ 신치토세 공항 수속</li>
+                    <li><strong>[귀국]</strong> ZE624 편 탑승 ➡️ 무사 귀국</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
