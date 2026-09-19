@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블루 닷 라운지 (Blue Dot Lounge) - 코지 SF 바텐더 시뮬레이션 기획서 - AI Project Hub</title>
+
+    <meta name="description" content="26세기 지구 궤도, 푸른 지구를 바라보며 잔을 닦는 코지 SF 바텐더 시뮬레이션 기획서 및 개발 사양 (v1.0)">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="블루 닷 라운지 (Blue Dot Lounge) - 코지 SF 바텐더 시뮬레이션">
+    <meta property="og:description" content="HTML5 / Vanilla JS 1인 AI 바이브 코딩, 3박자 칵테일 조주 & 5종 우주 맥주 탭 내러티브 어드벤처">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%B8%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+
+    <style>
+        .concept-container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-btn:hover { text-decoration: underline; }
+
+        .concept-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .concept-header h1 { font-size: clamp(1.2rem, 3.2vw, 2.2rem); color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .concept-header p { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem; }
+
+        .concept-section { background: var(--overlay-card); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .concept-section h2 { color: var(--primary-color, #00d2ff); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .concept-section p, .concept-section li { color: var(--text-color); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; }
+        .concept-section ul { padding-left: 1.2rem; }
+
+        .table-wrapper { overflow-x: auto; margin-top: 1rem; }
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+        .custom-table th, .custom-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        .custom-table th { background: rgba(0, 210, 255, 0.15); color: var(--primary-color, #00d2ff); font-weight: bold; white-space: nowrap; }
+        .custom-table td { color: var(--text-color); }
+
+        .status-badge { display: inline-block; background: rgba(0, 210, 255, 0.2); color: var(--primary-color, #00d2ff); border: 1px solid rgba(0, 210, 255, 0.5); padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+        .quote-box { background: rgba(255, 255, 255, 0.05); border-left: 4px solid var(--primary-color, #00d2ff); padding: 1rem; border-radius: 0 8px 8px 0; font-style: italic; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" style="cursor: pointer;" onclick="location.href='index.html'">AI Project Hub</div>
+        <button id="theme-toggle">🌓 Dark/Light</button>
+    </header>
+
+    <main class="concept-container">
+        <a href="index.html" class="back-btn">← 메인 허브로 돌아가기</a>
+
+        <div class="concept-header">
+            <h1><span class="status-badge">v0.1.0 기획 확정</span> 🍸 블루 닷 라운지 (Blue Dot Lounge)</h1>
+            <p>26세기 지구 궤도 완행 정거장에서 펼쳐지는 코지 SF 바텐더 시뮬레이션 (HTML5/Vanilla JS 1인 AI 바이브 코딩)</p>
+        </div>
+
+        <!-- 1. 프로젝트 개요 & 핵심 가치 -->
+        <section class="concept-section">
+            <h2>🚀 1. 프로젝트 개요 & 기획 의도</h2>
+            <div class="quote-box">
+                "초고속·초효율만을 지향하는 시대를 위한 디지털 안식처. 푸른 지구를 바라보며 따뜻한 잔과 음악을 건네는 우주 정거장의 작은 바."
+            </div>
+            <p><strong>장르:</strong> 코지 SF 바텐더 시뮬레이션 / 인터랙티브 내러티브 어드벤처</p>
+            <p><strong>시점 & 기술 스택:</strong> 1인칭 바 카운터 뷰 / HTML5, Vanilla CSS, Vanilla JS (무프레임워크 1인 AI 개발)</p>
+            <p><strong>목표 플랫폼:</strong> PC (Steam, Stove Indie), Web (HTML5 단독 구동)</p>
+            <p><strong>핵심 방향:</strong> 게임 오버나 파산 스트레스가 없는 무해한 서사(No-Fail Narrative). 20~21세기 레트로 유물(LP, 턴테이블, 진공관 앰프)과 3박자 음료 조주를 통해 다양한 성간 지성체들과 정서적 공감대를 형성합니다.</p>
+        </section>
+
+        <!-- 2. 세계관 & 무대 -->
+        <section class="concept-section">
+            <h2>🌌 2. 세계관 & 무대 설정</h2>
+            <p><strong>26세기의 지구 ('자연 보존 구역'):</strong> 인류 대이주 이후 숲과 바다가 복원되어 완행선만 오가는 시골 휴양 행성이 된 26세기 지구.</p>
+            <p><strong>무대 - 라그랑주 L1 쉼터 『블루 닷 라운지』:</strong> 지구와 달의 중력이 균형을 이루는 정박 정거장. 정면 거대 통창으로 자전하는 푸른 지구와 달의 명암이 조망되는 원목 바 카운터.</p>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>주요 인물</th>
+                            <th>역할 및 특성</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>플레이어 (바텐더)</strong></td>
+                            <td>은하 중심부의 치열한 삶을 정리하고 지구 궤도에 정착한 경청자.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>오토 (Otto)</strong></td>
+                            <td>200년 된 구형 서비스 안드로이드. 바의 잡무와 진공관 앰프 관리 담당.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>엘리안 (Elian)</strong></td>
+                            <td>성간 개발국 수석 실사관. L1 완행 쉼터 폐쇄 권고안을 들고 방문하나 점차 안식을 찾음.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>레오 (Leo)</strong></td>
+                            <td>외행성 화물선 기사. 완행 항로 폐쇄 시 실직 위기에 직면한 인간 트럭커.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>티르 (Thir)</strong></td>
+                            <td>체온 -40도의 규소계 지질학자. 지구 원시 지층을 연구하며 공존의 가치를 일깨움.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. 핵심 게임 시스템 -->
+        <section class="concept-section">
+            <h2>🍸 3. 핵심 게임 시스템 명세</h2>
+            <ul>
+                <li><strong>3박자 칵테일 제조 시스템:</strong> [생체 스캔] ➔ [베이스 계량 (Pour)] ➔ [기법 적용 (Stir/Shake)] ➔ [서빙]. 탄소계/규소계/식물형 지성체별 안전 음료 판정.</li>
+                <li><strong>우주 맥주 5종 탭 시스템:</strong> 45도 기울여 따른 후 수직으로 세워 황금 비율(맥주 7 : 거품 3)을 맞추는 드래프트 탭 손맛.</li>
+                <li><strong>특수 액션 「이 잔은 서비스입니다 (On the House)」:</strong> 절망에 빠진 손님에게 계산서 대신 무료 음료를 내어주는 선택. 단골 선물 트로피 및 보은행 팁으로 이어짐.</li>
+                <li><strong>아날로그 수집 & 커스텀 ASMR 주크박스:</strong> 20~21세기 LP, CRT TV, 레트로 소품 수집. 빗소리, LP 잡음, 정거장 공명음 볼륨을 직접 조절하는 ASMR 기능.</li>
+            </ul>
+        </section>
+
+        <!-- 4. 메인 시나리오 플롯 -->
+        <section class="concept-section">
+            <h2>📜 4. 메인 시나리오 플롯 (Day 1 ~ Day 12)</h2>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>구간</th>
+                            <th>일차</th>
+                            <th>주요 서사 흐름</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>도입부</strong></td>
+                            <td>Day 1 ~ Day 4</td>
+                            <td>영업 개시. 화물 기사 레오, 규소계 학자 티르 방문. Day 4 실사관 엘리안이 쉼터 3주 후 폐쇄 권고 통보.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>전개 및 갈등</strong></td>
+                            <td>Day 5 ~ Day 8</td>
+                            <td>엘리안의 감사 관찰. Day 8 과로로 쓰러진 엘리안에게 보리차와 점퍼를 건네는 따뜻한 온정.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>해소 및 결말</strong></td>
+                            <td>Day 9 ~ Day 12</td>
+                            <td>오토의 200년 방명록 공개. Day 11 엘리안의 번아웃 고백과 시그니처 음료 주문. Day 12 '보존 문화유산 쉼터' 영구 지정.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
