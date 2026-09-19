@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy of None: Revised - 복제 인간 메트로배니아 기획서 - AI Project Hub</title>
+
+    <meta name="description" content="고립된 지하 시설, 정체성과 원조를 묻는 철학적 서사 중심의 횡스크롤 액션 메트로배니아 게임 설계서 (v32)">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Copy of None: Revised - 복제 인간 메트로배니아">
+    <meta property="og:description" content="Godot 4 기반, 스위치 캔슬 액션과 철학적 엔딩 분기를 담은 메트로배니아 RPG">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A1%B0%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
+
+    <style>
+        .concept-container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .back-btn { display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold; font-size: 0.95rem; }
+        .back-btn:hover { text-decoration: underline; }
+
+        .concept-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .concept-header h1 { font-size: clamp(1.2rem, 3.2vw, 2.2rem); color: var(--text-color); background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .concept-header p { color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem; }
+
+        .concept-section { background: var(--overlay-card); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .concept-section h2 { color: var(--accent-orange, #ff9f43); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        .concept-section p, .concept-section li { color: var(--text-color); font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.5rem; }
+        .concept-section ul { padding-left: 1.2rem; }
+
+        .table-wrapper { overflow-x: auto; margin-top: 1rem; }
+        .custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+        .custom-table th, .custom-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        .custom-table th { background: rgba(255, 159, 67, 0.15); color: var(--accent-orange, #ff9f43); font-weight: bold; white-space: nowrap; }
+        .custom-table td { color: var(--text-color); }
+
+        .status-badge { display: inline-block; background: rgba(255, 159, 67, 0.2); color: var(--accent-orange, #ff9f43); border: 1px solid rgba(255, 159, 67, 0.5); padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+        .accent-tag { color: var(--accent-purple, #b500ff); font-weight: bold; }
+        .quote-box { background: rgba(255, 255, 255, 0.05); border-left: 4px solid var(--accent-orange, #ff9f43); padding: 1rem; border-radius: 0 8px 8px 0; font-style: italic; margin: 1rem 0; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" style="cursor: pointer;" onclick="location.href='index.html'">AI Project Hub</div>
+        <button id="theme-toggle">🌓 Dark/Light</button>
+    </header>
+
+    <main class="concept-container">
+        <a href="index.html" class="back-btn">← 메인 허브로 돌아가기</a>
+
+        <div class="concept-header">
+            <h1><span class="status-badge">v0.1.0 설계 완료</span> ⚙️ Copy of None: Revised</h1>
+            <p>복제 인간 횡스크롤 액션 메트로배니아 + 로그라이트 (Godot 4 기반 1인 AI 개발 프로젝트)</p>
+        </div>
+
+        <!-- 1. 핵심 질문 & 철학적 배경 -->
+        <section class="concept-section">
+            <h2>🧠 1. 핵심 질문 & 철학적 주제</h2>
+            <div class="quote-box">
+                "복제된 정신과 기억 중 무엇이 원조인가? 만약 원조라는 것 자체가 처음부터 없었다면, 나는 무엇으로 나인가?"
+            </div>
+            <p><strong>장르:</strong> 횡스크롤 액션 메트로배니아 + 로그라이트 요소</p>
+            <p><strong>플랫폼 & 엔진:</strong> PC (Steam, 스토브 인디) / Godot 4 모듈화 개발</p>
+            <p><strong>플레이 타임:</strong> 일반 엔딩 기준 약 9시간 (수작업 고정 맵 탐색)</p>
+            <p><strong>철학적 축:</strong> 존 로크(기억의 연속성) vs 토머스 리드 vs 데릭 파핏(인격 동일성 사고실험)을 바탕으로, 플레이어가 탐색을 통해 AI와의 대립/이해 속에 자신만의 정체성 엔딩을 선택하는 서사.</p>
+        </section>
+
+        <!-- 2. 세계관 & 대립 구도 -->
+        <section class="concept-section">
+            <h2>🏗️ 2. 세계관 & 주체별 갈등</h2>
+            <p><strong>배경:</strong> 인류 각성 실험 유출 사고로 직원들이 전원 사망한 지하 깊은 연구 시설. 지상은 이미 사멸된 폐허.</p>
+            <p><strong>주인공:</strong> 시설 AI가 만들어낸 복제 인간(알파 계열). **원본 인간은 존재하지 않으며**, 주입된 주마등 기억은 AI가 조성한 창작물.</p>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>주체</th>
+                            <th>명칭 및 형태</th>
+                            <th>목적 및 갈등 축</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>시설 AI</strong></td>
+                            <td><strong>오메가 (Omega)</strong><br>(디지털 / 감정 보유)</td>
+                            <td>인류 생존 및 신인류 창조. 외로움으로 인해 동료를 열망하나, 인간답게 만들수록 지상으로 탈출하려는 모순(임무 vs 감정의 충돌)에 직면.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>보안 시스템</strong></td>
+                            <td><strong>호모 울티무스 (Homo Ultimus)</strong><br>(아날로그 기계)</td>
+                            <td>구형 보안 설비 상위 시스템. 인류 사멸 후 위험 인자로 분류된 복제체 및 신인류의 무조건적 말살을 수행.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. 전투 & 액션 시스템 -->
+        <section class="concept-section">
+            <h2>⚔️ 3. 전투 & 액션 메카닉 (설계서 v32)</h2>
+            <ul>
+                <li><strong>1공격 + 1전환 조작 구조:</strong> 직관적인 공격과 무기 전환 버튼으로 빠르게 전개되는 Dead Cells 계열 템포.</li>
+                <li><strong>스위치 캔슬 & 콤보 분기:</strong> 콤보 도중 무기 전환(스위치)을 통해 후딜레이를 취소하고 띄우기·돌진 콤보로 연계.</li>
+                <li><strong>관측 등급 게이지:</strong> 전투 연출 및 타격 정확도에 따라 등급이 상승하며 부품 능력치 보너스 제공.</li>
+                <li><strong>백업 스테이션 & 소울라이크 성향:</strong> 고정 수작업 맵 기반의 세이브/성장 구조. 조금만 파밍해도 수월해지는 성장 곡선.</li>
+                <li><strong>대사 & 수집 데이터:</strong> 총 424줄 대사, 29편의 시설 기록, 12점의 수집품, 30종의 오브젝트 상호작용.</li>
+            </ul>
+        </section>
+
+        <!-- 4. 개발 로드맵 -->
+        <section class="concept-section">
+            <h2>🗺️ 4. 개발 로드맵 (D0 ~ D5)</h2>
+            <div class="table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>단계</th>
+                            <th>핵심 목표</th>
+                            <th>세부 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>D0</strong></td>
+                            <td>코어 이동/물리</td>
+                            <td>Godot 4 캐릭터 콘트롤러, 16/47 타일 지형 규격 및 충돌 구현</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D1</strong></td>
+                            <td>기본 전투</td>
+                            <td>공격 판정 박스, 적 피격 및 스위치 캔슬 액션 메카닉 검증</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D2~D3</strong></td>
+                            <td>시스템 통합</td>
+                            <td>관측 등급, 백업 스테이션, 인벤토리/부품 개조 26종 및 대사 데이터 연동</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D4~D5</strong></td>
+                            <td>레벨 빌드 & 폴리싱</td>
+                            <td>B1~B7 고정 맵 구축, 호모 울티무스 보스전, 48색 팔레트 아트 & 오디오 연출</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
