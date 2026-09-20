@@ -190,6 +190,18 @@
       return { next: next, playable: !!next.playable, bad: endingKind === 'bad' };
     },
 
+    /**
+     * 지금 플레이어에게 «열려 있는» 장의 id 집합 — 잠금 카드로만 보이는 장은 넣지 않는다.
+     * 도감·야사록이 아직 만나지 않은 항목의 빈 자리를 어디까지 보일지 정하는 기준이다.
+     */
+    openChapterIds: function () {
+      var ids = {};
+      Progress.list().forEach(function (item) {
+        if (!item.locked) ids[item.chapter.id] = true;
+      });
+      return ids;
+    },
+
     /** 플레이 가능한 첫 챕터 — '게임 시작' 이 향할 곳 */
     firstPlayable: function () {
       for (var i = 0; i < Game.Chapters.length; i++) {

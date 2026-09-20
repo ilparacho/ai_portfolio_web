@@ -353,9 +353,13 @@
   /* ── 인물 도감 ─────────────────────────────────────────── */
 
   function renderCodex() {
-    var list = Game.Codex.list();
-    var counts = Game.Codex.counts();
-    el.codexCount.textContent = '수집 ' + counts.open + ' / ' + counts.total;
+    // 전체 수집 총수는 내지 않는다(부 개수를 짐작하게 하는 누설, 풀기획서 v4.4 7.12.3).
+    // 아직 만나지 않은 인물의 빈 자리도, 열리지 않은 장의 것은 보이지 않는다.
+    var openIds = Game.Progress.openChapterIds();
+    var list = Game.Codex.list().filter(function (it) {
+      return it.unlocked || openIds[it.entry.chapter];
+    });
+    el.codexCount.textContent = '';
 
     clear(el.codexList);
     var firstOpen = null;
@@ -465,9 +469,12 @@
   /* ── 야사록 ────────────────────────────────────────────── */
 
   function renderYasarok() {
-    var list = Game.Yasarok.list();
-    var counts = Game.Yasarok.counts();
-    el.yasarokCount.textContent = '수집 ' + counts.open + ' / ' + counts.total;
+    // 총수 없이, 열려 있지 않은 장의 빈 카드도 감춘다(도감과 같은 규칙, 7.12.3)
+    var openIds = Game.Progress.openChapterIds();
+    var list = Game.Yasarok.list().filter(function (it) {
+      return it.unlocked || openIds[it.card.chapter];
+    });
+    el.yasarokCount.textContent = '';
 
     clear(el.yasarokList);
 
@@ -688,12 +695,27 @@
     var teaser = doc.getElementById('unlock-teaser');
     var gained = doc.getElementById('unlock-gained');
 
+    var survey = doc.getElementById('unlock-survey');
+    var Rel = Game.Release;
+    // 체험판의 끝 — 다음 장이 막혀 있거나(1부를 처음 끝냄), 이미 다녀온 1부를 다시 끝낸 경우
+    var demoEnd = !!(Rel && Rel.demo && (info.again || (next && !Rel.allows(next.id))));
+
     btnNext.classList.add('hidden');
     btnChapters.classList.remove('hidden');
+    survey.classList.add('hidden');
     teaser.textContent = '';
     gained.textContent = pendingUnlock.gained || '';
 
-    if (info.again) {
+    if (demoEnd) {
+      eyebrow.textContent = '체험판';
+      title.textContent = '체험판은 여기까지입니다';
+      teaser.textContent = '정식 버전을 기다려 주세요. 여기까지 함께해 주셔서 고맙습니다.';
+      if (Rel.surveyUrl) {
+        survey.href = Rel.surveyUrl;
+        survey.classList.remove('hidden');
+        gained.textContent = '느낀 점을 설문으로 남겨 주시면 정식판을 만드는 데 큰 도움이 됩니다.';
+      }
+    } else if (info.again) {
       eyebrow.textContent = '이미 지나온 길';
       title.textContent = '이미 다녀온 길입니다';
       gained.textContent = '';
@@ -702,10 +724,6 @@
       title.textContent = '이야기가 여기서 닫혔습니다';
       // 최종부를 끝낸 뒤에야 전체 엔딩 수 대비 현황을 공개한다(누설 차단, 7.12.6항)
       gained.textContent = '확인한 엔딩 ' + Game.Save.unlocked().length + '종';
-    } else if (next && next.playable && Game.Release && !Game.Release.allows(next.id)) {
-      eyebrow.textContent = '체험판';
-      title.textContent = '체험판은 여기까지입니다';
-      teaser.textContent = '이 뒤의 이야기는 정식판에서 이어집니다.';
     } else if (next && !next.playable) {
       eyebrow.textContent = '다음 장';
       title.textContent = '제' + next.no + '부 「' + next.title + '」';

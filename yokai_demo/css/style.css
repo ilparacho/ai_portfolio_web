@@ -524,6 +524,20 @@ html, body {
   transition: background 80ms linear;
 }
 .panel-actions button:hover { background: rgba(200, 164, 92, 0.16); }
+/* 링크(설문 등) — 버튼과 같은 모양. 강조하려고 채운 테두리를 쓴다 */
+.panel-actions .action-link {
+  padding: 12px 26px;
+  background: rgba(200, 164, 92, 0.14);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 80ms linear;
+}
+.panel-actions .action-link:hover { background: rgba(200, 164, 92, 0.28); }
+.panel-actions .action-link.hidden { display: none; }
 .panel-actions button:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--line); color: var(--ink-dim); }
 .unlocked { margin: 24px 0 0; font-size: 13px; color: var(--ink-dim); line-height: 1.9; }
 .version { margin: 30px 0 0; font-size: 12px; color: rgba(154, 147, 130, 0.5); letter-spacing: 0.1em; }
