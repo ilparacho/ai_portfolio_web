@@ -18,7 +18,27 @@
         .episode-list li a { display: block; padding: 15px; color: #eee; text-decoration: none; font-weight: bold; }
         .episode-list li:hover { background: rgba(243, 156, 18, 0.1); border-color: #f39c12; transform: translateY(-2px); }
         .episode-list li a:hover { color: #f39c12; }
-        .comments-section { margin-top: 50px; border-top: 2px dashed #444; padding-top: 30px; }
+        .comments-section { margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; }
+        .comments-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .comments-count { font-size: 0.95rem; color: #f39c12; font-weight: bold; }
+        .comment-form { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 20px; margin-bottom: 30px; }
+        .comment-form-row { display: flex; gap: 10px; margin-bottom: 12px; }
+        .comment-input-nick { width: 220px; max-width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 10px 14px; color: #fff; font-size: 0.95rem; }
+        .comment-input-nick:focus, .comment-textarea:focus { outline: none; border-color: #f39c12; box-shadow: 0 0 10px rgba(243, 156, 18, 0.2); }
+        .comment-textarea { width: 100%; min-height: 90px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 12px 14px; color: #fff; font-size: 0.95rem; resize: vertical; line-height: 1.5; font-family: inherit; }
+        .comment-form-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 10px; }
+        .comment-form-tip { font-size: 0.85rem; color: #888; }
+        .btn-comment-submit { background: #f39c12; color: #000; border: none; font-weight: bold; padding: 10px 24px; border-radius: 6px; cursor: pointer; transition: 0.2s; font-size: 0.95rem; }
+        .btn-comment-submit:hover { background: #e67e22; transform: translateY(-1px); }
+        .btn-comment-submit:disabled { background: #555; color: #888; cursor: not-allowed; transform: none; }
+        .comment-list { display: flex; flex-direction: column; gap: 15px; }
+        .comment-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 16px 18px; transition: border-color 0.2s; }
+        .comment-card:hover { border-color: rgba(243, 156, 18, 0.3); }
+        .comment-card-top { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .comment-card-nick { font-weight: bold; color: #f39c12; }
+        .comment-card-date { color: #777; font-size: 0.8rem; }
+        .comment-card-body { color: #ddd; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+        .comment-empty, .comment-status { text-align: center; padding: 35px 20px; color: #888; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px dashed rgba(255,255,255,0.08); }
         .back-btn { display: inline-block; margin-bottom: 20px; color: #f39c12; text-decoration: none; font-weight: bold; }
         .back-btn:hover { text-decoration: underline; }
     </style>
@@ -53,36 +73,35 @@
             <!-- 자바스크립트로 렌더링 됨 -->
         </ul>
 
-        <!-- 댓글 시스템 (Giscus 연동) -->
+        <!-- 댓글 시스템 (구글 시트 연동 일반 댓글창) -->
         <div class="comments-section">
-            <h2>💬 독자 리뷰 및 피드백</h2>
-            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 20px;">
-                💡 <strong>오류가 뜨나요?</strong> 깃허브 권한 설정이 필요합니다.<br>
-                <a href="https://github.com/apps/giscus" target="_blank" style="color: #f39c12;">[여기]</a>를 눌러 Giscus 앱을 현재 깃허브 저장소에 <strong>설치(승인)</strong>해주셔야 독자들이 댓글을 남길 수 있습니다.
-            </p>
-            
-            <script src="https://giscus.app/client.js"
-                    data-repo="ilparacho/ai_portfolio_web"
-                    data-repo-id="R_kgDOM7R-sQ"
-                    data-category="Announcements"
-                    data-category-id="DIC_kwDOM7R-sc4CjU_J"
-                    data-mapping="pathname"
-                    data-strict="0"
-                    data-reactions-enabled="1"
-                    data-emit-metadata="0"
-                    data-input-position="bottom"
-                    data-theme="transparent_dark"
-                    data-lang="ko"
-                    crossorigin="anonymous"
-                    async>
-            </script>
+            <div class="comments-header">
+                <h2>💬 독자 리뷰 및 피드백</h2>
+                <span class="comments-count" id="comments-count">총 0개의 리뷰</span>
+            </div>
+
+            <div class="comment-form">
+                <div class="comment-form-row">
+                    <input type="text" id="comment-nickname" class="comment-input-nick" placeholder="닉네임 (기본: 익명의 독자)" maxlength="20">
+                </div>
+                <textarea id="comment-content" class="comment-textarea" placeholder="작품에 대한 감상평이나 피드백을 자유롭게 남겨주세요. (로그인 없이 누구나 작성 가능)" rows="3" maxlength="1000"></textarea>
+                <div class="comment-form-footer">
+                    <span class="comment-form-tip">✨ 닉네임과 내용만 입력하면 바로 등록됩니다.</span>
+                    <button type="button" id="comment-submit-btn" class="btn-comment-submit" onclick="submitComment()">리뷰 등록</button>
+                </div>
+            </div>
+
+            <!-- 댓글 목록 -->
+            <div class="comment-list" id="comment-list">
+                <div class="comment-status">리뷰를 불러오는 중입니다...</div>
+            </div>
         </div>
     </main>
 
     <script src="novel_data.js"></script>
     <script>
         const container = document.getElementById('episode-container');
-        // 1화~10화 등 내용이 있는 에피소드만 필터링 (내용 길이가 너무 짧으면 미등록 회차로 간주)
+        // 1화~24화 등 내용이 있는 에피소드만 필터링
         const validEpisodes = novelEpisodes.filter(ep => ep.content && ep.content.length > 50);
         
         validEpisodes.forEach(ep => {
@@ -93,6 +112,139 @@
             li.appendChild(a);
             container.appendChild(li);
         });
+
+        // ==========================================
+        // 💬 구글 스프레드시트 연동 댓글 시스템 스크립트
+        // ==========================================
+        // 구글 Apps Script 웹 앱 배포 URL이 입력되면 실시간 구글 시트와 연동됩니다.
+        // 미설정 시 로컬 브라우저(localStorage) 모드로 동작하여 즉시 테스트 가능합니다.
+        const COMMENT_API_URL = ""; 
+
+        async function fetchComments() {
+            const listEl = document.getElementById('comment-list');
+            const countEl = document.getElementById('comments-count');
+
+            if (!COMMENT_API_URL) {
+                const localComments = JSON.parse(localStorage.getItem('novel_doctor_comments') || '[]');
+                renderComments(localComments);
+                return;
+            }
+
+            try {
+                const res = await fetch(COMMENT_API_URL);
+                const data = await res.json();
+                if (data.status === 'success' && Array.isArray(data.comments)) {
+                    renderComments(data.comments);
+                } else {
+                    listEl.innerHTML = '<div class="comment-status">리뷰 목록을 불러오는 중 문제가 발생했습니다.</div>';
+                }
+            } catch (err) {
+                console.error("댓글 로드 실패:", err);
+                const localComments = JSON.parse(localStorage.getItem('novel_doctor_comments') || '[]');
+                renderComments(localComments);
+            }
+        }
+
+        function renderComments(comments) {
+            const listEl = document.getElementById('comment-list');
+            const countEl = document.getElementById('comments-count');
+            countEl.innerText = `총 ${comments.length}개의 리뷰`;
+
+            if (!comments || comments.length === 0) {
+                listEl.innerHTML = '<div class="comment-empty">아직 등록된 리뷰가 없습니다. 첫 번째 감상평을 남겨보세요! ✨</div>';
+                return;
+            }
+
+            listEl.innerHTML = '';
+            comments.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'comment-card';
+
+                const top = document.createElement('div');
+                top.className = 'comment-card-top';
+
+                const nick = document.createElement('span');
+                nick.className = 'comment-card-nick';
+                nick.innerText = item.nickname || '익명의 독자';
+
+                const date = document.createElement('span');
+                date.className = 'comment-card-date';
+                date.innerText = item.date || '';
+
+                top.appendChild(nick);
+                top.appendChild(date);
+
+                const body = document.createElement('div');
+                body.className = 'comment-card-body';
+                body.innerText = item.content || '';
+
+                card.appendChild(top);
+                card.appendChild(body);
+                listEl.appendChild(card);
+            });
+        }
+
+        async function submitComment() {
+            const nickInput = document.getElementById('comment-nickname');
+            const contentInput = document.getElementById('comment-content');
+            const submitBtn = document.getElementById('comment-submit-btn');
+
+            const nickname = nickInput.value.trim() || '익명의 독자';
+            const content = contentInput.value.trim();
+
+            if (!content) {
+                alert("리뷰 내용을 입력해 주세요.");
+                contentInput.focus();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "등록 중...";
+
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+            if (!COMMENT_API_URL) {
+                const localComments = JSON.parse(localStorage.getItem('novel_doctor_comments') || '[]');
+                localComments.unshift({ nickname, content, date: dateStr });
+                localStorage.setItem('novel_doctor_comments', JSON.stringify(localComments));
+                
+                contentInput.value = '';
+                renderComments(localComments);
+                submitBtn.disabled = false;
+                submitBtn.innerText = "리뷰 등록";
+                return;
+            }
+
+            try {
+                const url = new URL(COMMENT_API_URL);
+                url.searchParams.append('action', 'add');
+                url.searchParams.append('nickname', nickname);
+                url.searchParams.append('content', content);
+
+                const res = await fetch(url.toString());
+                const result = await res.json();
+                
+                if (result.status === 'success') {
+                    contentInput.value = '';
+                    await fetchComments();
+                } else {
+                    alert("리뷰 등록 실패: " + (result.message || "오류"));
+                }
+            } catch (err) {
+                console.error("댓글 등록 통신 오류:", err);
+                const localComments = JSON.parse(localStorage.getItem('novel_doctor_comments') || '[]');
+                localComments.unshift({ nickname, content, date: dateStr });
+                localStorage.setItem('novel_doctor_comments', JSON.stringify(localComments));
+                renderComments(localComments);
+                contentInput.value = '';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "리뷰 등록";
+            }
+        }
+
+        fetchComments();
     </script>
 </body>
 </html>
