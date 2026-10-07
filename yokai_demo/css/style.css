@@ -1280,6 +1280,15 @@ html, body {
   font-size: 30px;
   background: rgba(255, 250, 235, 0.03);
 }
+/* 판 크기(64px)는 그대로 두고 안의 글자만 자물쇠 그림으로 바꾼다 */
+.chapter-lock-img {
+  width: 100%;
+  height: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  object-fit: contain;
+  opacity: 0.85;
+}
 .chapter-card.locked .chapter-hint { margin: 6px 0 0; }
 
 /* 불러오기 — 저장 슬롯 */

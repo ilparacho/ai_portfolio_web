@@ -212,7 +212,16 @@
   function lockedCard(item) {
     var ch = item.chapter;
     var card = make('article', 'chapter-card locked');
-    card.appendChild(make('div', 'chapter-lock-plate', '鎖'));
+    // 조선 전통 자물쇠 그림(확정본 ui/lock). 등록부에 없으면 옛 글자 «鎖» 로 폴백한다
+    var lockArt = Game.Assets.ui('lock');
+    var plate = make('div', 'chapter-lock-plate', lockArt ? '' : '鎖');
+    if (lockArt) {
+      var lockImg = make('img', 'chapter-lock-img');
+      lockImg.src = lockArt;
+      lockImg.alt = '잠김';
+      plate.appendChild(lockImg);
+    }
+    card.appendChild(plate);
 
     var body = make('div', 'chapter-content');
     var head = make('div', 'chapter-head');

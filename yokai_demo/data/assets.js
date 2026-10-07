@@ -128,6 +128,23 @@
     dawn: 'main',       // 에필로그에서 타이틀 테마를 다시 얹는다
 
     /*
+     * 1부 신규 배경(헤르메스 확정본, 2026-10-07) — 새 ID 를 대본에서 직접 쓰므로 BGM 도 새 ID 로 잇는다.
+     * 여기 없으면 bgmFor 가 null 을 돌려줘 그 장면부터 음악이 꺼진다(스모크 테스트는 이를 잡지 못한다).
+     * 근거: 각 장면이 옛 키에서 쓰던 트랙을 그대로 유지한다 — fire→past, house·village→investigate,
+     *       ghost→grief, dawn→main, shrine→grief. uncle_house 는 옛 house(→investigate)를 대신한다.
+     */
+    burning_house: 'past',
+    ruined_house_ash: 'past',
+    gwana_office: 'investigate',
+    bak_house: 'investigate',
+    brother_shed: 'investigate',
+    geumok_house_ruin: 'investigate',
+    uncle_house: 'investigate',
+    shrine_interior: 'grief',
+    old_shrine_night: 'grief',
+    old_shrine_dawn: 'main',
+
+    /*
      * 2부 — 전용 트랙 5종을 받았다.
      * 매장지(unburied_hill)는 조사 파트이므로 기본은 조사 테마로 두고,
      * 경고·즉사 노드에만 「그슨대의 습격」을 직접 지정한다.
@@ -144,6 +161,88 @@
     dawn2: 'main'
   };
 
+  /*
+   * ── 신규 에셋(헤르메스 제작, assets/<범주>/<장>/<id>.<확장자>) 연결 ─────────────
+   * 근거: docs/에셋_적용_가이드.md. 확정 배치된 파일만 data/assets_live.js(자동 생성)에 적힌다.
+   * 조회 순서는 항상 «등록부에 있는 새 에셋 → 기존 더미»라서, 에셋이 한 장씩 들어와도
+   * 게임은 언제나 완결된 상태로 돈다. 아래 표에 없는 키는 계속 기존 더미를 쓴다.
+   *
+   *  · 새 ID 를 시나리오에서 직접 써도 된다(node.bg: 'archive_night', line.portrait: 'eunho_shaken').
+   *  · 표에 filter 를 적은 것은 «같은 그림을 재사용해 다른 시간대·분위기로 보이게 하는» 장면뿐이다.
+   *    옛 더미를 억지로 어둡게 하던 보정은 새 그림에는 필요 없어 적지 않았다.
+   *  · 대응이 애매한 옛 키(house · hall · fire · 엑스트라 6종 · dark_hat)는 사람이 정할 때까지 비워 뒀다.
+   */
+  var LIVE = global.Game && global.Game.LiveAssets ? global.Game.LiveAssets : {};
+
+  /* 옛 배경 키 → 새 배경 ID */
+  var BG_NEW = {
+    red_dream:     { id: 'red_memory' },
+    shrine:        { id: 'old_shrine' },
+    ghost:         { id: 'old_shrine' },
+    dawn:          { id: 'old_shrine', filter: 'sepia(0.32) brightness(1.18) saturate(1.1)' },
+    // 1부 프롤로그의 «이름 없는 고을 어귀»(road) / 조사 허브 «절반이 불탄 마을»(village) — 1부 플롯 v3.0 2장
+    village:       { id: 'burnt_village' },
+    road:          { id: 'village_lane' },
+    sealed_gate:   { id: 'blockade' },
+    dawn2:         { id: 'blockade',  filter: 'brightness(1.15) saturate(0.8) sepia(0.2)' },
+    // 타이틀·장 선택 메뉴 — 옛 [BG 5]·[BG 6] 더미를 확정본(title_bg·menu_bg, 2026-10-07)으로 교체
+    title:         { id: 'title_bg' },
+    menu:          { id: 'menu_bg' },
+    inspection:    { id: 'geoman_inside' },
+    foggy_market:  { id: 'market_river' },
+    unburied_hill: { id: 'burial_hill' },
+    inn:           { id: 'inn_room' },
+    shadow:        { id: 'night_scene' }
+  };
+
+  /* 옛 초상 id(도감 id) → 새 초상 ID. 표정 목록의 첫 번째가 기본 표정이다 */
+  var PORTRAIT_NEW = {
+    sin: 'eunho_calm',        jeon: 'jeonwoochi_calm', heo: 'heojun_calm',
+    kang: 'kangmunwoo_affable', bak: 'baksubang_affable', uncle: 'uncle_grieving',
+    ajeon: 'ajeon_officious', dori: 'dolibeom_ingratiating', nam: 'namcheomji_dignified',
+    eoksoe: 'eoksoe_shrewd',
+    yunbok: 'brother_earnest',   // 정혼자의 동생(1부) — 작업지시서 id 는 brother
+    geumok: 'songaksi_01',       // 도감의 금옥 = 손각시 1단계(요괴 범주 yk)
+    anak: 'anak_worried'         // 도감 '마을 아낙' — 화자 '아낙' 이 codex.js 표로 anak 에 이어진다
+  };
+
+  /*
+   * 새 소품 ID 의 화면 표기. 소품 캡션(figcaption)·alt 에 쓰이며, 없으면 id 문자열이 그대로 보인다.
+   * 이름 근거: 헤르메스 확정완료보고(2026-10-07)와 docs/1부_에셋_부족분_점검.md 3-3.
+   * 아래 7종은 1부 대본 초안이 쓰는 소품이며, 이름은 대본 시트의 증좌첩 항목명·[단서] 줄 본문을 따랐다.
+   * ⚠ testimony_02 는 «— 나를 업어 키운 손이었다»(혼령 금옥) 줄에 붙은 소품이라 «금옥의 증언» 으로 추정했다.
+   */
+  var PROP_LABEL = {
+    door_blind: '문에 쳐진 대나무 발',
+    yemul_box: '빈 예물함',
+    talisman_fresh: '신은호의 부적',
+    honseo_burnt: '불탄 혼서(婚書) 잔편',
+    yemul_note: '예물 품목 쪽지',
+    myeongju: '숙부의 세간 — 무명',
+    mulsaek_cloth: '사당의 물색 천',
+    testimony_01: '정혼자 동생의 증언',
+    testimony_02: '금옥의 증언',
+    silver_nyang: '은자(銀子)'
+  };
+
+  /*
+   * 옛 소품 키 → 새 소품 ID (범주, id).
+   * 문서 중 관자·치계는 일부러 잇지 않았다 — 새 문서 템플릿은 글자 없는 괘선 지면이라
+   * 글자 조판 합성이 붙기 전에 옛 소품을 바꾸면 «내용 없는 종이»가 뜬다. 첩정만 아래 예외.
+   */
+  var PROP_NEW = {
+    // 첩정은 글자 없는 괘선 지면(앵커)이다. 글자 조판 합성은 아직 없어 «내용 없는 종이»로 보이지만,
+    // 1부 첩정 초안의 소품은 내용을 본문이 말하므로 일러스트로 쓴다. 관자·치계 템플릿은 2부 에셋이 오면 잇는다.
+    prop_cheopjeong:    { cat: 'doc',  id: 'cheopjeong' },
+    prop_byeokyeok:     { cat: 'item', id: 'book_byeokyeok' },
+    prop_black_pattern: { cat: 'item', id: 'pattern_iron' }
+  };
+
+  function liveFile(cat, id) {
+    var group = LIVE[cat];
+    return group && group[id] ? group[id].f : null;
+  }
+
   function url(dir, file) {
     return dir + encodeURIComponent(file);
   }
@@ -152,6 +251,15 @@
     /** 배경 정보 반환 — { url, filter, label }. 없으면 null (CSS 그라디언트 폴백) */
     image: function (key) {
       var entry = IMAGES[key];
+      var map = BG_NEW[key];
+      var file = liveFile('bg', key) || (map && liveFile('bg', map.id));
+      if (file) {
+        return {
+          url: file,
+          filter: liveFile('bg', key) ? 'none' : (map.filter || 'none'),
+          label: entry ? entry.label : key
+        };
+      }
       if (!entry) return null;
       return {
         url: url(IMAGE_DIR, entry.file),
@@ -170,8 +278,16 @@
     /** 소품 정보 반환 — { url, label }. 없으면 null */
     prop: function (key) {
       var entry = PROPS[key];
+      var map = PROP_NEW[key];
+      var file = (map && liveFile(map.cat, map.id)) || liveFile('item', key) || liveFile('doc', key);
+      if (file) return { url: file, label: entry ? entry.label : (PROP_LABEL[key] || key) };
       if (!entry) return null;
       return { url: url(PROP_DIR, entry.file), label: entry.label };
+    },
+
+    /** 공용 UI 이미지 경로(등록부 ui 범주). 없으면 null — 호출하는 쪽이 텍스트 폴백을 둔다 */
+    ui: function (id) {
+      return liveFile('ui', id);
     },
 
     /** 소품 키 목록 (스모크 테스트 검증용) */
@@ -194,6 +310,9 @@
     /** 인물 초상 경로 (도감 id 기준) */
     portrait: function (id) {
       if (!id) return null;
+      var file = liveFile('ch', id) || liveFile('yk', id) ||
+        liveFile('ch', PORTRAIT_NEW[id]) || liveFile('yk', PORTRAIT_NEW[id]);
+      if (file) return file;
       return PORTRAIT_DIR + encodeURIComponent(id) + '.png';
     },
 
@@ -225,8 +344,10 @@
         img.src = src;
       };
 
-      for (var key in IMAGES) load(url(IMAGE_DIR, IMAGES[key].file));
-      for (var propKey in PROPS) load(url(PROP_DIR, PROPS[propKey].file));
+      for (var key in IMAGES) load(Game.Assets.image(key).url);
+      for (var propKey in PROPS) load(Game.Assets.prop(propKey).url);
+      // 신규 에셋 중 시나리오가 새 ID 로 직접 부르는 배경은 옛 키 표에 없으므로 따로 올린다
+      for (var newBg in (LIVE.bg || {})) load(LIVE.bg[newBg].f);
 
       if (Game.CodexEntries) {
         for (var i = 0; i < Game.CodexEntries.length; i++) {
