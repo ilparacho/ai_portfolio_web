@@ -4,8 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 지정한 탭만 활성화 (내비 링크 + 섹션 동기화)
     function activateTab(targetId) {
-        const target = document.getElementById(targetId);
-        if (!target) return; // 잘못된 해시는 무시
+        let target = document.getElementById(targetId);
+        if (!target) {
+            targetId = 'home';
+            target = document.getElementById('home');
+        }
+        if (!target) return;
         navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('data-target') === targetId));
         sections.forEach(s => s.classList.toggle('active', s.id === targetId));
     }
