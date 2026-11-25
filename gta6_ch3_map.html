@@ -45,6 +45,7 @@
       --cat-safe: #a855f7;
       --cat-treasure: #06b6d4;
       --cat-missable: #f43f5e;
+      --cat-outpost: #f97316;
     }
 
     * {
@@ -141,8 +142,7 @@
                 GTA 6 챕터 3 숨겨진 요소 전술 지도
               </h1>
             </div>
-            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-              바이스 시티 / 베이사이드 / 라 페를 · 카르텔 강도 전 점검 · 총 28종 (놓치면 불가 7종)
+            바이스 시티 / 베이사이드 / 라 페를 / 사우스사이드 · 카르텔 강도 전 점검 · 총 46종 (수집품 28 + 적 거점 18 · 놓치면 불가 7종)
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 3 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 28 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 46 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -180,14 +180,18 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (28)
+          전체 (46)
+        </button>
+        <button type="button" data-category="outpost"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
+          🏴‍☠️ 적 거점 (18)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
-          🟡 고유 무기 (7)
+          🟡 고유 무기 (7+거점4)
         </button>
         <button type="button" data-category="safe"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-purple-400/50 hover:text-purple-200">
@@ -241,6 +245,7 @@
         <button type="button" onclick="focusSector(1170, 1265, 4.5)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">다운타운 / 살톤</button>
         <button type="button" onclick="focusSector(1365, 1135, 4.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">바이스 비치 / 제도</button>
         <button type="button" onclick="focusSector(505, 1425, 2.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">카프리 / 왓슨 베이</button>
+                <button type="button" onclick="focusSector(1055, 1460, 4.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">사우스사이드 / 테퀘스타</button>
         <button type="button" onclick="focusSector(800, 1145, 1.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">리오나이다 전체</button>
       </div>
 
@@ -269,6 +274,7 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#a855f7] inline-block"></span>금고/키패드</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>라디오/수집품</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -331,7 +337,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">28</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">46</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -346,7 +352,7 @@
     <div class="bg-[#0d1c2e] border border-slate-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl">
       <h3 class="text-base font-bold text-white mb-1.5">수집 진행도를 초기화할까요?</h3>
       <p class="text-xs text-slate-300 leading-relaxed mb-4">
-        브라우저에 저장된 챕터 3 수집 완료 체크 기록(28개 항목)이 모두 미획득 상태로 되돌아갑니다.
+        브라우저에 저장된 챕터 3 수집 완료 체크 기록(46개 항목)이 모두 미획득 상태로 되돌아갑니다.
       </p>
       <div class="flex items-center justify-end gap-2">
         <button id="btn-cancel-reset" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
@@ -762,6 +768,330 @@
             "y": 1230,
             "summary": "라 페를 코카인 플라밍고(즉시 타이론에게 매각 가능)와 다운타운 해안 WAiNK 스캔 포인트입니다.",
             "guide": "① 라 페를 타이론 아파트 인근의 검정·흰색 부리 핑크 플라밍고 조각상을 총으로 쏴 코카인 꾸러미를 얻고 타이론에게 최고가로 파세요. ② 다운타운 카탈란 블러바드 해안가(Catalan Blvd)에서 Downtown Periscope & Dock Ring을 WAiNK로 스캔하세요."
+      },
+      {
+            "id": 29,
+            "category": "outpost",
+            "nameKo": "San4San: 사운드4사운드 스튜디오",
+            "nameEn": "Sound4Sond Studio (San4San #17)",
+            "region": "스톡야드 북서쪽 해안 고가 밑 (라 페를 동쪽 경계)",
+            "mission": "불법 작전 거점 #17 (기존 #21 연동 · 고유 권총 & 윈저)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "San4San",
+            "security": "높음 (High)",
+            "weaponReward": "San4San K17 (기존 #21 연동)",
+            "vehicleReward": "Buckingham Bourbon Windsor",
+            "x": 1201,
+            "y": 997,
+            "summary": "녹음 스튜디오로 위장한 San4San 거점으로, 고유 권총 'San4San K17'과 고급 세단 'Bourbon Windsor'·금고를 얻습니다.",
+            "guide": "이중 유리문→작업실(은신 제압)→사진 스튜디오('Bourbon Windsor' 주차 및 그린스크린 옆 현금)→라운지 순으로 공략하세요. 고유 권총 'San4San K17'(#21)과 금고를 회수한 뒤 차량으로 이탈하세요."
+      },
+      {
+            "id": 30,
+            "category": "outpost",
+            "nameKo": "San4San: 라 페를 트랩 하우스",
+            "nameEn": "La Perle Trap House (San4San #18)",
+            "region": "북서부 라 페를 (Zak's Liquor 남쪽 게임방 주택)",
+            "mission": "불법 작전 거점 #18 (기존 #21 연동 · 고유 SMG & 토로스)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "San4San",
+            "security": "높음 (High)",
+            "weaponReward": "Chromium W-10 (기존 #21 연동)",
+            "vehicleReward": "Pegassi Charred Toros",
+            "x": 1152,
+            "y": 1023,
+            "summary": "코카인 유통용으로 쓰이는 라 페를 북서쪽 트랩 하우스로, 고유 SMG 'Chromium W-10'과 'Pegassi Charred Toros'가 있습니다.",
+            "guide": "울타리로 둘러싸인 아지트 내부에서 고유 SMG 'Chromium W-10'(#21)과 코카인을 챙기고, 마당에 세워진 고급 SUV 'Pegassi Charred Toros'를 몰고 탈출하세요."
+      },
+      {
+            "id": 31,
+            "category": "outpost",
+            "nameKo": "San4San: 불법 스니커즈 거래실",
+            "nameEn": "Illegal Sneaker Trade (San4San #19)",
+            "region": "라 페를 중앙 Drip Drops 뒷방 → 맞은편 2층 3번째 문",
+            "mission": "불법 작전 거점 #19 (금고 코드 4124 · 기존 #10 연동)",
+            "missable": false,
+            "safeCode": "4124",
+            "gang": "San4San",
+            "security": "보통 (Medium)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 1125,
+            "y": 1050,
+            "summary": "한정판 스니커즈 매장 뒷방을 통해 길 건너 비밀 금고(4124)와 도난품 창고로 이어지는 San4San 거점입니다.",
+            "guide": "Drip Drops 매장 뒷방 금고를 강제 개방해 단서를 얻은 뒤, 길 건너 건물 2층 오른쪽 세 번째 문 안쪽 비밀 금고(#10)에 비밀번호 4124를 입력해 현금과 도난 물품을 회수하세요."
+      },
+      {
+            "id": 32,
+            "category": "outpost",
+            "nameKo": "San4San: 잔작의 차고",
+            "nameEn": "JanJak's Garage (San4San #20)",
+            "region": "남서부 라 페를 / 록리지 경계 (Simon's Tires 북서쪽)",
+            "mission": "불법 작전 거점 #20 (금고 코드 4444 · 기존 #9 연동)",
+            "missable": false,
+            "safeCode": "4444",
+            "gang": "San4San",
+            "security": "높음 (High)",
+            "weaponReward": "San4San KZ-59",
+            "vehicleReward": "Declasse Pink Gin Tulip",
+            "x": 1092,
+            "y": 1085,
+            "summary": "정문 타이어 더미를 밟고 지붕 해치로 잠입해 고유 소총 'San4San KZ-59'와 금고 4444(#9)·핑크 튤립 차량을 챙기는 거점입니다.",
+            "guide": "솔로 초반 공략 가능! 정문 파란 천막과 타이어 더미로 지붕에 올라 해치 옆 총기 케이스('San4San KZ-59')를 먼저 챙기고 내려가세요. 옆방 냉장고 메모 코드 4444로 금고(약 $2,200)를 열고 'Pink Gin Tulip' 차량으로 탈출하세요."
+      },
+      {
+            "id": 33,
+            "category": "outpost",
+            "nameKo": "San4San: 팔러 아파트",
+            "nameEn": "Parlor Apartments (San4San #21)",
+            "region": "남부 록리지 (혈액원 맞은편 V자형 아파트 2동)",
+            "mission": "불법 작전 거점 #21 (기존 #21 연동 · 고유 샷건)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "San4San",
+            "security": "높음 (High)",
+            "weaponReward": "San4San Gorse 425 (기존 #21 연동)",
+            "vehicleReward": null,
+            "x": 1084,
+            "y": 1147,
+            "summary": "V자형으로 배치된 San4San 아파트 거점으로, 고유 샷건 'San4San Gorse 425'와 강제 개방 금고·대량 마약이 있습니다.",
+            "guide": "Northbrook Dr A 버스정류장 맞은편 아파트 단지 내부를 소탕한 뒤 고유 샷건 'San4San Gorse 425'(#21)와 무코드 강제 개방 금고, 판매용 물품을 모두 회수하세요."
+      },
+      {
+            "id": 34,
+            "category": "outpost",
+            "nameKo": "과르디아 형제단: 세이버 쉬핑 야드",
+            "nameEn": "Saber Shipping Yard (The Guardia Brothers #24)",
+            "region": "서부 리틀 쿠바 강변 화물 야적장",
+            "mission": "불법 작전 거점 #24 (금고 코드 8046 · 기존 #12 연동)",
+            "missable": false,
+            "safeCode": "8046",
+            "gang": "과르디아 형제단 (The Guardia Brothers)",
+            "security": "높음 (High)",
+            "weaponReward": "The Guardian ES18 (기존 #22 연동)",
+            "vehicleReward": "Dundreary Cherry Bomb Chino",
+            "x": 1073,
+            "y": 1210,
+            "summary": "리틀 쿠바 강변 하역장에 자리한 과르디아 형제단 거점으로, 금고 8046(#12)·고유 권총·로우라이더 차량을 얻습니다.",
+            "guide": "야적장 경비를 정리한 뒤 사무실 금고(#12)에 비밀번호 8046을 입력하고, 고유 권총 'The Guardian ES18' 및 'Dundreary Cherry Bomb Chino' 차량을 회수하세요."
+      },
+      {
+            "id": 35,
+            "category": "outpost",
+            "nameKo": "과르디아 형제단: 카사 과르디아",
+            "nameEn": "Casa Guardia (The Guardia Brothers #25)",
+            "region": "북동부 리틀 쿠바 강변 대형 교차로 인근 저택",
+            "mission": "불법 작전 거점 #25 (금고 코드 1965 · $20,000+ · 기존 #11 연동)",
+            "missable": false,
+            "safeCode": "1965",
+            "gang": "과르디아 형제단 (The Guardia Brothers)",
+            "security": "높음 (High)",
+            "weaponReward": "Guardia Brothers FRA",
+            "vehicleReward": "Benefactor Nightlight Schafter",
+            "x": 1109,
+            "y": 1184,
+            "summary": "총 가치 $20,000 이상이 쏟아지는 과르디아 본거지 저택으로, 고유 소총·명품 시계·고급 세단을 모두 얻습니다.",
+            "guide": "외벽 사다리로 지붕에 올라 해치로 잠입하세요. ① 금고(#11)에 1965 입력, ② 고유 소총 'Guardia Brothers FRA' 회수, ③ 'Crowex Ambassador' 시계 획득, ④ 마당의 'Benefactor Nightlight Schafter' 차량으로 탈출하세요."
+      },
+      {
+            "id": 36,
+            "category": "outpost",
+            "nameKo": "과르디아 형제단: 세이버 쉬핑 시설",
+            "nameEn": "Saber Shipping Facility (The Guardia Brothers #26)",
+            "region": "동부 발세로 강변 (세이버 야드 건너편 강둑)",
+            "mission": "불법 작전 거점 #26 (금고 코드 1122/1965 · 기존 #13 연동)",
+            "missable": false,
+            "safeCode": "1122",
+            "gang": "과르디아 형제단 (The Guardia Brothers)",
+            "security": "높음 (High)",
+            "weaponReward": "Guardia Brothers VF5",
+            "vehicleReward": null,
+            "x": 1048,
+            "y": 1168,
+            "summary": "노란 리프트로 지붕에 침투해 고유 무기 'Guardia Brothers VF5'와 시계 'B&G Ark Royal Ashore'를 챙기는 마약 창고입니다.",
+            "guide": "정문 왼쪽 컨테이너와 노란 리프트를 타고 지붕으로 진입하세요. ① 2층 커피 테이블 위 'Guardia Brothers VF5' 회수, ② 지붕 계단 아래 방 테이블의 'B&G Ark Royal Ashore' 시계 회수, ③ 사무실 금고(#13, 코드 1122 또는 1965)를 열어 완료하세요."
+      },
+      {
+            "id": 37,
+            "category": "outpost",
+            "nameKo": "PTT Youngin$: 사우스사이드 트랩 하우스",
+            "nameEn": "Southside Trap House (PTT Youngin$ #22)",
+            "region": "사우스사이드 헬리패드 병원 북쪽 (Xero 주유소·세차장 옆)",
+            "mission": "불법 작전 거점 #22 (명품 시계 & 보급 창고)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "PTT Youngin$",
+            "security": "보통 (Medium)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 1038,
+            "y": 1496,
+            "summary": "사우스사이드 Xero 주유소 옆 작은 철책 트랩 하우스로, 명품 시계 'B&G Ark Royal Ashore'와 저장 물자를 회수합니다.",
+            "guide": "고유 총기는 없지만 핵심 보상인 'B&G Ark Royal Ashore' 명품 시계와 잠긴 금고·저장된 마약을 빠짐없이 챙겨야 100% 진행도(PTT 1/2)가 오릅니다."
+      },
+      {
+            "id": 38,
+            "category": "outpost",
+            "nameKo": "PTT Youngin$: 카마르 데본 커뮤니티 센터",
+            "nameEn": "Kamar Devon Community Center (PTT Youngin$ #23)",
+            "region": "북부 사우스사이드 (Strip Mall 북쪽 · 불법 물품 창고 건너편)",
+            "mission": "불법 작전 거점 #23 (기존 #22 연동 · 고유 권총 & 시계)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "PTT Youngin$",
+            "security": "높음 (High)",
+            "weaponReward": "PTT Youngin$ K17 (기존 #22 연동)",
+            "vehicleReward": null,
+            "x": 1041,
+            "y": 1473,
+            "summary": "폐쇄된 커뮤니티 센터를 점거한 PTT Youngin$ 본거지로, 고유 권총 'PTT Youngin$ K17'과 명품 시계 'Novak Laurent Argonaut'를 얻습니다.",
+            "guide": "건물 내부 무장 갱단을 소탕한 뒤 고유 권총 'PTT Youngin$ K17'(#22)과 핵심 보상 'Novak Laurent Argonaut' 명품 시계, 현금·마약을 모두 회수해 PTT 2/2를 완료하세요."
+      },
+      {
+            "id": 39,
+            "category": "outpost",
+            "nameKo": "[얼티밋] PTT: 불법 물품 창고",
+            "nameEn": "Illegal Goods Store (PTT Ultimate Bonus)",
+            "region": "피콕 베이 / 북부 사우스사이드 끝단 (커뮤니티 센터 북쪽 건너편)",
+            "mission": "얼티밋 에디션 전용 보너스 거점 (100% 달성 미포함)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "PTT Youngin$ (Ultimate Bonus)",
+            "security": "높음 (High)",
+            "weaponReward": "Eris Fresh DSG9 (고유 SMG)",
+            "vehicleReward": "Maibatsu Tropical Manchez",
+            "x": 1039,
+            "y": 1454,
+            "summary": "스탠다드 에디션 39개 100% 목록에는 포함되지 않는 얼티밋 에디션 전용 추가 거점으로, 고유 SMG와 오프로드 바이크를 제공합니다.",
+            "guide": "얼티밋 에디션 보유자만 활성화되는 거점입니다. 내부에서 고유 SMG 'Eris Fresh DSG9', 잠긴 금고, 그리고 특수 오토바이 'Maibatsu Tropical Manchez'를 회수할 수 있습니다."
+      },
+      {
+            "id": 40,
+            "category": "outpost",
+            "nameKo": "슬레이터 토잉 (불법 차량 해체장)",
+            "nameEn": "Slator Towing Inc (Other Criminals #30)",
+            "region": "테퀘스타 / 살튼 (피콕 베이 북서쪽 · Hoop 0 옆)",
+            "mission": "불법 작전 거점 #30 (고유 차량 Bloodbath Phoenix)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": null,
+            "vehicleReward": "Imponte Bloodbath Phoenix",
+            "x": 1073,
+            "y": 1396,
+            "summary": "견인 차고지로 위장한 불법 찹샵(해체장)으로, 강렬한 특수 머슬카 'Imponte Bloodbath Phoenix'와 사무실 금고($5,500~$7,500)를 얻습니다.",
+            "guide": "높은 경비 수준에 대비해 방탄복과 장총을 챙기세요. 사무실 금고를 열어 현금을 챙기고 핵심 보상 차량인 'Imponte Bloodbath Phoenix'를 직접 몰고 빠져나온 뒤 마약을 장물아비에게 팔아 완료하세요."
+      },
+      {
+            "id": 41,
+            "category": "outpost",
+            "nameKo": "리오나이다 운송 창고 거점",
+            "nameEn": "Leonida Carrier Warehouse (Other Criminals #31)",
+            "region": "서부 발세로 (랜디 차고 동쪽 · 철도 조차장 서쪽)",
+            "mission": "불법 작전 거점 #31 (금고 코드 9256 · 기존 #14 연동)",
+            "missable": false,
+            "safeCode": "9256",
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": "GRX 556 (기존 #14 연동)",
+            "vehicleReward": "Gunrunner Kamacho",
+            "x": 959,
+            "y": 1150,
+            "summary": "전직 군인 출신 밀수단이 지키는 고화력 총기 창고($12,000~$13,600)로, 금고 9256·고유 소총·카마초 차량·미다스 시계를 얻습니다.",
+            "guide": "지붕 해치로 잠입해 후면 사무실 금고(#14)에 9256을 입력하고, ① 고유 소총 'GRX 556', ② 'Crowex Octane Midas' 시계, ③ 특수 차량 'Gunrunner Kamacho'를 모두 회수하세요."
+      },
+      {
+            "id": 42,
+            "category": "outpost",
+            "nameKo": "시가 수입 위장 상점",
+            "nameEn": "Cigar Import Front (Other Criminals #32)",
+            "region": "남서부 라 페를 / 록리지 경계 (Blessed Food Market 북쪽 주류상점)",
+            "mission": "불법 작전 거점 #32 (정문 키패드 1426 · 저위험 $10,000)",
+            "missable": false,
+            "safeCode": "1426",
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "낮음 (Low)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 1117,
+            "y": 1078,
+            "summary": "주류상점 뒷방으로 위장한 불법 시가 밀수 거점으로, 정문 키패드(1426)를 열고 손쉽게 $9,500~$10,500을 벌 수 있습니다.",
+            "guide": "경비 수준이 낮아 초반 자금 수급에 좋습니다. 정문 키패드에 1426을 입력하고 내부 무장 인원을 정리한 뒤 금고와 물품을 털어 인근 라 페를의 타이론(Tyrone)에게 매각하세요."
+      },
+      {
+            "id": 43,
+            "category": "outpost",
+            "nameKo": "챗필드 물류 창고 거점",
+            "nameEn": "Chatfield Storage & Logistics (Other Criminals #33)",
+            "region": "리알토 제도 왁스맨 섬 서쪽 야적장 (Pay 'n' Spray 북쪽)",
+            "mission": "불법 작전 거점 #33 (금고 코드 5800 · 기존 #15 연동)",
+            "missable": false,
+            "safeCode": "5800",
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": "Quarter Mile ES9 (기존 #15 연동)",
+            "vehicleReward": "Progen Purple Drank Emerus",
+            "x": 1265,
+            "y": 1186,
+            "summary": "니트로 장착 보라색 슈퍼카 'Progen Purple Drank Emerus'와 고유 권총·금고(5800)가 있는 왁스맨 섬 핵심 거점입니다.",
+            "guide": "컨테이너 안 노트북 이메일에서 확인되는 5800으로 사무실 금고(#15)를 열고, 고유 권총 'Quarter Mile ES9'과 두 번째 컨테이너 안의 보라색 슈퍼카 'Progen Purple Drank Emerus'까지 챙기세요."
+      },
+      {
+            "id": 44,
+            "category": "outpost",
+            "nameKo": "오션 비치 마약 연구소 거점",
+            "nameEn": "Ocean Beach Lab (Other Criminals #34)",
+            "region": "바이스 비치 남단 오션 비치 Fleeca 은행 북쪽 골목 차고",
+            "mission": "불법 작전 거점 #34 (기존 #20 연동 · 고유 권총 & 금고)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": "Zodiac Nipper .38 (기존 #20 연동)",
+            "vehicleReward": null,
+            "x": 1474,
+            "y": 1153,
+            "summary": "오션 비치 뒷골목 차고의 마약 제조실로, 고유 권총 'Zodiac Nipper .38'(#20)과 잠긴 금고가 핵심 보상입니다.",
+            "guide": "Kington Hotel 남서쪽 약 100m 골목 차고 내부 적을 소탕한 뒤 고유 권총 'Zodiac Nipper .38'과 잠긴 금고(현장 단서 또는 강제/폭파 개방), 마약을 회수하세요."
+      },
+      {
+            "id": 45,
+            "category": "outpost",
+            "nameKo": "베스푸치 저택 무기고 거점",
+            "nameEn": "Vespucci Mansion (Other Criminals #35)",
+            "region": "리알토 제도 베스푸치 섬 서쪽 저택",
+            "mission": "불법 작전 거점 #35 (기존 #19 연동 · 이중 금고 & 슈퍼카)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": "Kingpin Heathen (기존 #19 연동)",
+            "vehicleReward": "Progen Royal Ruby Emerus",
+            "x": 1310,
+            "y": 1081,
+            "summary": "이중 무기고 금고($9,000)와 고유 소총 'Kingpin Heathen'(#19), 루비색 슈퍼카 'Royal Ruby Emerus'를 얻는 초호화 저택 거점입니다.",
+            "guide": "저택 경비를 제압하고 무기고 금고 2개와 'Kingpin Heathen' 돌격소총(#19)을 챙긴 뒤, 정원에 세워진 잠금·추적기 없는 'Progen Royal Ruby Emerus'를 타고 교량을 건너 탈출하세요."
+      },
+      {
+            "id": 46,
+            "category": "outpost",
+            "nameKo": "[추가] 파이널 챕터: 폐쇄된 MC 창고",
+            "nameEn": "Abandoned MC Warehouse (Final Chapter Bonus)",
+            "region": "남부 바이스-데일 카운티 (햄릿 북쪽 채석장 · 에모리 애비뉴 인근)",
+            "mission": "추가 불법 작전 구역 (Vapid Rumpo · 현장 보급품)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "파이널 챕터 (Final Chapter MC)",
+            "security": "보통 (Medium)",
+            "weaponReward": null,
+            "vehicleReward": "Vapid Rumpo",
+            "x": 1023,
+            "y": 1584,
+            "summary": "남부 바이스-데일 채석장 인근에 위치한 파이널 챕터의 보조 MC 창고 구역으로, 특수 밴 'Vapid Rumpo'와 마약을 확보할 수 있습니다.",
+            "guide": "아폴로 채석장·에모리 애비뉴 인근 창고를 습격해 바이커 잔당을 소탕하고 보급품 및 'Vapid Rumpo' 차량을 회수하세요. (100% 39거점 외 추가 현장 포인트)"
       }
 ];
 
@@ -793,6 +1123,13 @@
             "color": "#f43f5e",
             "bgClass": "bg-rose-500/15 text-rose-300 border-rose-500/35",
             "icon": "⭐"
+      },
+      "outpost": {
+            "label": "적 거점",
+            "badgeText": "🏴‍☠️ 적 거점",
+            "color": "#f97316",
+            "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
+            "icon": "🏴‍☠️"
       }
 };
 
@@ -876,8 +1213,13 @@
     function getFilteredItems() {
       const q = state.searchQuery.trim().toLowerCase();
       return COLLECTIBLES.filter((item) => {
-        if (state.activeCategory !== 'all' && item.category !== state.activeCategory) {
-          return false;
+        if (state.activeCategory !== 'all') {
+          if (state.activeCategory === 'weapon') {
+            const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
+            if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (item.category !== state.activeCategory) {
+            return false;
+          }
         }
         if (state.missableOnly && !item.missable) {
           return false;
@@ -890,7 +1232,11 @@
             item.mission,
             item.summary,
             item.guide,
-            item.safeCode || ''
+            item.safeCode || '',
+            item.gang || '',
+            item.security || '',
+            item.weaponReward || '',
+            item.vehicleReward || ''
           ]
             .join(' ')
             .toLowerCase();
@@ -1111,6 +1457,16 @@
         </div>
 
         ${
+          item.gang || item.weaponReward || item.vehicleReward
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
+                ${item.weaponReward ? `<div class="bg-amber-950/25 border border-amber-500/35 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-amber-300/80 block">🟡 거점 고유 무기 (노란색)</span><span class="font-bold text-amber-200">${item.weaponReward}</span></div>` : ''}
+                ${item.vehicleReward ? `<div class="bg-cyan-950/25 border border-cyan-500/30 rounded-xl px-2.5 py-1.5 ${!item.weaponReward || !item.gang ? '' : 'sm:col-span-2'}"><span class="text-[10px] text-cyan-300/80 block">🚗 거점 고유 차량</span><span class="font-semibold text-cyan-200">${item.vehicleReward}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
           item.safeCode
             ? `<div class="mb-3 bg-purple-950/35 border border-purple-500/40 rounded-xl px-3 py-2 flex items-center justify-between gap-2">
                 <div>
@@ -1199,6 +1555,11 @@
                   ${
                     item.missable
                       ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/35 shrink-0">놓치면 불가</span>`
+                      : ''
+                  }
+                  ${
+                    item.weaponReward && item.category === 'outpost'
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
                       : ''
                   }
                   ${

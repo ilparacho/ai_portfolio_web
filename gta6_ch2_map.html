@@ -45,6 +45,7 @@
       --cat-safe: #a855f7;
       --cat-treasure: #06b6d4;
       --cat-missable: #f43f5e;
+      --cat-outpost: #f97316;
     }
 
     * {
@@ -141,8 +142,7 @@
                 GTA 6 챕터 2 숨겨진 요소 전술 지도
               </h1>
             </div>
-            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-              포트 겔혼 / 켈리 카운티 · 스타렛 모텔 & 콜츠 거점 · 총 24종 (놓치면 불가 5종)
+            포트 겔혼 / 켈리 카운티 / 암브로시아·북부 · 스타렛 모텔 & 전 거점 · 총 38종 (수집품 24 + 적 거점 14 · 놓치면 불가 5종)
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 2 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 24 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 38 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -180,14 +180,18 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (24)
+          전체 (38)
+        </button>
+        <button type="button" data-category="outpost"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
+          🏴‍☠️ 적 거점 (14)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
-          🟡 고유 무기 (7)
+          🟡 고유 무기 (7+거점5)
         </button>
         <button type="button" data-category="safe"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-purple-400/50 hover:text-purple-200">
@@ -241,6 +245,8 @@
         <button type="button" onclick="focusSector(395, 705, 4.5)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">드래퍼 섬 / 북부 부두</button>
         <button type="button" onclick="focusSector(675, 675, 3.8)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">북동부 농장/캐년</button>
         <button type="button" onclick="focusSector(445, 920, 3.4)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">레이스웨이 / 남부</button>
+                <button type="button" onclick="focusSector(940, 760, 3.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">암브로시아 / 레오나드</button>
+        <button type="button" onclick="focusSector(920, 300, 2.5)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">루목스 / 탈랄로코 (북부)</button>
         <button type="button" onclick="focusSector(800, 1145, 1.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">리오나이다 전체</button>
       </div>
 
@@ -269,6 +275,7 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#a855f7] inline-block"></span>금고/키패드</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>수집품/WAiNK</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -331,7 +338,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">24</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">38</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -346,7 +353,7 @@
     <div class="bg-[#0d1c2e] border border-slate-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl">
       <h3 class="text-base font-bold text-white mb-1.5">수집 진행도를 초기화할까요?</h3>
       <p class="text-xs text-slate-300 leading-relaxed mb-4">
-        브라우저에 저장된 챕터 2 수집 완료 체크 기록(24개 항목)이 모두 미획득 상태로 되돌아갑니다.
+        브라우저에 저장된 챕터 2 수집 완료 체크 기록(38개 항목)이 모두 미획득 상태로 되돌아갑니다.
       </p>
       <div class="flex items-center justify-end gap-2">
         <button id="btn-cancel-reset" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
@@ -706,6 +713,258 @@
             "y": 710,
             "summary": "특정 시간·단독 조건 충족 시 외계인 조우 이벤트와 트로피를 얻는 유명 이스터에그입니다.",
             "guide": "챕터 2 진입 후 새벽 2시(02:00) 이후 반드시 제이슨이나 루시아 '혼자서' 스타렛 모텔 북서쪽 비포장도로를 탐색하세요. 비상등이 켜진 정차 차량을 따라 숲으로 들어가면 랜덤 스폰되며 'The Truth Is Out There' 트로피를 얻습니다."
+      },
+      {
+            "id": 25,
+            "category": "outpost",
+            "nameKo": "콜츠 거점: 킹핀 볼링장",
+            "nameEn": "Kingpin Bowling (Kolt & Associates #4)",
+            "region": "남부 포트 겔혼 (모세의 차고 인근)",
+            "mission": "불법 작전 거점 #4 (금고 코드 0300 · 기존 #1/#8 통합)",
+            "missable": false,
+            "safeCode": "0300",
+            "gang": "콜츠 & 어소시에이츠 (Kolt & Associates)",
+            "security": "높음 (High)",
+            "weaponReward": "Gutterball Moreland 850 (기존 #1 연동)",
+            "vehicleReward": null,
+            "x": 452,
+            "y": 856,
+            "summary": "포트 겔혼 남부 콜츠 거점으로, 고유 샷건(#1)·사무실 금고 0300(#8)·남동쪽 방 명품 시계(Crowex Octane 'Orca') 3종이 핵심 보상입니다.",
+            "guide": "남쪽 울타리 틈→옥상 사다리 루트로 진입하면 경비를 피하기 쉽습니다. ① 북동쪽 당구대 위 'Gutterball Moreland 850' 샷건, ② 북동쪽 작은 사무실 금고(코드 0300, 약 $3,400), ③ 남동쪽 방 'Crowex Octane Orca' 시계를 모두 챙기면 거점이 100% 완료되고 'Let's Go Bowling' 트로피를 얻습니다."
+      },
+      {
+            "id": 26,
+            "category": "outpost",
+            "nameKo": "콜츠 거점: 준 웨어하우스",
+            "nameEn": "June Warehouse (Kolt & Associates #5)",
+            "region": "포트 겔혼 서부 (딜라이츠 카바레 서쪽 · 세레나 바겐 건너편)",
+            "mission": "불법 작전 거점 #5 (기존 #4/#13 연동)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "콜츠 & 어소시에이츠 (Kolt & Associates)",
+            "security": "높음 (High)",
+            "weaponReward": "Kolt & Associates Vatra (기존 #4 연동)",
+            "vehicleReward": "Truth & Justice Caracara 4x4",
+            "x": 444,
+            "y": 808,
+            "summary": "콜츠 전용 중형 SMG(#4), 강제 개방 금고(#13), 특수 차량 'Truth & Justice Caracara 4x4'가 있는 시내 창고 거점입니다.",
+            "guide": "메인 차고 뒷벽의 강제 금고를 열고 옆 무기 케이스에서 'Kolt & Associates Vatra' SMG를 회수한 뒤, 외부에 주차된 특수 차량 'Caracara 4x4'를 몰고 이탈하면 모든 핵심 보상이 완료됩니다."
+      },
+      {
+            "id": 27,
+            "category": "outpost",
+            "nameKo": "콜츠 거점: 라 카스카라 모텔",
+            "nameEn": "La Cascara Motel (Kolt & Associates #6)",
+            "region": "서부 포트 겔혼 드래퍼 베이 해안 (철교 남쪽)",
+            "mission": "불법 작전 거점 #6 (금고 코드 6969 · 최대 $50,000)",
+            "missable": false,
+            "safeCode": "6969",
+            "gang": "콜츠 & 어소시에이츠 (Kolt & Associates)",
+            "security": "높음 (High)",
+            "weaponReward": "Scrapper VF5C (기존 #3 연동)",
+            "vehicleReward": "Vapid Firebug Dominator",
+            "x": 400,
+            "y": 760,
+            "summary": "챕터 2 최고액 거점(최대 $50,000)으로, 4층 고유 기관단총(#3)·금고 6969(#10)·외부 머슬카 'Firebug Dominator'를 모두 챙기는 곳입니다.",
+            "guide": "전리품 양이 가방 2개를 넘으므로 파트너와 동행하세요. 4층 첫 번째 방에서 'Scrapper VF5C' 소음 SMG를, 옆 그래피티 간부 방에서 금고(코드 6969)를 턴 뒤 건물 앞 'Vapid Firebug Dominator'를 타고 탈출하세요."
+      },
+      {
+            "id": 28,
+            "category": "outpost",
+            "nameKo": "콜츠 거점: 브룩스 보트웍스 조선소",
+            "nameEn": "Brooks Boatworks (Kolt & Associates #7)",
+            "region": "북부 포트 겔혼 해안 조선소 (드래퍼 섬 다리 옆)",
+            "mission": "불법 작전 거점 #7 (금고 코드 6823 · 3거점 코드 벽지도)",
+            "missable": false,
+            "safeCode": "6823",
+            "gang": "콜츠 & 어소시에이츠 (Kolt & Associates)",
+            "security": "높음 (High)",
+            "weaponReward": "Clunker 556 (기존 #2 연동)",
+            "vehicleReward": "Smuggler Caracara 4x4 / Shining Sea Squalo",
+            "x": 437,
+            "y": 713,
+            "summary": "콜츠 3개 거점 금고 코드 벽지도가 있는 조선소로, 고유 카빈(#2)·금고 6823(#9)·차량/보트까지 회수하는 대형 거점입니다.",
+            "guide": "정문 대신 오른쪽 미잠금 문과 울타리 틈으로 잠입하세요. 회색 건물에서 'Clunker 556'(#2)과 2층 벽지도(코드 6823/6969/0300)를 확인하고, 금고 2개(6823)를 털어 'Smuggler Caracara 4x4' 또는 부두의 'Shining Sea Squalo' 보트로 탈출하세요."
+      },
+      {
+            "id": 29,
+            "category": "outpost",
+            "nameKo": "콜츠 거점: 스태시 하우스",
+            "nameEn": "Stash House (Kolt & Associates #8)",
+            "region": "북부 포트 겔혼 노후 주택가 (브룩스 보트웍스 동쪽)",
+            "mission": "불법 작전 거점 #8 (기존 #5/#12 연동 · 매복 주의)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "콜츠 & 어소시에이츠 (Kolt & Associates)",
+            "security": "보통 (Medium)",
+            "weaponReward": "Kolt & Associates 556 (기존 #5 연동)",
+            "vehicleReward": "Bravado Circles of Hell Youga",
+            "x": 461,
+            "y": 715,
+            "summary": "주방 카운터의 고유 소총(#5)을 집는 순간 매복이 발동하는 주택가 아지트입니다. 강제 금고(#12)와 특수 밴을 함께 회수합니다.",
+            "guide": "엄폐물을 먼저 확보한 뒤 주방 카운터의 'Kolt & Associates 556'(#5)을 집고 몰려오는 증원을 처리하세요. 강제 금고(#12, 브룩스 메모 포함)와 벽 환풍구 현금, 외부 'Bravado Circles of Hell Youga' 밴($6,000~$11,000 상당)까지 챙기세요."
+      },
+      {
+            "id": 30,
+            "category": "outpost",
+            "nameKo": "펄 하우스 미용실 뒷방 대마 거점",
+            "nameEn": "Backroom Weed Front (Other Criminals #38)",
+            "region": "남부 포트 겔혼 Pearl House Hair Salon 뒷방",
+            "mission": "불법 작전 거점 #38 (기존 #13 연동 · 저위험 초반 추천)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "낮음 (Low)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 478,
+            "y": 832,
+            "summary": "미용실 뒷방에 소수 경비만 배치되어 혼자서도 손쉽게 $7,000~$13,500 상당의 대마와 금고를 털 수 있는 저난이도 거점입니다.",
+            "guide": "모세의 차고 동쪽 'Pearl House Hair Salon' 뒷문으로 진입해 소수의 경비를 빠르게 제압하세요. 키패드 없는 잠긴 금고를 점착 폭탄이나 강제 개방으로 열고 진열된 대마 뭉치를 전부 회수하세요."
+      },
+      {
+            "id": 31,
+            "category": "outpost",
+            "nameKo": "에메랄드 스프링스 주유소 메스 거점",
+            "nameEn": "Gas Station Meth Front (Other Criminals #36)",
+            "region": "켈리 카운티 에메랄드 스프링스 북동쪽 (암브로시아 남쪽 도로변)",
+            "mission": "불법 작전 거점 #36 (저위험 · $8,100~$14,400 상당)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "낮음 (Low)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 830,
+            "y": 892,
+            "summary": "암브로시아 남쪽 고속도로변 편의점·주유소 뒷방에 숨겨진 크리스탈 메스 제조 거점입니다.",
+            "guide": "주유소 건물 뒷방으로 들어가 경비를 제압하고 제조실 내 메스 꾸러미($8,100~$14,400)와 금고(현장 메모 확인 또는 점착 폭탄/강제 개방)를 챙기세요. 방탄복과 파트너 동행을 권장합니다."
+      },
+      {
+            "id": 32,
+            "category": "outpost",
+            "nameKo": "프로그스워터 워커 농장 (환각 버섯)",
+            "nameEn": "Walker Farm (Other Criminals #37)",
+            "region": "켈리 카운티 프로그스워터 (포트 겔혼 동쪽 강 건너 · 머드 클럽 남서쪽)",
+            "mission": "불법 작전 거점 #37 (잠긴 금고 & 환각 버섯)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 665,
+            "y": 733,
+            "summary": "다이노 골프 북서쪽 프로그스워터 외곽에 위치한 중무장 환각 버섯 재배 농장입니다.",
+            "guide": "시야가 트인 농장 지대에 무장 경비가 다수 배치되어 있어 파트너와 동행하고 장총·방탄복을 챙겨 접근하세요. 농장 본관의 잠긴 금고(현장 단서 또는 강제 개방)와 재배된 마약을 전부 회수하면 완료됩니다."
+      },
+      {
+            "id": 33,
+            "category": "outpost",
+            "nameKo": "파이널 챕터: 아이언스 빌딩 서플라이",
+            "nameEn": "Irons Building Supply (Final Chapter #16)",
+            "region": "켈리 카운티 서부 암브로시아 (철길 옆 물류 창고)",
+            "mission": "불법 작전 거점 #16 (고유 샷건 Final Chapter KVGA-12)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "파이널 챕터 (Final Chapter MC)",
+            "security": "높음 (High)",
+            "weaponReward": "Final Chapter KVGA-12 (반자동 고유 샷건)",
+            "vehicleReward": null,
+            "x": 875,
+            "y": 753,
+            "summary": "바이커 갱단 파이널 챕터의 코카인 물류 허브로, 반자동 고유 샷건 'Final Chapter KVGA-12'와 $10,000+ 장비를 얻습니다.",
+            "guide": "정문 양쪽이 지켜지고 있으므로 왼쪽 문 옆 사다리를 타고 지붕의 부서진 채광창으로 2층에 강하하세요. ① 2층 사무실 책상 위 무코드 소형 금고를 열고, ② 1층 사무실 아래 복도 마약($10,000+)을 챙긴 뒤, ③ 1층 구석 작은 방 벽면에 걸린 'Final Chapter KVGA-12'를 회수하세요. 탈출 시 출입문 스위치를 눌러야 합니다."
+      },
+      {
+            "id": 34,
+            "category": "outpost",
+            "nameKo": "파이널 챕터: 호그 스타스 차고",
+            "nameEn": "Hog Stars Garage (Final Chapter #15)",
+            "region": "암브로시아 중앙 Acacia St (Pay 'n' Spray 대각선 · 세차장 뒤)",
+            "mission": "불법 작전 거점 #15 (고유 샷건 & Devil's Rope Gauntlet)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "파이널 챕터 (Final Chapter MC)",
+            "security": "높음 (High)",
+            "weaponReward": "Final Chapter Shortstraw (고유 샷건)",
+            "vehicleReward": "Declasse Devil's Rope Gauntlet",
+            "x": 906,
+            "y": 740,
+            "summary": "암브로시아 중심부의 대형 바이커 차고로, 고유 샷건 'Shortstraw'와 특수 머슬카 'Devil's Rope Gauntlet'을 획득합니다.",
+            "guide": "남서쪽 주차장 쓰레기통을 밟고 지붕으로 올라가 사다리/열린 채광창으로 잠입하세요(경비견 주의). ① 바로 앞의 'Declasse Devil's Rope Gauntlet' 확인, ② 차량 뒤쪽 왼쪽 바(Bar) 구역 벽면 테이블의 'Final Chapter Shortstraw' 샷건 회수, ③ 뒤쪽 사무실 무코드 금고를 털고 차를 몰아 탈출하세요."
+      },
+      {
+            "id": 35,
+            "category": "outpost",
+            "nameKo": "파이널 챕터: 바이커 아지트 (써스티 울프 바)",
+            "nameEn": "Biker Hideout / The Thirsty Wolf (Final Chapter #14)",
+            "region": "암브로시아 동쪽 / 벨빌 북부 SR-27 (레오니다 호수 남단 바로 아래)",
+            "mission": "불법 작전 거점 #14 (금고 코드 1982 · 고유 리볼버)",
+            "missable": false,
+            "safeCode": "1982",
+            "gang": "파이널 챕터 (Final Chapter MC)",
+            "security": "높음 (High)",
+            "weaponReward": "Ride Free H&L .38 (고유 리볼버)",
+            "vehicleReward": "LCC Monarch Avarus",
+            "x": 999,
+            "y": 757,
+            "summary": "바이커 클럽하우스 바 'The Thirsty Wolf' 뒷방 거점으로, 창립 연도 코드(1982) 금고와 고유 리볼버·바이크를 얻습니다.",
+            "guide": "바 뒤쪽이나 테라스 제한 구역에 들어서면 적이 적대합니다. 건물 뒤편으로 우회해 북서쪽 뒷방으로 바로 진입하면 오른쪽에 금고(코드 1982 — 출구 검은 깃발 창립 연도)가 있습니다. 고유 리볼버 'Ride Free H&L .38'과 마약·'LCC Monarch Avarus' 오토바이까지 모두 회수하세요."
+      },
+      {
+            "id": 36,
+            "category": "outpost",
+            "nameKo": "파이널 챕터: 팜 픽스 메스 랩",
+            "nameEn": "Farm Fix Meth Lab (Final Chapter #13)",
+            "region": "레오나드 카운티 중앙 (벨빌 북쪽 도로 정북 · 비료 공장 뒤)",
+            "mission": "불법 작전 거점 #13 (금고 코드 2121 · 최대 $30,000)",
+            "missable": false,
+            "safeCode": "2121",
+            "gang": "파이널 챕터 (Final Chapter MC)",
+            "security": "높음 (High)",
+            "weaponReward": "Throttler Verro (고유 샷건)",
+            "vehicleReward": "Western Searing Zombie Bobber",
+            "x": 1100,
+            "y": 779,
+            "summary": "농장으로 위장한 대규모 메스 제조실(최대 $30,000)로, 고유 샷건 'Throttler Verro'와 금고(2121)·바이크를 얻습니다.",
+            "guide": "정문 대신 남동쪽 코너의 부서진 울타리로 진입해 상자 뒤를 따라 뒷문으로 침투하세요. ① 2층 라운지(TV 시청 중인 갱단 2명) 무기 캐비닛에서 'Throttler Verro' 샷건 회수, ② 2층 끝 사무실 금고에 포장실 메모 코드 2121 입력, ③ 포장실 수류탄·점착폭탄과 외부 'Western Searing Zombie Bobber' 바이크를 챙기세요."
+      },
+      {
+            "id": 37,
+            "category": "outpost",
+            "nameKo": "M7: 탈랄로코 대마 농장 (Weed Grow)",
+            "nameEn": "Weed Grow (M7 #10)",
+            "region": "동부 루목스 카운티 탈랄로코 호수 동쪽 (밀포트 북쪽)",
+            "mission": "불법 작전 거점 #10 (고유 기관단총 · 금고 2개 · 버커니어)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "M7 (Marabunta Grande)",
+            "security": "높음 (High)",
+            "weaponReward": "Marabunta Grande Type 9 (고유 기관단총)",
+            "vehicleReward": "Albany Verdant Buccaneer",
+            "x": 1079,
+            "y": 366,
+            "summary": "최북단 마운트 칼라가 국립공원 인근 M7 대형 재배지로, 4개의 핵심 보상(무기·차량·금고 2개)을 모두 회수해야 완료됩니다.",
+            "guide": "핵심 4종: ① 남쪽 대형 창고 내부 사무실 벽면의 'Marabunta Grande Type 9' SMG, ② 같은 창고 남서쪽 입구 사무실의 무코드 강제 금고, ③ 북서쪽 굴착기·냉동트럭 뒤 카라반 내부 강제 금고, ④ 온실 옆 녹색 'Albany Verdant Buccaneer' 차량 탑승까지 모두 마쳐야 M7 2/2가 완료됩니다."
+      },
+      {
+            "id": 38,
+            "category": "outpost",
+            "nameKo": "카터 마이닝 보트하우스",
+            "nameEn": "Carter Mining Boathouse (Other Criminals #39)",
+            "region": "북부 루목스 카운티 보난자 북쪽 만 동쪽 곶 끝단",
+            "mission": "불법 작전 거점 #39 (코카인 밀수 $18,000~$37,000)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 766,
+            "y": 190,
+            "summary": "맵 최북단 보난자(Bonanza) 만 끝자락의 코카인 밀수 보트하우스로, 엄청난 양의 코카인($18,000~$37,000)이 보관된 거점입니다.",
+            "guide": "만 동쪽 끝 곶의 폐보트하우스이므로 보트로 해안에서 접근하는 것이 가장 유리합니다. 경비를 정리한 뒤 내부의 잠긴 금고(현장 단서 또는 강제/점착폭탄 개방)와 고가 코카인 보급품을 최대한 실어 장물아비에게 매각하세요."
       }
 ];
 
@@ -737,6 +996,13 @@
             "color": "#f43f5e",
             "bgClass": "bg-rose-500/15 text-rose-300 border-rose-500/35",
             "icon": "⭐"
+      },
+      "outpost": {
+            "label": "적 거점",
+            "badgeText": "🏴‍☠️ 적 거점",
+            "color": "#f97316",
+            "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
+            "icon": "🏴‍☠️"
       }
 };
 
@@ -820,8 +1086,13 @@
     function getFilteredItems() {
       const q = state.searchQuery.trim().toLowerCase();
       return COLLECTIBLES.filter((item) => {
-        if (state.activeCategory !== 'all' && item.category !== state.activeCategory) {
-          return false;
+        if (state.activeCategory !== 'all') {
+          if (state.activeCategory === 'weapon') {
+            const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
+            if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (item.category !== state.activeCategory) {
+            return false;
+          }
         }
         if (state.missableOnly && !item.missable) {
           return false;
@@ -834,7 +1105,11 @@
             item.mission,
             item.summary,
             item.guide,
-            item.safeCode || ''
+            item.safeCode || '',
+            item.gang || '',
+            item.security || '',
+            item.weaponReward || '',
+            item.vehicleReward || ''
           ]
             .join(' ')
             .toLowerCase();
@@ -1055,6 +1330,16 @@
         </div>
 
         ${
+          item.gang || item.weaponReward || item.vehicleReward
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
+                ${item.weaponReward ? `<div class="bg-amber-950/25 border border-amber-500/35 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-amber-300/80 block">🟡 거점 고유 무기 (노란색)</span><span class="font-bold text-amber-200">${item.weaponReward}</span></div>` : ''}
+                ${item.vehicleReward ? `<div class="bg-cyan-950/25 border border-cyan-500/30 rounded-xl px-2.5 py-1.5 ${!item.weaponReward || !item.gang ? '' : 'sm:col-span-2'}"><span class="text-[10px] text-cyan-300/80 block">🚗 거점 고유 차량</span><span class="font-semibold text-cyan-200">${item.vehicleReward}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
           item.safeCode
             ? `<div class="mb-3 bg-purple-950/35 border border-purple-500/40 rounded-xl px-3 py-2 flex items-center justify-between gap-2">
                 <div>
@@ -1143,6 +1428,11 @@
                   ${
                     item.missable
                       ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/35 shrink-0">놓치면 불가</span>`
+                      : ''
+                  }
+                  ${
+                    item.weaponReward && item.category === 'outpost'
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
                       : ''
                   }
                   ${

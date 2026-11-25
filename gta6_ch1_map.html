@@ -45,6 +45,7 @@
       --cat-safe: #a855f7;
       --cat-treasure: #06b6d4;
       --cat-missable: #f43f5e;
+      --cat-outpost: #f97316;
     }
 
     * {
@@ -141,8 +142,7 @@
                 GTA 6 챕터 1 숨겨진 요소 전술 지도
               </h1>
             </div>
-            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
-              마리아나 카운티 / 리오나이다 키스 · 실제 리오나이다 지도 기반 · 총 29종 (놓치면 불가 4종)
+            마리아나 카운티 / 리오나이다 키스 / 펠리칸 밸리 · 실제 지도 기반 · 총 38종 (수집품 29 + 적 거점 9 · 놓치면 불가 4종)
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 1 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 29 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 38 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -180,14 +180,18 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (29)
+          전체 (38)
+        </button>
+        <button type="button" data-category="outpost"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
+          🏴‍☠️ 적 거점 (9)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
-          🟡 고유 무기 (12)
+          🟡 고유 무기 (12+거점7)
         </button>
         <button type="button" data-category="safe"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-purple-400/50 hover:text-purple-200">
@@ -235,12 +239,14 @@
         <span class="text-[11px] font-mono uppercase tracking-wider text-teal-400/80 bg-[#08121e]/90 border border-teal-500/25 px-2 py-1 rounded-lg shrink-0">
           섹터 이동:
         </span>
-        <button type="button" onclick="focusSector(680, 1910, 2.5)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">챕터 1 전도</button>
+        <button type="button" onclick="focusSector(700, 1820, 2.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">챕터 1 전도</button>
         <button type="button" onclick="focusSector(930, 1975, 4.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">키 렌토 본섬</button>
         <button type="button" onclick="focusSector(740, 1710, 3.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">그래스리버스 습지</button>
         <button type="button" onclick="focusSector(425, 2020, 3.6)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">퍼밋 키스 / 마일 제로</button>
         <button type="button" onclick="focusSector(275, 2025, 4.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">밥캣 키 (서부)</button>
         <button type="button" onclick="focusSector(1010, 2045, 3.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">동남부 난파선 해역</button>
+                <button type="button" onclick="focusSector(640, 1520, 3.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">왓슨 베이 / 북부 재배지</button>
+        <button type="button" onclick="focusSector(940, 1650, 3.8)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">햄릿 (M7 거점)</button>
         <button type="button" onclick="focusSector(800, 1145, 1.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">리오나이다 전체</button>
       </div>
 
@@ -251,7 +257,7 @@
           +
         </button>
         <div id="zoom-level-label" class="text-[10px] font-mono text-center text-teal-400 font-bold py-0.5">
-          250%
+          220%
         </div>
         <button id="btn-zoom-out" type="button" title="축소 (-)"
           class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-teal-500/25 text-slate-100 hover:text-teal-300 border border-slate-700 flex items-center justify-center font-bold text-lg transition">
@@ -269,6 +275,7 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#a855f7] inline-block"></span>금고/키패드</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>수중 보물/난파선</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -331,7 +338,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">29</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">38</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -346,7 +353,7 @@
     <div class="bg-[#0d1c2e] border border-slate-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl">
       <h3 class="text-base font-bold text-white mb-1.5">수집 진행도를 초기화할까요?</h3>
       <p class="text-xs text-slate-300 leading-relaxed mb-4">
-        브라우저에 저장된 챕터 1 수집 완료 체크 기록(29개 항목)이 모두 미획득 상태로 되돌아갑니다.
+        브라우저에 저장된 챕터 1 수집 완료 체크 기록(38개 항목)이 모두 미획득 상태로 되돌아갑니다.
       </p>
       <div class="flex items-center justify-end gap-2">
         <button id="btn-cancel-reset" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
@@ -366,7 +373,7 @@
     const VIEW_CY = MAP_HEIGHT / 2;
     const MIN_SCALE = 0.7;
     const MAX_SCALE = 8.0;
-    const DEFAULT_CAM = { x: 680, y: 1910, scale: 2.5 };
+    const DEFAULT_CAM = { x: 700, y: 1820, scale: 2.2 };
     const CHAPTER_NUM = 1;
     const MISSABLE_LABEL = "챕터 1 놓치면 불가";
 
@@ -776,6 +783,168 @@
             "y": 1985,
             "summary": "GTA 5의 마이클 드 산타 요트 오마주 및 요가 강사 파비앙 잡지 3페이지를 볼 수 있는 이스터에그입니다.",
             "guide": "제이슨의 수상 가옥 부두 앞바다에 정박된 요트에서 전작 GTA 5 마이클의 보트 오마주를 감상할 수 있으며, 은신처 테라스 테이블 위에서는 요가 강사 파비앙(Fabien)이 등장하는 잡지 3페이지를 직접 펼쳐볼 수 있습니다."
+      },
+      {
+            "id": 30,
+            "category": "outpost",
+            "nameKo": "킹피셔 거점: 매너티 모텔 (호랑이 모텔)",
+            "nameEn": "Manatee Motel (Kingfishers #3)",
+            "region": "펠리칸 밸리 동쪽 걸릿 마시 (햄릿 남쪽 · 코튼마우스 호수 북동쪽)",
+            "mission": "불법 작전 거점 #3 (Ch.1~2 초반 공략 가능 · 호랑이 주의)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "킹피셔스 (Kingfishers)",
+            "security": "높음 (High)",
+            "weaponReward": "Kingfishers Laird 350 (고유 저격소총)",
+            "vehicleReward": null,
+            "x": 878,
+            "y": 1736,
+            "summary": "킹피셔스가 점거한 폐모텔로, 노란색 고유 저격소총 'Kingfishers Laird 350'과 강제 개방 금고·코카인을 얻는 핵심 거점입니다.",
+            "guide": "햄릿 남쪽 비포장도로의 낡은 모텔입니다. 내부에 풀린 호랑이 1마리가 갱단을 공격 중이므로 소음기 무기나 산탄총으로 호랑이와 들개, 증원 트럭(1대)을 먼저 정리하세요. 'SPEED LIVE' 벽화 왼쪽 방 총기 케이스에서 고유 저격소총(Kingfishers Laird 350)과 화염병·코카인을, 오른쪽 방 선반에서 무코드 강제 금고(~$1,000)를 회수하면 거점이 완료됩니다."
+      },
+      {
+            "id": 31,
+            "category": "outpost",
+            "nameKo": "킹피셔 거점: 피싱 섁스 (낚시 오두막)",
+            "nameEn": "Fishing Shacks (Kingfishers #1)",
+            "region": "마리아나 카운티 웻맨 베이 서쪽 모래섬 (키 렌토 북서쪽)",
+            "mission": "불법 작전 거점 #1 (Ch.1 시작 직후 도니 제보로 해금)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "킹피셔스 (Kingfishers)",
+            "security": "높음 (High)",
+            "weaponReward": "Kingfishers W-22 (소음 고유 소총)",
+            "vehicleReward": null,
+            "x": 693,
+            "y": 1778,
+            "summary": "챕터 1 초반부터 보트로 공략 가능한 킹피셔스 첫 거점으로, 소음기가 달린 고유 소총 'Kingfishers W-22'를 획득합니다.",
+            "guide": "키 렌토 북서쪽 웻맨 베이(Wetman Bay) 모래섬에 위치해 보트나 제트스키 접근이 유리합니다. 부두의 큰 목조 가옥 주방으로 들어가 싱크대 왼쪽 카운터(나무 의자 옆)를 확인하면 고유 무기 'Kingfishers W-22 Small Game Rifle'을 회수할 수 있습니다. 일반 현금과 코카인($1,300~$1,900)도 함께 챙겨 장물아비에게 매각하세요."
+      },
+      {
+            "id": 32,
+            "category": "outpost",
+            "nameKo": "킹피셔 거점: 선라이즈 RV 파크",
+            "nameEn": "Sunrise RV Park (Kingfishers #2)",
+            "region": "펠리칸 밸리 코튼마우스 호수 북안 (매너티 모텔 남서쪽)",
+            "mission": "불법 작전 거점 #2 (Ch.1~ · 금고 코드 6769)",
+            "missable": false,
+            "safeCode": "6769",
+            "gang": "킹피셔스 (Kingfishers)",
+            "security": "높음 (High)",
+            "weaponReward": "Kingfishers Akulus (고유 리볼버)",
+            "vehicleReward": null,
+            "x": 820,
+            "y": 1782,
+            "summary": "킹피셔스 3대 거점 중 규모가 가장 크고 보상이 풍부하며, 고유 리볼버 'Kingfishers Akulus'와 금고 2개를 털 수 있습니다.",
+            "guide": "핵심 보상 3종: ① 정문 왼쪽 관리소 데스크 뒤 사무실 금고(무코드 강제 개방), ② 부두 'LIVE BAIT & TACKLE' 간판 옆 창고 금고(비밀번호 6769 — 현장 메모에 기록), ③ 부두 북쪽 주황·흰색 RV 캠핑카 침대 위 케이스에서 고유 리볼버 'Kingfishers Akulus' 획득. 평균 현금 $3,100~$3,700 + 대량 마약이 나옵니다."
+      },
+      {
+            "id": 33,
+            "category": "outpost",
+            "nameKo": "이국적 동물 밀수 아지트 (Three Sheets 뒷방)",
+            "nameEn": "Exotic Animals Front (Other Criminals #27)",
+            "region": "키 렌토 Three Sheets 주류상점 뒷골목",
+            "mission": "불법 작전 거점 #27 (Ch.1 초반 · '셜리의 럼' 이후 추천)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "보통 (Medium)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 936,
+            "y": 1964,
+            "summary": "키 렌토 주류상점 점원에게 뒷방의 이상한 새 소리를 물어보면 해금되는 초반 자금 확보용 숨겨진 거점입니다.",
+            "guide": "※ 주의: 'Get Shirley's Rum' 진행 시 먼저 럼주를 챙긴 뒤 점원에게 뒷방 소음에 대해 질문하세요(전투 시 상점이 일시 폐쇄됨). 건물 뒤편 골목 울타리를 넘어 무장 인원을 제압하고, 시끄러운 앵무새 우리 옆 뒷방 금고와 현금(약 $1,366~$5,000+)을 챙기세요."
+      },
+      {
+            "id": 34,
+            "category": "outpost",
+            "nameKo": "라 폴리야 네그라: 팔머 피싱 창고",
+            "nameEn": "Palmer Fishing Warehouse (La Polilla Negra #11)",
+            "region": "밥캣 키 남동쪽 끝 (왓슨 베이 서쪽 다리 연결 섬)",
+            "mission": "불법 작전 거점 #11 (금고 코드 1886 · 고유 돌격소총)",
+            "missable": false,
+            "safeCode": "1886",
+            "gang": "라 폴리야 네그라 (La Polilla Negra)",
+            "security": "높음 (High)",
+            "weaponReward": "La Polilla Negra KZ-59 (고유 돌격소총)",
+            "vehicleReward": null,
+            "x": 587,
+            "y": 1621,
+            "summary": "서쪽 끝 울타리 틈에서 소음 저격총을 얻어 잠입 공략이 가능하며, 금장 고유 소총 'La Polilla Negra KZ-59'와 명품 시계를 얻습니다.",
+            "guide": "서쪽 울타리 틈으로 잠입해 남쪽 컨테이너 뒤에서 소음 저격총을 먼저 주우면 은신 암살이 수월합니다. 북쪽 창고 건물 1층 모니터(코드 1886) 및 반대편 테이블(GLR 40 유탄발사기)을 확인한 뒤, 2층으로 올라가 ① 'La Polilla Negra KZ-59' 소총, ② 'Crowex Octane Elite' 명품 시계, ③ 코너 금고(1886, $3,000~$3,700)를 모두 회수하세요."
+      },
+      {
+            "id": 35,
+            "category": "outpost",
+            "nameKo": "라 폴리야 네그라: 왓슨 베이 은신처",
+            "nameEn": "Watson Bay Safehouse (La Polilla Negra #12)",
+            "region": "왓슨 베이 동쪽 끝 해안 도로 막다른 주택",
+            "mission": "불법 작전 거점 #12 (금고 코드 1819 · 소음 돌격소총)",
+            "missable": false,
+            "safeCode": "1819",
+            "gang": "라 폴리야 네그라 (La Polilla Negra)",
+            "security": "높음 (High)",
+            "weaponReward": "La Polilla Negra VF-G1 (소음 고유 돌격소총)",
+            "vehicleReward": "Canis Black Moth Kamacho",
+            "x": 684,
+            "y": 1595,
+            "summary": "기본 소음기가 장착된 고성능 고유 돌격소총 'La Polilla Negra VF-G1'과 명품 시계·특수 오프로드 차량까지 얻는 알짜 거점입니다.",
+            "guide": "해안가 울타리에 걸린 파란 방수포를 밟고 잠입하세요. ① 주방 옆방 창가 테이블 하드케이스에서 'La Polilla Negra VF-G1' 획득, ② 전자레인지 아래 금고에 1819(주방 PC 이메일 확인) 입력해 약 $2,981 회수, ③ 모니터 책상 위 'B&G Ark Royal Quantum' 시계 획득, ④ 두 번째 차고에서 로켓 런처와 고유 차량 'Canis Black Moth Kamacho'를 챙기세요."
+      },
+      {
+            "id": 36,
+            "category": "outpost",
+            "nameKo": "밀 스테이션 레이더 기지 거점",
+            "nameEn": "Mill Station Radar Base (Other Criminals #28)",
+            "region": "그래스리버스 왓슨 베이 북쪽 도로변 레이더 기지",
+            "mission": "불법 작전 거점 #28 (영구 체력 상한 증가 + 기존 #10 무기)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": null,
+            "vehicleReward": null,
+            "x": 648,
+            "y": 1545,
+            "summary": "기존 #10 '호스타일 슈퍼400' 고유 샷건과 함께 캐릭터의 최대 체력을 영구히 올려주는 실험 아이템 및 금고가 있는 거점입니다.",
+            "guide": "무장 경비가 삼엄하므로 엄폐를 유지하며 기지를 제압하세요. 중앙 레이더 관제동에서 고유 샷건 '호스타일 슈퍼400'(지도 #10)과 잠긴 금고(드라이버/점착폭탄 개방)를 챙기고, 기지 내부의 실험용 체력 강화 아이템(제이슨/루시아 최대 체력 영구 상승)과 마약 보급품을 빠짐없이 회수하세요."
+      },
+      {
+            "id": 37,
+            "category": "outpost",
+            "nameKo": "북부 마리아나 대규모 대마 재배지",
+            "nameEn": "Industrial Weed Grow (Other Criminals #29)",
+            "region": "북부 마리아나 카운티 (톨라 베이 북동쪽 · 빅 파인 북쪽)",
+            "mission": "불법 작전 거점 #29 (고유 기관단총 + $16,170 트럭)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "독립 범죄 조직 (Other Criminals)",
+            "security": "높음 (High)",
+            "weaponReward": "Chronic Vatra (고유 중기관단총)",
+            "vehicleReward": "Vapid Cultivator Sandking ($16,170)",
+            "x": 589,
+            "y": 1381,
+            "summary": "대마 20봉지 이상과 고유 SMG 'Chronic Vatra', 초고가 차량 'Vapid Cultivator Sandking'이 모여 있는 마리아나 카운티 최대 규모 거점입니다.",
+            "guide": "남쪽 정문 왼쪽 담장을 따라 노란 쓰레기통 앞 철조망 틈으로 잠입하세요. 핵심 3종: ① 창고 중앙 파란 조명 구역의 고유 차량 'Vapid Cultivator Sandking'(매각가 $16,170), ② 서쪽 끝 2층 사무실 책상 위 무코드 강제 금고($984), ③ 동쪽 철창 무기고 테이블 위 고유 중기관단총 'Chronic Vatra'."
+      },
+      {
+            "id": 38,
+            "category": "outpost",
+            "nameKo": "M7 컴파운드 (노바 오토 폐차장)",
+            "nameEn": "M7 Compound / Nova Auto Junkyard (M7 #9)",
+            "region": "햄릿 남동쪽 고속도로 커브 옆 (Layin' Ink 문신가게 동쪽)",
+            "mission": "불법 작전 거점 #9 (금고 코드 7777 · 고유 돌격소총 & 로우라이더)",
+            "missable": false,
+            "safeCode": "7777",
+            "gang": "M7 (Marabunta Grande)",
+            "security": "높음 (High)",
+            "weaponReward": "Marabunta Grande KZ-59 (고유 돌격소총)",
+            "vehicleReward": "Albany Teniente Manana",
+            "x": 944,
+            "y": 1649,
+            "summary": "키 렌토 바로 위 햄릿에 위치한 M7 폐차장 거점으로, 고유 소총 'Marabunta Grande KZ-59'와 금고(7777)·특수 로우라이더를 얻습니다.",
+            "guide": "인게임 메뉴명 'M7 Compound'(현장명 'Nova Auto Junkyard')입니다. 입구 바이커가 떠난 뒤 오른쪽 철조망 틈으로 잠입하세요. ① 북쪽 차양 아래 작업대(파란 쓰레기통 옆)에서 'Marabunta Grande KZ-59' 및 금도금 AK 획득, ② 남동쪽 노란 스쿨버스 옆 사무실 금고에 벽면 코드 7777 입력, ③ 인접 차고의 'Albany Teniente Manana' 차량을 타고 탈출하세요."
       }
 ];
 
@@ -807,6 +976,13 @@
             "color": "#f43f5e",
             "bgClass": "bg-rose-500/15 text-rose-300 border-rose-500/35",
             "icon": "⭐"
+      },
+      "outpost": {
+            "label": "적 거점",
+            "badgeText": "🏴‍☠️ 적 거점",
+            "color": "#f97316",
+            "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
+            "icon": "🏴‍☠️"
       }
 };
 
@@ -890,8 +1066,13 @@
     function getFilteredItems() {
       const q = state.searchQuery.trim().toLowerCase();
       return COLLECTIBLES.filter((item) => {
-        if (state.activeCategory !== 'all' && item.category !== state.activeCategory) {
-          return false;
+        if (state.activeCategory !== 'all') {
+          if (state.activeCategory === 'weapon') {
+            const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
+            if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (item.category !== state.activeCategory) {
+            return false;
+          }
         }
         if (state.missableOnly && !item.missable) {
           return false;
@@ -904,7 +1085,11 @@
             item.mission,
             item.summary,
             item.guide,
-            item.safeCode || ''
+            item.safeCode || '',
+            item.gang || '',
+            item.security || '',
+            item.weaponReward || '',
+            item.vehicleReward || ''
           ]
             .join(' ')
             .toLowerCase();
@@ -1125,6 +1310,16 @@
         </div>
 
         ${
+          item.gang || item.weaponReward || item.vehicleReward
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
+                ${item.weaponReward ? `<div class="bg-amber-950/25 border border-amber-500/35 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-amber-300/80 block">🟡 거점 고유 무기 (노란색)</span><span class="font-bold text-amber-200">${item.weaponReward}</span></div>` : ''}
+                ${item.vehicleReward ? `<div class="bg-cyan-950/25 border border-cyan-500/30 rounded-xl px-2.5 py-1.5 ${!item.weaponReward || !item.gang ? '' : 'sm:col-span-2'}"><span class="text-[10px] text-cyan-300/80 block">🚗 거점 고유 차량</span><span class="font-semibold text-cyan-200">${item.vehicleReward}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
           item.safeCode
             ? `<div class="mb-3 bg-purple-950/35 border border-purple-500/40 rounded-xl px-3 py-2 flex items-center justify-between gap-2">
                 <div>
@@ -1213,6 +1408,11 @@
                   ${
                     item.missable
                       ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/35 shrink-0">놓치면 불가</span>`
+                      : ''
+                  }
+                  ${
+                    item.weaponReward && item.category === 'outpost'
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
                       : ''
                   }
                   ${
