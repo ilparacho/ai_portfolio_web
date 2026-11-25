@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>GTA 6 챕터 1 숨겨진 요소 전술 지도 (마리아나 카운티 / 리오나이다 키스)</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter, Noto Sans KR, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -40,7 +38,6 @@
   </script>
 
   <style>
-    /* 기본 테마 및 커스텀 스크롤바 스타일 */
     :root {
       --bg-ocean: #08121e;
       --accent-teal: #14b8a6;
@@ -62,7 +59,6 @@
       overflow-x: hidden;
     }
 
-    /* 전술 레이더 스캔라인 배경 효과 */
     .tactical-grid-bg {
       background-image:
         radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.08) 0%, transparent 70%),
@@ -71,7 +67,6 @@
       background-size: 100% 100%, 40px 40px, 40px 40px;
     }
 
-    /* 커스텀 스크롤바 */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -87,20 +82,18 @@
       background: #14b8a6;
     }
 
-    /* 선택된 핀 펄스 애니메이션 */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
     @keyframes radarPulse {
-      0% {
-        transform: scale(0.85);
-        opacity: 0.95;
-      }
-      70% {
-        transform: scale(2.35);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(2.35);
-        opacity: 0;
-      }
+      0% { transform: scale(0.85); opacity: 0.95; }
+      70% { transform: scale(2.35); opacity: 0; }
+      100% { transform: scale(2.35); opacity: 0; }
     }
 
     .pin-pulse-ring {
@@ -109,7 +102,6 @@
       animation: radarPulse 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
     }
 
-    /* SVG 맵 인터랙션 커서 */
     #map-viewport {
       cursor: grab;
       touch-action: none;
@@ -126,52 +118,46 @@
     .map-pin-group:hover .pin-core {
       filter: brightness(1.25) drop-shadow(0 0 8px currentColor);
     }
-
-    /* 지형 레이블 가독성 외곽선 */
-    .region-label {
-      paint-order: stroke;
-      stroke: #050c16;
-      stroke-width: 3.5px;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      pointer-events: none;
-    }
-
-    .sub-landmark-label {
-      paint-order: stroke;
-      stroke: #06101c;
-      stroke-width: 2.5px;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      pointer-events: none;
-    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col bg-[#08121e] text-slate-100 selection:bg-teal-500/30 selection:text-teal-200">
+<body class="min-h-screen flex flex-col bg-[#08121e] text-slate-100 selection:bg-teal-500/30">
 
-  <!-- 상단 전술 헤더 -->
-  <header class="bg-[#060e18]/95 border-b border-teal-500/25 backdrop-blur-md sticky top-0 z-30 px-3 sm:px-6 py-3 shadow-lg shadow-black/40">
-    <div class="max-w-[1800px] mx-auto flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
-      <!-- 좌측 타이틀 & 위상 배지 -->
-      <div class="flex flex-col gap-1.5">
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wider uppercase bg-teal-500/15 text-teal-300 border border-teal-400/30">
-            <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
-            CHAPTER 01 : 낙원이나 다름없는
-          </span>
-          <h1 class="text-base sm:text-lg md:text-xl font-extrabold tracking-tight text-white">
-            GTA 6 챕터 1 숨겨진 요소 전술 지도 <span class="text-teal-400 font-semibold text-sm sm:text-base">(마리아나 카운티 / 리오나이다 키스)</span>
-          </h1>
+  <!-- 상단 전술 헤더 & 진행도 바 -->
+  <header class="bg-[#07101b]/95 backdrop-blur-md border-b border-teal-500/20 px-3 sm:px-6 py-3 sticky top-0 z-30 shadow-lg">
+    <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-start sm:items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-teal-500/15 border border-teal-400/40 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(20,184,166,0.2)]">
+            <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                CHAPTER 1 · REAL MAP
+              </span>
+              <h1 class="text-base sm:text-xl font-extrabold tracking-tight text-white">
+                GTA 6 챕터 1 숨겨진 요소 전술 지도
+              </h1>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+              마리아나 카운티 / 리오나이다 키스 · 실제 리오나이다 지도 기반 · 총 29종 (놓치면 불가 4종)
+            </p>
+          </div>
         </div>
-        <div class="flex flex-wrap items-center gap-2">
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-medium bg-amber-500/10 text-amber-200/90 border border-amber-500/25">
-            ※ 지역별 상대 방위·위상 기반 가이드 오버레이 (실제 인게임 지형과 축척 차이 있음)
-          </span>
-        </div>
+
+        <!-- 챕터 네비게이션 -->
+        <nav class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+          <a href="gta6_ch1_map.html" aria-current="page" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-extrabold bg-teal-500/25 text-teal-200 border border-teal-400/60 shadow-sm shrink-0">Ch.1 마리아나/키스</a>
+          <a href="gta6_ch2_map.html" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-800/70 hover:bg-teal-500/15 text-slate-300 hover:text-teal-200 border border-slate-700/80 hover:border-teal-400/40 transition shrink-0">Ch.2 포트 겔혼</a>
+          <a href="gta6_ch3_map.html" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-800/70 hover:bg-teal-500/15 text-slate-300 hover:text-teal-200 border border-slate-700/80 hover:border-teal-400/40 transition shrink-0">Ch.3 바이스 시티</a>
+          <a href="index.html#guides" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition shrink-0">🏠 허브</a>
+        </nav>
       </div>
 
       <!-- 우측 전체 수집 진행도 바 -->
-      <div class="flex items-center gap-3 bg-[#0c1a2b] border border-slate-700/70 rounded-xl px-3.5 py-2 shrink-0">
+      <div class="flex items-center gap-3 bg-[#0c1a2b] border border-slate-700/70 rounded-xl px-3.5 py-2 shrink-0 self-start lg:self-center">
         <div class="flex flex-col min-w-[180px] sm:min-w-[230px]">
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 1 수집 진행률</span>
@@ -194,7 +180,6 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-      <!-- 카테고리 필터 필 버튼 -->
       <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
@@ -218,7 +203,6 @@
         </button>
       </div>
 
-      <!-- 우측 놓치면 불가 토글 & 검색창 -->
       <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
         <button id="btn-missable-only" type="button" aria-pressed="false"
           class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-rose-500/35 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 flex items-center justify-center gap-1.5 shrink-0">
@@ -243,20 +227,21 @@
   <!-- 메인 분할 워크스페이스 (좌측 65% 전술 지도 / 우측 35% 인스펙터 & 목록) -->
   <main class="flex-1 max-w-[1800px] w-full mx-auto flex flex-col lg:flex-row overflow-hidden">
 
-    <!-- 좌측: 인터랙티브 팬/줌 SVG 전술 지도 (65%) -->
-    <section class="relative w-full lg:w-[65%] h-[52vh] sm:h-[58vh] lg:h-[calc(100vh-128px)] bg-[#06101c] border-b lg:border-b-0 lg:border-r border-slate-800 overflow-hidden tactical-grid-bg">
+    <!-- 좌측: 실제 리오나이다 지도 인터랙티브 팬/줌 SVG 뷰포트 (65%) -->
+    <section class="relative w-full lg:w-[65%] h-[52vh] sm:h-[58vh] lg:h-[calc(100vh-160px)] bg-[#061828] border-b lg:border-b-0 lg:border-r border-slate-800 overflow-hidden tactical-grid-bg">
 
       <!-- 상단 구역 빠른 이동 칩 -->
       <div class="absolute top-3 left-3 right-16 z-10 flex items-center gap-1.5 overflow-x-auto no-scrollbar pointer-events-auto">
         <span class="text-[11px] font-mono uppercase tracking-wider text-teal-400/80 bg-[#08121e]/90 border border-teal-500/25 px-2 py-1 rounded-lg shrink-0">
           섹터 이동:
         </span>
-        <button type="button" onclick="focusSector(600, 400, 1)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">전체 전도</button>
-        <button type="button" onclick="focusSector(690, 355, 2.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">키 렌토 본섬</button>
-        <button type="button" onclick="focusSector(620, 155, 1.9)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">그래스리버스 습지</button>
-        <button type="button" onclick="focusSector(405, 515, 2.1)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">퍼밋 키스 / 마일 제로</button>
-        <button type="button" onclick="focusSector(185, 595, 2.1)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">밥캣 키 (서부)</button>
-        <button type="button" onclick="focusSector(935, 565, 1.85)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">동남부 난파선 해역</button>
+        <button type="button" onclick="focusSector(680, 1910, 2.5)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">챕터 1 전도</button>
+        <button type="button" onclick="focusSector(930, 1975, 4.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">키 렌토 본섬</button>
+        <button type="button" onclick="focusSector(740, 1710, 3.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">그래스리버스 습지</button>
+        <button type="button" onclick="focusSector(425, 2020, 3.6)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">퍼밋 키스 / 마일 제로</button>
+        <button type="button" onclick="focusSector(275, 2025, 4.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">밥캣 키 (서부)</button>
+        <button type="button" onclick="focusSector(1010, 2045, 3.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">동남부 난파선 해역</button>
+        <button type="button" onclick="focusSector(800, 1145, 1.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">리오나이다 전체</button>
       </div>
 
       <!-- 우측 상단 줌 인 / 줌 아웃 / 초기화 컨트롤 -->
@@ -266,13 +251,13 @@
           +
         </button>
         <div id="zoom-level-label" class="text-[10px] font-mono text-center text-teal-400 font-bold py-0.5">
-          100%
+          250%
         </div>
         <button id="btn-zoom-out" type="button" title="축소 (-)"
           class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-teal-500/25 text-slate-100 hover:text-teal-300 border border-slate-700 flex items-center justify-center font-bold text-lg transition">
           −
         </button>
-        <button id="btn-zoom-reset" type="button" title="화면 초기화"
+        <button id="btn-zoom-reset" type="button" title="챕터 기본 뷰 초기화"
           class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-teal-500/25 text-slate-300 hover:text-teal-300 border border-slate-700 flex items-center justify-center text-[11px] font-semibold transition">
           리셋
         </button>
@@ -288,6 +273,11 @@
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
 
+      <!-- 우측 하단 지도 출처 표기 -->
+      <div class="absolute bottom-3 right-3 z-10 bg-[#08121e]/80 backdrop-blur-sm border border-slate-700/70 rounded-lg px-2 py-1 text-[10px] font-mono text-slate-400 pointer-events-none">
+        Leonida Real Map (gta6map.city)
+      </div>
+
       <!-- 마우스 호버 툴팁 -->
       <div id="map-tooltip" class="hidden fixed z-50 pointer-events-none max-w-xs bg-[#08121e]/95 border border-teal-400/50 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-md">
         <div class="flex items-center gap-1.5 mb-0.5">
@@ -300,225 +290,35 @@
         <div id="tooltip-sub" class="text-[11px] text-slate-400 font-mono"></div>
       </div>
 
-      <!-- 인터랙티브 SVG 전술 지도 뷰포트 -->
+      <!-- 인터랙티브 SVG 전술 지도 뷰포트 (1600 x 2291 실제 지도 기준) -->
       <div id="map-viewport" class="w-full h-full flex items-center justify-center">
-        <svg id="tactical-svg" viewBox="0 0 1200 800" class="w-full h-full" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <!-- 심해 및 수심 그라데이션 -->
-            <radialGradient id="oceanGlow" cx="50%" cy="50%" r="65%">
-              <stop offset="0%" stop-color="#0d233a" />
-              <stop offset="65%" stop-color="#081524" />
-              <stop offset="100%" stop-color="#050b14" />
-            </radialGradient>
-
-            <!-- 섬 육지 그라데이션 -->
-            <linearGradient id="landGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#173836" />
-              <stop offset="100%" stop-color="#0f2629" />
-            </linearGradient>
-
-            <!-- 북부 그래스리버스 습지 그라데이션 -->
-            <linearGradient id="swampGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#193b32" />
-              <stop offset="100%" stop-color="#112b29" />
-            </linearGradient>
-
-            <!-- 얕은 암초/산호초 글로우 -->
-            <filter id="reefGlow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-
-            <!-- 난파선 X 마커 심볼 -->
-            <g id="wreck-icon">
-              <path d="M-7,-3 L7,-3 L5,3 L-5,3 Z" fill="none" stroke="#06b6d4" stroke-width="1.2" opacity="0.65" />
-              <line x1="0" y1="-7" x2="0" y2="-3" stroke="#06b6d4" stroke-width="1.2" opacity="0.65" />
-              <line x1="-3" y1="-5" x2="3" y2="-5" stroke="#06b6d4" stroke-width="1" opacity="0.65" />
-            </g>
-          </defs>
-
-          <!-- 팬/줌 변환이 적용되는 루트 그룹 -->
+        <svg id="tactical-svg" viewBox="0 0 1600 2291" class="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <g id="map-camera-group">
-            <!-- 1. 배경 심해 -->
-            <rect x="-400" y="-300" width="2000" height="1400" fill="url(#oceanGlow)" />
+            <!-- 배경 심해 확장 (줌/팬 시 여백 자연스럽게 처리) -->
+            <rect x="-1200" y="-1200" width="4000" height="4700" fill="#18607e" />
 
-            <!-- 2. 전술 좌표 그리드 (A1 ~ H6) -->
-            <g id="tactical-grid" stroke="#14b8a6" stroke-opacity="0.11" stroke-width="1">
-              <!-- 수직선 -->
-              <line x1="150" y1="0" x2="150" y2="800" />
-              <line x1="300" y1="0" x2="300" y2="800" />
-              <line x1="450" y1="0" x2="450" y2="800" />
-              <line x1="600" y1="0" x2="600" y2="800" />
-              <line x1="750" y1="0" x2="750" y2="800" />
-              <line x1="900" y1="0" x2="900" y2="800" />
-              <line x1="1050" y1="0" x2="1050" y2="800" />
-              <!-- 수평선 -->
-              <line x1="0" y1="133" x2="1200" y2="133" />
-              <line x1="0" y1="266" x2="1200" y2="266" />
-              <line x1="0" y1="400" x2="1200" y2="400" />
-              <line x1="0" y1="533" x2="1200" y2="533" />
-              <line x1="0" y1="666" x2="1200" y2="666" />
+            <!-- 실제 리오나이다 & 바이스 시티 고해상도 지도 -->
+            <image href="assets/gta6_leonida_map.webp" x="0" y="0" width="1600" height="2291" preserveAspectRatio="none" />
+
+            <!-- 은은한 전술 좌표 그리드 오버레이 -->
+            <g id="tactical-grid" stroke="#2dd4bf" stroke-opacity="0.10" stroke-width="1" pointer-events="none">
+              <line x1="200" y1="0" x2="200" y2="2291" />
+              <line x1="400" y1="0" x2="400" y2="2291" />
+              <line x1="600" y1="0" x2="600" y2="2291" />
+              <line x1="800" y1="0" x2="800" y2="2291" />
+              <line x1="1000" y1="0" x2="1000" y2="2291" />
+              <line x1="1200" y1="0" x2="1200" y2="2291" />
+              <line x1="1400" y1="0" x2="1400" y2="2291" />
+              <line x1="0" y1="300" x2="1600" y2="300" />
+              <line x1="0" y1="600" x2="1600" y2="600" />
+              <line x1="0" y1="900" x2="1600" y2="900" />
+              <line x1="0" y1="1200" x2="1600" y2="1200" />
+              <line x1="0" y1="1500" x2="1600" y2="1500" />
+              <line x1="0" y1="1800" x2="1600" y2="1800" />
+              <line x1="0" y1="2100" x2="1600" y2="2100" />
             </g>
 
-            <!-- 그리드 섹터 문자 -->
-            <g fill="#14b8a6" fill-opacity="0.32" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">
-              <text x="16" y="24">SEC-A1 // GULF OF LEONIDA</text>
-              <text x="1030" y="24">SEC-H1 // STRAITS</text>
-              <text x="16" y="784">SEC-A6 // SW KEYS</text>
-              <text x="1030" y="784">SEC-H6 // ABISMO TRENCH</text>
-            </g>
-
-            <!-- 3. 수심 등심선 및 산호초 얕은 해역 (Bathymetry) -->
-            <g fill="none" stroke="#0e7490" stroke-opacity="0.28" stroke-dasharray="6 4" stroke-width="1.2">
-              <!-- 서부 밥캣 키 수심선 -->
-              <path d="M75,540 C105,475 235,475 275,545 C305,605 265,695 190,700 C115,705 55,615 75,540 Z" />
-              <!-- 중앙 퍼밋 키스 & 마일 제로 수심선 -->
-              <path d="M295,435 C345,390 480,395 505,470 C530,545 495,625 425,625 C355,625 270,515 295,435 Z" />
-              <!-- 키 렌토 본섬 수심선 -->
-              <path d="M555,315 C630,225 770,225 835,320 C875,380 820,445 715,440 C610,435 520,375 555,315 Z" />
-              <!-- 동남부 난파선 산호초 해역 -->
-              <path d="M845,495 C925,475 1065,525 1075,635 C1085,725 935,735 860,675 C815,635 805,515 845,495 Z" />
-            </g>
-
-            <!-- 4. 주요 육지 및 군도 지형 -->
-            <!-- 4-A. 북부: 그래스리버스 습지대 (Grassrivers) -->
-            <g id="land-grassrivers">
-              <path d="M260,0 L1020,0 L980,75 C945,115 910,105 875,135 C840,165 825,205 785,205 C745,205 730,175 690,185 C650,195 630,235 585,240 C540,245 505,235 460,245 C420,255 390,220 355,190 C320,160 280,115 260,0 Z"
-                fill="url(#swampGrad)" stroke="#2dd4bf" stroke-opacity="0.45" stroke-width="1.8" />
-              <!-- 습지 내 수로 및 맹그로브 섬들 -->
-              <path d="M415,175 Q465,195 510,180 T610,195" fill="none" stroke="#0b1d2e" stroke-width="6" stroke-linecap="round" />
-              <path d="M675,135 Q725,155 770,150" fill="none" stroke="#0b1d2e" stroke-width="5" stroke-linecap="round" />
-              <!-- 코튼마우스 호수 (Cottonmouth Lake) -->
-              <path d="M485,105 C505,90 555,95 565,120 C575,145 535,155 505,148 C475,140 470,118 485,105 Z"
-                fill="#091a2b" stroke="#14b8a6" stroke-opacity="0.45" stroke-width="1.3" />
-              <!-- 밀 스테이션 레이더 기지 아이콘 -->
-              <g transform="translate(640, 82)">
-                <rect x="-16" y="-12" width="32" height="24" rx="4" fill="#0d2235" stroke="#14b8a6" stroke-opacity="0.6" stroke-width="1" />
-                <circle cx="0" cy="0" r="6" fill="none" stroke="#2dd4bf" stroke-width="1.2" />
-                <line x1="0" y1="0" x2="5" y2="-5" stroke="#2dd4bf" stroke-width="1.2" />
-              </g>
-              <!-- 펠리컨 밸리 게 연구소 부두 -->
-              <rect x="772" y="168" width="22" height="12" rx="2" fill="#133338" stroke="#2dd4bf" stroke-opacity="0.6" stroke-width="1" />
-            </g>
-
-            <!-- 4-B. 상단 중앙: 코르세어 키 (Corsair Key) & 키 렌토 본섬 (Key Lento) -->
-            <g id="land-key-lento">
-              <!-- 코르세어 키 -->
-              <path d="M672,248 C685,238 712,240 720,253 C726,264 705,272 686,268 C670,265 664,255 672,248 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5" />
-
-              <!-- 키 렌토 본섬 -->
-              <path d="M572,348 C595,322 645,325 695,332 C745,338 795,332 820,352 C835,365 815,388 775,392 C735,396 695,405 645,404 C598,403 558,385 572,348 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.65" stroke-width="2" />
-
-              <!-- 키 렌토 내부 도로망 -->
-              <path d="M582,366 Q685,358 806,358" fill="none" stroke="#94a3b8" stroke-opacity="0.35" stroke-width="2.2" />
-              <!-- 브라이언 마리나 부두 구조물 -->
-              <path d="M695,396 L695,414 M706,396 L706,414 M717,396 L717,414" stroke="#2dd4bf" stroke-opacity="0.6" stroke-width="2" />
-              <!-- 제이슨 수상 가옥 부두 -->
-              <path d="M652,388 L652,408" stroke="#2dd4bf" stroke-opacity="0.6" stroke-width="2.5" />
-            </g>
-
-            <!-- 4-C. 세븐 마일 브릿지 (Seven Mile Bridge) -->
-            <g id="seven-mile-bridge">
-              <line x1="576" y1="368" x2="444" y2="444" stroke="#0f172a" stroke-width="6" stroke-linecap="round" />
-              <line x1="576" y1="368" x2="444" y2="444" stroke="#38bdf8" stroke-opacity="0.55" stroke-width="2.5" stroke-dasharray="6 4" />
-            </g>
-
-            <!-- 4-D. 중앙 서부: 마일 제로 비행장 (Mile Zero Air Station) & 퍼밋 키스 군도 (Permit Keys) -->
-            <g id="land-permit-keys">
-              <!-- 마일 제로 비행장 섬 -->
-              <path d="M382,438 C405,424 445,428 456,448 C465,465 440,482 408,480 C380,478 368,452 382,438 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.6" stroke-width="1.8" />
-              <!-- 비행장 활주로 -->
-              <line x1="392" y1="454" x2="444" y2="454" stroke="#cbd5e1" stroke-opacity="0.65" stroke-width="3.5" />
-              <line x1="394" y1="454" x2="442" y2="454" stroke="#0f172a" stroke-width="1" stroke-dasharray="3 3" />
-
-              <!-- BURG 해상 연구 플랫폼 #1 (노란 플랫폼) -->
-              <g transform="translate(325, 460)">
-                <rect x="-10" y="-10" width="20" height="20" rx="3" fill="#eab308" fill-opacity="0.25" stroke="#facc15" stroke-width="1.5" />
-                <circle cx="0" cy="0" r="3" fill="#facc15" />
-              </g>
-
-              <!-- 퍼밋 키스 북쪽 작은 섬 -->
-              <path d="M358,488 C370,480 392,484 395,496 C398,506 378,512 364,506 C352,501 350,493 358,488 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5" />
-
-              <!-- 퍼밋 키스 본섬 및 군도 -->
-              <path d="M362,525 C385,512 428,516 445,536 C458,552 475,576 466,594 C456,608 426,596 402,582 C376,568 345,542 362,525 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.6" stroke-width="1.8" />
-              <path d="M335,558 C348,550 368,556 370,568 C372,578 352,584 340,576 C330,570 328,562 335,558 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.45" stroke-width="1.3" />
-            </g>
-
-            <!-- 4-E. 최서단/남서부: 밥캣 키 (Bobcat Key) & 밥캣 바이트 (Bobcat Bight) -->
-            <g id="land-bobcat-key">
-              <path d="M155,522 C185,505 235,518 248,548 C258,572 225,582 222,608 C219,634 232,664 206,672 C182,678 156,645 148,605 C140,565 135,535 155,522 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.65" stroke-width="2" />
-              <!-- 밥캣 바이트 반쯤 잠긴 탱크 마커 -->
-              <rect x="219" y="549" width="12" height="8" rx="1.5" fill="#64748b" stroke="#94a3b8" stroke-width="1" transform="rotate(-18 225 553)" />
-            </g>
-
-            <!-- 4-F. 동남부 외해: 아비스모 키 (Abismo Key) 및 녹색 군도 -->
-            <g id="land-abismo-key">
-              <!-- 아비스모 키 -->
-              <path d="M948,562 C962,552 986,558 990,574 C994,588 972,596 955,588 C942,582 940,568 948,562 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.55" stroke-width="1.5" />
-              <!-- 남동쪽 작은 암초/녹색 군도들 -->
-              <circle cx="912" cy="596" r="8" fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.45" stroke-width="1.2" />
-              <circle cx="936" cy="618" r="6" fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.45" stroke-width="1.2" />
-              <path d="M870,636 C884,628 906,634 908,646 C910,656 890,662 876,654 C864,648 862,640 870,636 Z"
-                fill="url(#landGrad)" stroke="#2dd4bf" stroke-opacity="0.5" stroke-width="1.3" />
-
-              <!-- 5개 스페인 난파선 해저 실루엣 마커 -->
-              <use href="#wreck-icon" x="865" y="427" />
-              <use href="#wreck-icon" x="985" y="572" />
-              <use href="#wreck-icon" x="925" y="617" />
-              <use href="#wreck-icon" x="885" y="667" />
-              <use href="#wreck-icon" x="1035" y="687" />
-            </g>
-
-            <!-- 5. 지형 및 주요 랜드마크 타이포그래피 레이블 -->
-            <g font-family="Noto Sans KR, Inter, sans-serif" text-anchor="middle">
-              <!-- 북부 그래스리버스 -->
-              <text x="565" y="44" fill="#5eead4" font-size="16" font-weight="800" letter-spacing="2" class="region-label">그래스리버스 습지대 (GRASSRIVERS)</text>
-              <text x="522" y="128" fill="#7dd3fc" font-size="10.5" font-weight="700" class="sub-landmark-label">코튼마우스 호수</text>
-              <text x="640" y="62" fill="#cbd5e1" font-size="10.5" font-weight="700" class="sub-landmark-label">밀 스테이션 레이더 기지</text>
-              <text x="772" y="146" fill="#cbd5e1" font-size="10.5" font-weight="700" class="sub-landmark-label">펠리컨 밸리 게 연구소</text>
-              <text x="435" y="205" fill="#a7f3d0" font-size="10.5" font-weight="700" class="sub-landmark-label">빅 파인 (Big Pine)</text>
-
-              <!-- 중앙 키 렌토 & 코르세어 키 -->
-              <text x="695" y="234" fill="#99f6e4" font-size="10.5" font-weight="700" class="sub-landmark-label">코르세어 키</text>
-              <text x="695" y="320" fill="#5eead4" font-size="15" font-weight="800" letter-spacing="1.5" class="region-label">키 렌토 본섬 (KEY LENTO)</text>
-              <text x="645" y="418" fill="#94a3b8" font-size="9.5" font-weight="600" class="sub-landmark-label">제이슨 은신처</text>
-              <text x="714" y="422" fill="#94a3b8" font-size="9.5" font-weight="600" class="sub-landmark-label">브라이언 마리나</text>
-              <text x="502" y="396" fill="#38bdf8" font-size="10" font-weight="700" transform="rotate(-30 502 396)" class="sub-landmark-label">세븐 마일 브릿지</text>
-
-              <!-- 마일 제로 & 퍼밋 키스 -->
-              <text x="418" y="420" fill="#cbd5e1" font-size="11" font-weight="700" class="sub-landmark-label">마일 제로 비행장</text>
-              <text x="315" y="438" fill="#fde047" font-size="9.5" font-weight="700" class="sub-landmark-label">BURG 해상 플랫폼 #1</text>
-              <text x="405" y="616" fill="#5eead4" font-size="13.5" font-weight="800" letter-spacing="1" class="region-label">퍼밋 키스 군도 (PERMIT KEYS)</text>
-
-              <!-- 서부 밥캣 키 & 리오나이다 만 -->
-              <text x="105" y="495" fill="#38bdf8" fill-opacity="0.7" font-size="13" font-weight="800" letter-spacing="1.5" class="region-label">리오나이다 만</text>
-              <text x="195" y="504" fill="#5eead4" font-size="14" font-weight="800" letter-spacing="1" class="region-label">밥캣 키 (BOBCAT KEY)</text>
-              <text x="276" y="542" fill="#99f6e4" font-size="10" font-weight="600" class="sub-landmark-label">밥캣 바이트</text>
-
-              <!-- 동남부 리오나이다 해협 & 아비스모 키 -->
-              <text x="995" y="445" fill="#38bdf8" fill-opacity="0.75" font-size="14" font-weight="800" letter-spacing="1.5" class="region-label">리오나이다 해협 (LEONIDA STRAITS)</text>
-              <text x="965" y="544" fill="#99f6e4" font-size="11" font-weight="700" class="sub-landmark-label">아비스모 키 (Abismo Key)</text>
-            </g>
-
-            <!-- 6. 나침반 로즈 (좌측 상단 해역) -->
-            <g transform="translate(88, 115)" opacity="0.75">
-              <circle cx="0" cy="0" r="28" fill="#08121e" fill-opacity="0.7" stroke="#14b8a6" stroke-width="1.2" />
-              <circle cx="0" cy="0" r="22" fill="none" stroke="#14b8a6" stroke-opacity="0.4" stroke-dasharray="2 2" />
-              <polygon points="0,-24 4,-4 24,0 4,4 0,24 -4,4 -24,0 -4,-4" fill="#14b8a6" fill-opacity="0.35" stroke="#2dd4bf" stroke-width="1" />
-              <polygon points="0,-24 4,-4 0,0 -4,-4" fill="#f43f5e" />
-              <text x="0" y="-32" text-anchor="middle" fill="#2dd4bf" font-family="JetBrains Mono" font-size="11" font-weight="700">N</text>
-            </g>
-
-            <!-- 7. 동적으로 렌더링되는 29개 수집품 핀 레이어 -->
+            <!-- 동적으로 렌더링되는 수집품 핀 레이어 -->
             <g id="pins-layer"></g>
           </g>
         </svg>
@@ -526,14 +326,9 @@
     </section>
 
     <!-- 우측: 선택된 항목 상세 인스펙터 & 필터링된 전체 목록 (35%) -->
-    <aside class="w-full lg:w-[35%] lg:h-[calc(100vh-128px)] flex flex-col bg-[#0a1523]">
+    <aside class="w-full lg:w-[35%] lg:h-[calc(100vh-160px)] flex flex-col bg-[#0a1523]">
+      <div id="inspector-panel" class="p-4 border-b border-slate-800 bg-gradient-to-b from-[#0e1e32] to-[#0a1523] shrink-0"></div>
 
-      <!-- 상단: 선택된 항목 상세 인스펙터 카드 -->
-      <div id="inspector-panel" class="p-4 border-b border-slate-800 bg-gradient-to-b from-[#0e1e32] to-[#0a1523] shrink-0">
-        <!-- JS에서 선택된 항목 내용 렌더링 -->
-      </div>
-
-      <!-- 하단 목록 헤더 -->
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
           필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">29</span>건)
@@ -541,17 +336,12 @@
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
 
-      <!-- 하단: 스크롤 가능한 수집품 리스트 -->
-      <div id="items-list" class="flex-1 overflow-y-auto divide-y divide-slate-800/70">
-        <!-- JS에서 리스트 렌더링 -->
-      </div>
+      <div id="items-list" class="flex-1 overflow-y-auto divide-y divide-slate-800/70"></div>
     </aside>
   </main>
 
-  <!-- 비차단형 토스트 알림 메시지 -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <!-- 진행도 초기화 확인 모달 (confirm() 대신 커스텀 UI 사용) -->
   <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0d1c2e] border border-slate-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl">
       <h3 class="text-base font-bold text-white mb-1.5">수집 진행도를 초기화할까요?</h3>
@@ -570,474 +360,469 @@
   </div>
 
   <script>
-    /**
-     * GTA 6 챕터 1 (낙원이나 다름없는) 숨겨진 요소 29종 데이터베이스
-     * 좌표(x, y)는 1200 x 800 SVG 지형 위상 기준입니다.
-     */
+    const MAP_WIDTH = 1600;
+    const MAP_HEIGHT = 2291;
+    const VIEW_CX = MAP_WIDTH / 2;
+    const VIEW_CY = MAP_HEIGHT / 2;
+    const MIN_SCALE = 0.7;
+    const MAX_SCALE = 8.0;
+    const DEFAULT_CAM = { x: 680, y: 1910, scale: 2.5 };
+    const CHAPTER_NUM = 1;
+    const MISSABLE_LABEL = "챕터 1 놓치면 불가";
+
     const COLLECTIBLES = [
-      // ================= [1] 고유 무기 (Weapons - Gold, 12종) =================
       {
-        id: 1,
-        category: 'weapon',
-        nameKo: '어쌔신 니퍼 .38',
-        nameEn: 'Assassin Nipper .38',
-        region: '퍼밋 키스 최남단 동쪽 끝 선박',
-        mission: '자유 탐색 (극초반 무전투 가능)',
-        missable: false,
-        safeCode: null,
-        x: 458,
-        y: 588,
-        summary: '극초반 보트만으로 전투 없이 무료 획득 가능한 소음기 기본 장착 권총입니다.',
-        guide: '퍼밋 키스(Permit Keys) 최남단 동쪽 끝(해군 기지 경계 인근)에 좌초된 선박에 보트로 접근하세요. 갑판의 열린 해치 내부로 내려가 포커스 모드로 상자를 수색하면 비싼 소음기가 달린 고유 권총을 즉시 얻을 수 있습니다.'
+            "id": 1,
+            "category": "weapon",
+            "nameKo": "어쌔신 니퍼 .38",
+            "nameEn": "Assassin Nipper .38",
+            "region": "퍼밋 키스 최남단 동쪽 끝 선박",
+            "mission": "자유 탐색 (극초반 무전투 가능)",
+            "missable": false,
+            "safeCode": null,
+            "x": 525,
+            "y": 2055,
+            "summary": "극초반 보트만으로 전투 없이 무료 획득 가능한 소음기 기본 장착 권총입니다.",
+            "guide": "퍼밋 키스(Permit Keys) 최남단 동쪽 끝(해군 기지 경계 인근)에 좌초된 선박에 보트로 접근하세요. 갑판의 열린 해치 내부로 내려가 포커스 모드로 상자를 수색하면 비싼 소음기가 달린 고유 권총을 즉시 얻을 수 있습니다."
       },
       {
-        id: 2,
-        category: 'weapon',
-        nameKo: '스머글러 고스 425',
-        nameEn: 'Smuggler Gorse 425',
-        region: '퍼밋 키스 북쪽 작은 섬 해안',
-        mission: '자유 탐색',
-        missable: false,
-        safeCode: null,
-        x: 375,
-        y: 495,
-        summary: '밀수업자들이 개조한 단축형 스터비 샷건으로 근거리 화력이 뛰어납니다.',
-        guide: '마일 제로 비행장 바로 남쪽, 퍼밋 키스 군도 최북단의 작은 섬 해안가로 이동하세요. 모래사장에 버려진 밀수선 잔해 바로 옆에 놓인 총기 케이스에서 전투 없이 회수할 수 있습니다.'
+            "id": 2,
+            "category": "weapon",
+            "nameKo": "스머글러 고스 425",
+            "nameEn": "Smuggler Gorse 425",
+            "region": "퍼밋 키스 북쪽 작은 섬 해안",
+            "mission": "자유 탐색",
+            "missable": false,
+            "safeCode": null,
+            "x": 470,
+            "y": 1965,
+            "summary": "밀수업자들이 개조한 단축형 스터비 샷건으로 근거리 화력이 뛰어납니다.",
+            "guide": "마일 제로 비행장 바로 남쪽, 퍼밋 키스 군도 최북단의 작은 섬 해안가로 이동하세요. 모래사장에 버려진 밀수선 잔해 바로 옆에 놓인 총기 케이스에서 전투 없이 회수할 수 있습니다."
       },
       {
-        id: 3,
-        category: 'weapon',
-        nameKo: '건 너트 SMS-01',
-        nameEn: 'Gun Nut SMS-01',
-        region: '키 렌토 해변 "건 너트 하우스"',
-        mission: '자유 탐색 (시간 조건: 새벽 2시경)',
-        missable: false,
-        safeCode: null,
-        x: 795,
-        y: 355,
-        summary: '특정 시간대에 집주인이 집에 머무를 때만 스폰되는 특수 기관단총입니다.',
-        guide: '키 렌토(Key Lento) 동쪽 해변의 "건 너트 하우스" 외부 계단으로 올라가 문을 강제로 부수고 진입한 뒤 주방 카운터 위를 확인하세요. ※ 중요: 집주인이 집에 있는 새벽 2시경(02:00 전후)에만 무기가 스폰됩니다.'
+            "id": 3,
+            "category": "weapon",
+            "nameKo": "건 너트 SMS-01",
+            "nameEn": "Gun Nut SMS-01",
+            "region": "키 렌토 해변 \"건 너트 하우스\"",
+            "mission": "자유 탐색 (시간 조건: 새벽 2시경)",
+            "missable": false,
+            "safeCode": null,
+            "x": 985,
+            "y": 1925,
+            "summary": "특정 시간대에 집주인이 집에 머무를 때만 스폰되는 특수 기관단총입니다.",
+            "guide": "키 렌토(Key Lento) 동쪽 해변의 \"건 너트 하우스\" 외부 계단으로 올라가 문을 강제로 부수고 진입한 뒤 주방 카운터 위를 확인하세요. ※ 중요: 집주인이 집에 있는 새벽 2시경(02:00 전후)에만 무기가 스폰됩니다."
       },
       {
-        id: 4,
-        category: 'weapon',
-        nameKo: '언팩드 컴샷 12',
-        nameEn: 'Unpacked Comshot 12',
-        region: '키 렌토 북서쪽 해안 건물',
-        mission: '자유 탐색',
-        missable: false,
-        safeCode: null,
-        x: 605,
-        y: 342,
-        summary: '2층 화장실 문 뒤편에 숨겨져 있는 전술 컴뱃 샷건입니다.',
-        guide: '키 렌토 본섬 북서쪽 끝(세븐 마일 브릿지 진입부 인근) 해안가 건물 내부로 들어가 2층으로 올라가세요. 2층 화장실 문을 활짝 열면 문 뒤쪽 구석에 세워져 있습니다.'
+            "id": 4,
+            "category": "weapon",
+            "nameKo": "언팩드 컴샷 12",
+            "nameEn": "Unpacked Comshot 12",
+            "region": "키 렌토 북서쪽 해안 건물",
+            "mission": "자유 탐색",
+            "missable": false,
+            "safeCode": null,
+            "x": 910,
+            "y": 1935,
+            "summary": "2층 화장실 문 뒤편에 숨겨져 있는 전술 컴뱃 샷건입니다.",
+            "guide": "키 렌토 본섬 북서쪽 끝(세븐 마일 브릿지 진입부 인근) 해안가 건물 내부로 들어가 2층으로 올라가세요. 2층 화장실 문을 활짝 열면 문 뒤쪽 구석에 세워져 있습니다."
       },
       {
-        id: 5,
-        category: 'weapon',
-        nameKo: '턴트 니퍼 .38',
-        nameEn: 'Turnt Nipper .38',
-        region: '밥캣 키 최남단 끝자락',
-        mission: '자유 탐색',
-        missable: false,
-        safeCode: null,
-        x: 205,
-        y: 662,
-        summary: '나무에 걸린 패러글라이더 조난 현장 근처에서 얻는 고유 권총입니다.',
-        guide: '서쪽 외곽 밥캣 키(Bobcat Key) 최남단 곶으로 이동하면 나무 위에 패러글라이더 낙하산이 걸려 있는 것을 볼 수 있습니다. 바로 아래 지면과 바위 틈을 수색해 회수하세요.'
+            "id": 5,
+            "category": "weapon",
+            "nameKo": "턴트 니퍼 .38",
+            "nameEn": "Turnt Nipper .38",
+            "region": "밥캣 키 최남단 끝자락",
+            "mission": "자유 탐색",
+            "missable": false,
+            "safeCode": null,
+            "x": 270,
+            "y": 2075,
+            "summary": "나무에 걸린 패러글라이더 조난 현장 근처에서 얻는 고유 권총입니다.",
+            "guide": "서쪽 외곽 밥캣 키(Bobcat Key) 최남단 곶으로 이동하면 나무 위에 패러글라이더 낙하산이 걸려 있는 것을 볼 수 있습니다. 바로 아래 지면과 바위 틈을 수색해 회수하세요."
       },
       {
-        id: 6,
-        category: 'weapon',
-        nameKo: '더블 크로스 바트라',
-        nameEn: 'Double Cross Vatra',
-        region: '밥캣 키 서쪽 리오나이다 만 해저',
-        mission: '자유 탐색 (잠수 필요)',
-        missable: false,
-        safeCode: null,
-        x: 132,
-        y: 615,
-        summary: '침몰 보트 잔해 아래 해저 바닥에서 건져 올리는 고유 자동권총입니다.',
-        guide: '밥캣 키 서쪽 리오나이다 만(Gulf of Leonida) 해역으로 보트를 타고 나간 뒤 수면 아래 침몰한 보트 잔해를 찾아 잠수하세요. 뒤집힌 선체 하단 모래바닥에 놓여 있습니다.'
+            "id": 6,
+            "category": "weapon",
+            "nameKo": "더블 크로스 바트라",
+            "nameEn": "Double Cross Vatra",
+            "region": "밥캣 키 서쪽 리오나이다 만 해저",
+            "mission": "자유 탐색 (잠수 필요)",
+            "missable": false,
+            "safeCode": null,
+            "x": 225,
+            "y": 2040,
+            "summary": "침몰 보트 잔해 아래 해저 바닥에서 건져 올리는 고유 자동권총입니다.",
+            "guide": "밥캣 키 서쪽 리오나이다 만(Gulf of Leonida) 해역으로 보트를 타고 나간 뒤 수면 아래 침몰한 보트 잔해를 찾아 잠수하세요. 뒤집힌 선체 하단 모래바닥에 놓여 있습니다."
       },
       {
-        id: 7,
-        category: 'weapon',
-        nameKo: '군인의 전투 단검',
-        nameEn: "Soldier's Combat Knife",
-        region: '밥캣 키 ~ 밥캣 바이트 사이 해변',
-        mission: '자유 탐색',
-        missable: false,
-        safeCode: null,
-        x: 225,
-        y: 555,
-        summary: '모래사장에 반쯤 잠긴 낡은 군용 탱크 잔해 옆에서 습득하는 근접 무기입니다.',
-        guide: '밥캣 키 동쪽 해안과 밥캣 바이트(Bobcat Bight) 사이 만곡부 해변을 따라 이동하면 바닷물에 반쯤 잠긴 탱크 잔해가 보입니다. 탱크 포탑 옆 해변 바닥에서 획득할 수 있습니다.'
+            "id": 7,
+            "category": "weapon",
+            "nameKo": "군인의 전투 단검",
+            "nameEn": "Soldier's Combat Knife",
+            "region": "밥캣 키 ~ 밥캣 바이트 사이 해변",
+            "mission": "자유 탐색",
+            "missable": false,
+            "safeCode": null,
+            "x": 310,
+            "y": 1995,
+            "summary": "모래사장에 반쯤 잠긴 낡은 군용 탱크 잔해 옆에서 습득하는 근접 무기입니다.",
+            "guide": "밥캣 키 동쪽 해안과 밥캣 바이트(Bobcat Bight) 사이 만곡부 해변을 따라 이동하면 바닷물에 반쯤 잠긴 탱크 잔해가 보입니다. 탱크 포탑 옆 해변 바닥에서 획득할 수 있습니다."
       },
       {
-        id: 8,
-        category: 'weapon',
-        nameKo: "도니의 H&L .38",
-        nameEn: "Donnie's H&L .38",
-        region: '키 렌토 도니 트레일러 앞 빨간 Blista',
-        mission: '미션 18: 사라진 도니 (Don Gone)',
-        missable: true,
-        safeCode: null,
-        x: 762,
-        y: 372,
-        summary: '[놓치면 불가] 미션 18 진행 중 차량에 불을 지르기 직전에만 회수 가능한 도니의 유품 리볼버입니다.',
-        guide: '미션 18 "사라진 도니(Don Gone)"에서 도니의 도주를 위장하기 위해 트레일러 앞 빨간색 Blista 차량을 불태워야 합니다. 불을 붙이기 전에 반드시 차량 트렁크를 먼저 열어 회수하세요. 차량이 폭파되면 영구히 얻을 수 없습니다.'
+            "id": 8,
+            "category": "weapon",
+            "nameKo": "도니의 H&L .38",
+            "nameEn": "Donnie's H&L .38",
+            "region": "키 렌토 도니 트레일러 앞 빨간 Blista",
+            "mission": "미션 18: 사라진 도니 (Don Gone)",
+            "missable": true,
+            "safeCode": null,
+            "x": 955,
+            "y": 1965,
+            "summary": "[놓치면 불가] 미션 18 진행 중 차량에 불을 지르기 직전에만 회수 가능한 도니의 유품 리볼버입니다.",
+            "guide": "미션 18 \"사라진 도니(Don Gone)\"에서 도니의 도주를 위장하기 위해 트레일러 앞 빨간색 Blista 차량을 불태워야 합니다. 불을 붙이기 전에 반드시 차량 트렁크를 먼저 열어 회수하세요. 차량이 폭파되면 영구히 얻을 수 없습니다."
       },
       {
-        id: 9,
-        category: 'weapon',
-        nameKo: '도니의 단검',
-        nameEn: "Donnie's Knife",
-        region: '그래스리버스 남부 빅 파인 사냥터 남서쪽',
-        mission: '자유 탐색',
-        missable: false,
-        safeCode: null,
-        x: 445,
-        y: 222,
-        summary: '빅 파인 사냥터 인근 늪지대에서 발견되는 도니의 또 다른 고유 단검입니다.',
-        guide: '북부 그래스리버스(Grassrivers) 남단 빅 파인(Big Pine) 사냥터 구역에서 남서쪽 늪지대 수풀 방향으로 이동한 뒤 포커스 모드를 켜면 빛나는 단검을 발견할 수 있습니다.'
+            "id": 9,
+            "category": "weapon",
+            "nameKo": "도니의 단검",
+            "nameEn": "Donnie's Knife",
+            "region": "그래스리버스 남부 빅 파인 사냥터 남서쪽",
+            "mission": "자유 탐색",
+            "missable": false,
+            "safeCode": null,
+            "x": 645,
+            "y": 1755,
+            "summary": "빅 파인 사냥터 인근 늪지대에서 발견되는 도니의 또 다른 고유 단검입니다.",
+            "guide": "북부 그래스리버스(Grassrivers) 남단 빅 파인(Big Pine) 사냥터 구역에서 남서쪽 늪지대 수풀 방향으로 이동한 뒤 포커스 모드를 켜면 빛나는 단검을 발견할 수 있습니다."
       },
       {
-        id: 10,
-        category: 'weapon',
-        nameKo: '호스타일 슈퍼400',
-        nameEn: 'Hostile Super400',
-        region: '그래스리버스 밀 스테이션 레이더 기지',
-        mission: '불법 작전 거점 소탕',
-        missable: false,
-        safeCode: null,
-        x: 640,
-        y: 95,
-        summary: '밀 스테이션 레이더 기지 거점을 제압하면 얻는 고화력 전술 샷건입니다.',
-        guide: '그래스리버스 북부의 밀 스테이션 레이더 기지(Mill Station Radar Base)에 주둔한 적 무장 세력을 모두 소탕한 뒤 중앙 레이더 관제동 내부 무기 보관함에서 획득하세요.'
+            "id": 10,
+            "category": "weapon",
+            "nameKo": "호스타일 슈퍼400",
+            "nameEn": "Hostile Super400",
+            "region": "그래스리버스 밀 스테이션 레이더 기지",
+            "mission": "불법 작전 거점 소탕",
+            "missable": false,
+            "safeCode": null,
+            "x": 785,
+            "y": 1625,
+            "summary": "밀 스테이션 레이더 기지 거점을 제압하면 얻는 고화력 전술 샷건입니다.",
+            "guide": "그래스리버스 북부의 밀 스테이션 레이더 기지(Mill Station Radar Base)에 주둔한 적 무장 세력을 모두 소탕한 뒤 중앙 레이더 관제동 내부 무기 보관함에서 획득하세요."
       },
       {
-        id: 11,
-        category: 'weapon',
-        nameKo: '크랩쉑 VF5',
-        nameEn: 'Crabshack VF5',
-        region: '그래스리버스 펠리컨 밸리 게 연구소 보트하우스',
-        mission: '금고 & 키패드 연계 퍼즐',
-        missable: false,
-        safeCode: '00072 / 0212',
-        x: 788,
-        y: 176,
-        summary: '연구소 금고(00072) 개봉 후 핏자국을 추적해 보트하우스 키패드(0212)를 열면 얻는 기관단총입니다.',
-        guide: '펠리컨 밸리 게 연구소 본관 금고에 비밀번호 00072를 입력해 단서를 확인하세요. 이후 바닥의 핏자국을 따라 보트하우스 문으로 이동해 키패드에 0212를 입력하면 내부 작업대에서 획득할 수 있습니다.'
+            "id": 11,
+            "category": "weapon",
+            "nameKo": "크랩쉑 VF5",
+            "nameEn": "Crabshack VF5",
+            "region": "그래스리버스 펠리컨 밸리 게 연구소 보트하우스",
+            "mission": "금고 & 키패드 연계 퍼즐",
+            "missable": false,
+            "safeCode": "00072 / 0212",
+            "x": 880,
+            "y": 1715,
+            "summary": "연구소 금고(00072) 개봉 후 핏자국을 추적해 보트하우스 키패드(0212)를 열면 얻는 기관단총입니다.",
+            "guide": "펠리컨 밸리 게 연구소 본관 금고에 비밀번호 00072를 입력해 단서를 확인하세요. 이후 바닥의 핏자국을 따라 보트하우스 문으로 이동해 키패드에 0212를 입력하면 내부 작업대에서 획득할 수 있습니다."
       },
       {
-        id: 12,
-        category: 'weapon',
-        nameKo: '미스터 맹그로브 레어드 350',
-        nameEn: 'Mister Mangrove Laird 350',
-        region: '그래스리버스 코튼마우스 호수 남쪽 습지대',
-        mission: '습지대 돌발 이벤트 보상',
-        missable: false,
-        safeCode: null,
-        x: 525,
-        y: 162,
-        summary: '코튼마우스 호수 남쪽 맹그로브 습지대 인카운터 보상으로 받는 저격소총입니다.',
-        guide: '그래스리버스 코튼마우스 호수(Cottonmouth Lake) 남쪽 맹그로브 수로를 보트나 도보로 이동할 때 발생하는 습지대 돌발 이벤트를 해결하면 보상으로 획득합니다.'
-      },
-
-      // ================= [2] 금고 / 키패드 (Safes - Violet, 4종) =================
-      {
-        id: 13,
-        category: 'safe',
-        nameKo: '키 렌토 남부 트레일러 금고',
-        nameEn: 'Southern Key Lento Trailer Safe',
-        region: '키 렌토 남부 / 그래스리버스 남단 경계 트레일러',
-        mission: '자유 탐색 (비밀번호: 44017)',
-        missable: false,
-        safeCode: '44017',
-        x: 628,
-        y: 392,
-        summary: '트레일러 벽면에 붙은 엽서들의 숫자를 조합해 여는 숨겨진 금고입니다.',
-        guide: '트레일러 내부 벽면에 걸린 관광 엽서 3장의 숫자를 조합한 비밀번호 44017을 다이얼에 입력하면 내부의 현금 다발과 귀중품을 획득할 수 있습니다.'
+            "id": 12,
+            "category": "weapon",
+            "nameKo": "미스터 맹그로브 레어드 350",
+            "nameEn": "Mister Mangrove Laird 350",
+            "region": "그래스리버스 코튼마우스 호수 남쪽 습지대",
+            "mission": "습지대 돌발 이벤트 보상",
+            "missable": false,
+            "safeCode": null,
+            "x": 715,
+            "y": 1690,
+            "summary": "코튼마우스 호수 남쪽 맹그로브 습지대 인카운터 보상으로 받는 저격소총입니다.",
+            "guide": "그래스리버스 코튼마우스 호수(Cottonmouth Lake) 남쪽 맹그로브 수로를 보트나 도보로 이동할 때 발생하는 습지대 돌발 이벤트를 해결하면 보상으로 획득합니다."
       },
       {
-        id: 14,
-        category: 'safe',
-        nameKo: 'BURG 해저 연구 시설 #1 금고',
-        nameEn: 'BURG Underwater Research Facility #1 Safe',
-        region: '마일 제로 비행장 서쪽 노란 해상 플랫폼 아래',
-        mission: '해저 시설 탐사 (비밀번호: 80085)',
-        missable: false,
-        safeCode: '80085',
-        x: 325,
-        y: 456,
-        summary: '해저 시설 내부 단말기 이메일에서 코드를 확인해 여는 금고로, 내부에 희귀 운석이 들어 있습니다.',
-        guide: '마일 제로 비행장 서쪽 해상의 노란색 연구 플랫폼 아래로 잠수해 침수된 BURG 해저 시설에 진입하세요. 컴퓨터 단말기 이메일 확인 후 금고에 80085를 입력하면 현금과 해저 운석을 획득합니다.'
+            "id": 13,
+            "category": "safe",
+            "nameKo": "키 렌토 남부 트레일러 금고",
+            "nameEn": "Southern Key Lento Trailer Safe",
+            "region": "키 렌토 남부 / 그래스리버스 남단 경계 트레일러",
+            "mission": "자유 탐색 (비밀번호: 44017)",
+            "missable": false,
+            "safeCode": "44017",
+            "x": 895,
+            "y": 2015,
+            "summary": "트레일러 벽면에 붙은 엽서들의 숫자를 조합해 여는 숨겨진 금고입니다.",
+            "guide": "트레일러 내부 벽면에 걸린 관광 엽서 3장의 숫자를 조합한 비밀번호 44017을 다이얼에 입력하면 내부의 현금 다발과 귀중품을 획득할 수 있습니다."
       },
       {
-        id: 15,
-        category: 'safe',
-        nameKo: '브라이언의 창고 자물쇠',
-        nameEn: "Brian's Marina Shed Padlock",
-        region: '키 렌토 브라이언 마리나 창고',
-        mission: '자유 탐색 (비밀번호: 7700)',
-        missable: false,
-        safeCode: '7700',
-        x: 705,
-        y: 388,
-        summary: '브라이언 헤더의 선착장 보급 창고 문을 잠그고 있는 4자리 다이얼 자물쇠입니다.',
-        guide: '키 렌토 남부 브라이언 마리나(Brian\'s Marina) 부두 옆 자재 창고 문에 걸린 4자리 자물쇠에 7700을 입력하면 탄약, 현금, 보급 상자를 챙길 수 있습니다.'
+            "id": 14,
+            "category": "safe",
+            "nameKo": "BURG 해저 연구 시설 #1 금고",
+            "nameEn": "BURG Underwater Research Facility #1 Safe",
+            "region": "마일 제로 비행장 서쪽 노란 해상 플랫폼 아래",
+            "mission": "해저 시설 탐사 (비밀번호: 80085)",
+            "missable": false,
+            "safeCode": "80085",
+            "x": 315,
+            "y": 1945,
+            "summary": "해저 시설 내부 단말기 이메일에서 코드를 확인해 여는 금고로, 내부에 희귀 운석이 들어 있습니다.",
+            "guide": "마일 제로 비행장 서쪽 해상의 노란색 연구 플랫폼 아래로 잠수해 침수된 BURG 해저 시설에 진입하세요. 컴퓨터 단말기 이메일 확인 후 금고에 80085를 입력하면 현금과 해저 운석을 획득합니다."
       },
       {
-        id: 16,
-        category: 'safe',
-        nameKo: '펠리컨 밸리 게 연구소 금고 & 키패드',
-        nameEn: 'Pelican Valley Crab Lab Safe & Keypad',
-        region: '그래스리버스 펠리컨 밸리 게 연구소',
-        mission: '자유 탐색 (금고: 00072 / 문: 0212)',
-        missable: false,
-        safeCode: '00072 / 0212',
-        x: 760,
-        y: 164,
-        summary: '연구소 사무실 금고(00072)와 보트하우스 전자 키패드(0212)로 이어지는 이중 보안 장치입니다.',
-        guide: '연구소 본관 사무실 금고에 00072를 입력해 현금과 연구 메모를 회수한 뒤, 이어지는 핏자국을 따라 보트하우스 키패드에 0212를 입력하면 고유 무기 크랩쉑 VF5 보관실이 열립니다.'
-      },
-
-      // ================= [3] 수중 보물 / 난파선 (Underwater Treasures - Cyan, 7종) =================
-      {
-        id: 17,
-        category: 'treasure',
-        nameKo: '난파선: 누에스트라 세뇨라 델 오시오',
-        nameEn: 'Shipwreck: Nuestra Señora del Ocio',
-        region: '키 렌토 동쪽 리오나이다 해협',
-        mission: '미션 9: 아일랜드 드림즈 (Island Dreams)',
-        missable: false,
-        safeCode: null,
-        x: 865,
-        y: 415,
-        summary: '미션 9에서 보물 사냥꾼 켄튼과 함께 처음 탐사하는 난파선으로 금 더블룬 4점을 회수할 수 있습니다.',
-        guide: '키 렌토 동쪽 리오나이다 해협 해저에 침몰해 있습니다. 미션 9 진행 중 또는 이후 자유 잠수로 선체 내부를 수색해 금 더블룬 4점을 모두 회수하고 켄튼에게 매각하세요.'
+            "id": 15,
+            "category": "safe",
+            "nameKo": "브라이언의 창고 자물쇠",
+            "nameEn": "Brian's Marina Shed Padlock",
+            "region": "키 렌토 브라이언 마리나 창고",
+            "mission": "자유 탐색 (비밀번호: 7700)",
+            "missable": false,
+            "safeCode": "7700",
+            "x": 925,
+            "y": 1995,
+            "summary": "브라이언 헤더의 선착장 보급 창고 문을 잠그고 있는 4자리 다이얼 자물쇠입니다.",
+            "guide": "키 렌토 남부 브라이언 마리나(Brian's Marina) 부두 옆 자재 창고 문에 걸린 4자리 자물쇠에 7700을 입력하면 탄약, 현금, 보급 상자를 챙길 수 있습니다."
       },
       {
-        id: 18,
-        category: 'treasure',
-        nameKo: '난파선: 누에스트라 세뇨라 데 라 에티카 락사',
-        nameEn: 'Shipwreck: Nuestra Señora de la Ética Laxa',
-        region: '키 렌토 남동쪽 아비스모 키 가장자리',
-        mission: '수중 유물 수집 (유물 5점)',
-        missable: false,
-        safeCode: null,
-        x: 985,
-        y: 560,
-        summary: '아비스모 키 동쪽 암초 절벽 가장자리에 가라앉은 난파선으로 고대 코담배 갑 등 유물 5점이 있습니다.',
-        guide: '남동쪽 아비스모 키(Abismo Key) 동편 급경사 해저 가장자리에 위치합니다. 수심이 깊으므로 산소 게이지를 주시하며 고대 코담배 갑을 포함한 유물 5점을 모두 인양하세요.'
+            "id": 16,
+            "category": "safe",
+            "nameKo": "펠리컨 밸리 게 연구소 금고 & 키패드",
+            "nameEn": "Pelican Valley Crab Lab Safe & Keypad",
+            "region": "그래스리버스 펠리컨 밸리 게 연구소",
+            "mission": "자유 탐색 (금고: 00072 / 문: 0212)",
+            "missable": false,
+            "safeCode": "00072 / 0212",
+            "x": 860,
+            "y": 1695,
+            "summary": "연구소 사무실 금고(00072)와 보트하우스 전자 키패드(0212)로 이어지는 이중 보안 장치입니다.",
+            "guide": "연구소 본관 사무실 금고에 00072를 입력해 현금과 연구 메모를 회수한 뒤, 이어지는 핏자국을 따라 보트하우스 키패드에 0212를 입력하면 고유 무기 크랩쉑 VF5 보관실이 열립니다."
       },
       {
-        id: 19,
-        category: 'treasure',
-        nameKo: '난파선: 우르카 데 싱코 토레스',
-        nameEn: 'Shipwreck: Urca de Cinco Torres',
-        region: '키 렌토 남동쪽 작은 섬들 사이 해역',
-        mission: '수중 유물 수집 (유물 6점)',
-        missable: false,
-        safeCode: null,
-        x: 925,
-        y: 605,
-        summary: '작은 모래섬과 암초 사이에 부서진 보물선으로 고대 의식용 가면 등 유물 6점을 얻을 수 있습니다.',
-        guide: '키 렌토 남동쪽 작은 섬들 사이 해저 협곡에 선체 파편이 흩어져 있습니다. 포커스 모드를 활용해 고대 의식용 가면 등 유물 6점을 빠짐없이 회수하세요.'
+            "id": 17,
+            "category": "treasure",
+            "nameKo": "난파선: 누에스트라 세뇨라 델 오시오",
+            "nameEn": "Shipwreck: Nuestra Señora del Ocio",
+            "region": "키 렌토 동쪽 리오나이다 해협",
+            "mission": "미션 9: 아일랜드 드림즈 (Island Dreams)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1055,
+            "y": 1945,
+            "summary": "미션 9에서 보물 사냥꾼 켄튼과 함께 처음 탐사하는 난파선으로 금 더블룬 4점을 회수할 수 있습니다.",
+            "guide": "키 렌토 동쪽 리오나이다 해협 해저에 침몰해 있습니다. 미션 9 진행 중 또는 이후 자유 잠수로 선체 내부를 수색해 금 더블룬 4점을 모두 회수하고 켄튼에게 매각하세요."
       },
       {
-        id: 20,
-        category: 'treasure',
-        nameKo: '난파선: 누에스트라 세뇨라 루후리오사',
-        nameEn: 'Shipwreck: Nuestra Señora Lujuriosa',
-        region: '키 렌토 남동쪽 녹색 군도 인근',
-        mission: '수중 유물 수집 (유물 6점)',
-        missable: false,
-        safeCode: null,
-        x: 885,
-        y: 655,
-        summary: '남동쪽 녹색 군도 인근 해초 지대 아래 침몰한 난파선으로 황금 라마 등 유물 6점이 있습니다.',
-        guide: '아비스모 키 남서쪽 녹색 군도 인근 수중 해초 지대를 탐색하면 낡은 목선 잔해가 나타납니다. 선실 틈새에서 황금 라마 조각상을 포함한 유물 6점을 챙기세요.'
+            "id": 18,
+            "category": "treasure",
+            "nameKo": "난파선: 누에스트라 세뇨라 데 라 에티카 락사",
+            "nameEn": "Shipwreck: Nuestra Señora de la Ética Laxa",
+            "region": "키 렌토 남동쪽 아비스모 키 가장자리",
+            "mission": "수중 유물 수집 (유물 5점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 685,
+            "y": 2180,
+            "summary": "아비스모 키 동쪽 암초 절벽 가장자리에 가라앉은 난파선으로 고대 코담배 갑 등 유물 5점이 있습니다.",
+            "guide": "남동쪽 아비스모 키(Abismo Key) 동편 급경사 해저 가장자리에 위치합니다. 수심이 깊으므로 산소 게이지를 주시하며 고대 코담배 갑을 포함한 유물 5점을 모두 인양하세요."
       },
       {
-        id: 21,
-        category: 'treasure',
-        nameKo: '난파선: 우르카 데 산타 시에라',
-        nameEn: 'Shipwreck: Urca de Santa Sierra',
-        region: '키 렌토 남동쪽 리오나이다 해협 가장자리',
-        mission: '수중 유물 수집 (유물 6점)',
-        missable: false,
-        safeCode: null,
-        x: 1035,
-        y: 675,
-        summary: '마리아나 카운티 최남동단 외해 경계에 침몰한 난파선으로 산타 시에라의 종 등 유물 6점이 있습니다.',
-        guide: '리오나이다 해협(Leonida Straits) 남동쪽 외곽 심해 경계에 위치합니다. 주변 상어 출몰에 주의하면서 산타 시에라의 종을 비롯한 유물 6점을 회수하세요.'
+            "id": 19,
+            "category": "treasure",
+            "nameKo": "난파선: 우르카 데 싱코 토레스",
+            "nameEn": "Shipwreck: Urca de Cinco Torres",
+            "region": "키 렌토 남동쪽 작은 섬들 사이 해역",
+            "mission": "수중 유물 수집 (유물 6점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 965,
+            "y": 2065,
+            "summary": "작은 모래섬과 암초 사이에 부서진 보물선으로 고대 의식용 가면 등 유물 6점을 얻을 수 있습니다.",
+            "guide": "키 렌토 남동쪽 작은 섬들 사이 해저 협곡에 선체 파편이 흩어져 있습니다. 포커스 모드를 활용해 고대 의식용 가면 등 유물 6점을 빠짐없이 회수하세요."
       },
       {
-        id: 22,
-        category: 'treasure',
-        nameKo: '밥캣 다이빙 구역',
-        nameEn: 'Bobcat Dive Site',
-        region: '밥캣 키 서쪽 해역',
-        mission: '수중 유물 수집 (유물 6점)',
-        missable: false,
-        safeCode: null,
-        x: 115,
-        y: 575,
-        summary: '서부 밥캣 키 앞바다의 다이빙 포인트로 항해용 아스트롤라베 등 유물 6점을 인양할 수 있습니다.',
-        guide: '밥캣 키(Bobcat Key) 서쪽 해안에서 보트로 조금만 나가면 수면 위 기포와 표식이 있는 다이빙 포인트가 보입니다. 해저 암반 사이에서 아스트롤라베 등 유물 6점을 회수하세요.'
+            "id": 20,
+            "category": "treasure",
+            "nameKo": "난파선: 누에스트라 세뇨라 루후리오사",
+            "nameEn": "Shipwreck: Nuestra Señora Lujuriosa",
+            "region": "키 렌토 남동쪽 녹색 군도 인근",
+            "mission": "수중 유물 수집 (유물 6점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 845,
+            "y": 2125,
+            "summary": "남동쪽 녹색 군도 인근 해초 지대 아래 침몰한 난파선으로 황금 라마 등 유물 6점이 있습니다.",
+            "guide": "아비스모 키 남서쪽 녹색 군도 인근 수중 해초 지대를 탐색하면 낡은 목선 잔해가 나타납니다. 선실 틈새에서 황금 라마 조각상을 포함한 유물 6점을 챙기세요."
       },
       {
-        id: 23,
-        category: 'treasure',
-        nameKo: 'BURG 해저 시설 #1 해저 운석',
-        nameEn: 'BURG Facility #1 Underwater Meteorite',
-        region: '마일 제로 서쪽 해상 플랫폼 아래 해저 & 금고 내부',
-        mission: '희귀 수집품 (켄튼 고가 매각)',
-        missable: false,
-        safeCode: '80085',
-        x: 318,
-        y: 472,
-        summary: '보물 감정사 켄튼에게 매각 시 막대한 초반 자금을 확보할 수 있는 희귀 해저 운석입니다.',
-        guide: '마일 제로 비행장 서쪽 노란 해상 플랫폼 아래 해저 바닥 균열과 침수된 시설 내부 금고(비밀번호 80085)에서 해저 운석을 회수할 수 있습니다. 켄튼에게 가져가면 최고가로 판매됩니다.'
-      },
-
-      // ================= [4] 놓치면 불가 / 비밀 (Missables & Easter Eggs - Rose, 6종) =================
-      {
-        id: 24,
-        category: 'missable',
-        nameKo: '마시조 시가 상자 x3',
-        nameEn: 'Macizo Cigars Box x3',
-        region: '키 렌토 맨디의 집 마당',
-        mission: '미션 7: 배관 작업 (Pipework)',
-        missable: true,
-        safeCode: null,
-        x: 735,
-        y: 362,
-        summary: '[놓치면 불가] 미션 7 종료 시 맨디가 창밖으로 던져버린 한정 수집품 시가 상자 3개입니다.',
-        guide: '미션 7 "배관 작업(Pipework)" 컷신에서 맨디(Mandy)가 마당으로 던진 마시조 시가 상자 3개를 미션이 끝나자마자 현장을 떠나기 전에 바닥에서 직접 주워야 합니다. 구역을 벗어나면 영구 소멸합니다.'
+            "id": 21,
+            "category": "treasure",
+            "nameKo": "난파선: 우르카 데 산타 시에라",
+            "nameEn": "Shipwreck: Urca de Santa Sierra",
+            "region": "키 렌토 남동쪽 리오나이다 해협 가장자리",
+            "mission": "수중 유물 수집 (유물 6점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1095,
+            "y": 2135,
+            "summary": "마리아나 카운티 최남동단 외해 경계에 침몰한 난파선으로 산타 시에라의 종 등 유물 6점이 있습니다.",
+            "guide": "리오나이다 해협(Leonida Straits) 남동쪽 외곽 심해 경계에 위치합니다. 주변 상어 출몰에 주의하면서 산타 시에라의 종을 비롯한 유물 6점을 회수하세요."
       },
       {
-        id: 25,
-        category: 'missable',
-        nameKo: '도니가 잃어버린 마약 4개',
-        nameEn: 'Find the Lost Drugs x4',
-        region: '마리아나 카운티 4곳 분산 (키 렌토 북부 수로·늪지 일대)',
-        mission: '미션 12/14 이후 해금 (미션 20 전 마감)',
-        missable: true,
-        safeCode: null,
-        x: 565,
-        y: 305,
-        summary: '[놓치면 불가] 도니가 밀수 비행 중 떨어뜨린 방수 마약 가방 4개를 회수해 장물아비에게 판매하는 보조 활동입니다.',
-        guide: '미션 12/14 이후 키 렌토 북부 수로와 가라앉은 보트 인근 등 마리아나 카운티 4곳에 마약 꾸러미가 스폰됩니다. 돌아올 수 없는 분기점인 미션 20 "투어리스트 트랩" 진입 전까지 회수해 타이론(Tyrone) 등 장물아비에게 매각하세요.'
+            "id": 22,
+            "category": "treasure",
+            "nameKo": "밥캣 다이빙 구역",
+            "nameEn": "Bobcat Dive Site",
+            "region": "밥캣 키 서쪽 해역",
+            "mission": "수중 유물 수집 (유물 6점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 210,
+            "y": 1995,
+            "summary": "서부 밥캣 키 앞바다의 다이빙 포인트로 항해용 아스트롤라베 등 유물 6점을 인양할 수 있습니다.",
+            "guide": "밥캣 키(Bobcat Key) 서쪽 해안에서 보트로 조금만 나가면 수면 위 기포와 표식이 있는 다이빙 포인트가 보입니다. 해저 암반 사이에서 아스트롤라베 등 유물 6점을 회수하세요."
       },
       {
-        id: 26,
-        category: 'missable',
-        nameKo: '놓치면 불가 의상/액세서리 5종',
-        nameEn: '5 Missable Outfits & Accessories',
-        region: '키 렌토 일대 (마리나·요트·트레일러·병원)',
-        mission: '미션 11 / 16 / 18 / 21 연동',
-        missable: true,
-        safeCode: null,
-        x: 680,
-        y: 368,
-        summary: '[놓치면 불가] 챕터 1 특정 미션 및 이벤트에서만 입수 가능한 고유 의상·장신구 5종입니다.',
-        guide: '① 토마스 목걸이(미션 11 전 심부름), ② 루시아 선글라스(미션 16 "데이 릴리즈" 요트 중간 갑판 계단 커플 대화), ③ 도니 에비에이터 선글라스(미션 18 "사라진 도니" 트레일러 내부), ④ 앤디 재킷(미션 21 "홈 스위트 홈"), ⑤ 러스티 앵커 티셔츠/모자(챕터 1 바 이벤트). 미션 20 이후 복구 불가합니다.'
+            "id": 23,
+            "category": "treasure",
+            "nameKo": "BURG 해저 시설 #1 해저 운석",
+            "nameEn": "BURG Facility #1 Underwater Meteorite",
+            "region": "마일 제로 서쪽 해상 플랫폼 아래 해저 & 금고 내부",
+            "mission": "희귀 수집품 (켄튼 고가 매각)",
+            "missable": false,
+            "safeCode": "80085",
+            "x": 305,
+            "y": 1962,
+            "summary": "보물 감정사 켄튼에게 매각 시 막대한 초반 자금을 확보할 수 있는 희귀 해저 운석입니다.",
+            "guide": "마일 제로 비행장 서쪽 노란 해상 플랫폼 아래 해저 바닥 균열과 침수된 시설 내부 금고(비밀번호 80085)에서 해저 운석을 회수할 수 있습니다. 켄튼에게 가져가면 최고가로 판매됩니다."
       },
       {
-        id: 27,
-        category: 'missable',
-        nameKo: '코르세어 키 공중화장실 비밀 통로',
-        nameEn: 'Corsair Key Restroom Secret Passage',
-        region: '키 렌토 북쪽 코르세어 키 공중화장실',
-        mission: '비밀 탐색 (영구 스태미나 상승)',
-        missable: false,
-        safeCode: null,
-        x: 695,
-        y: 255,
-        summary: '비밀 통로 이벤트를 완료하면 캐릭터의 최대 스태미나 게이지가 영구적으로 증가합니다.',
-        guide: '키 렌토 바로 북쪽의 작은 섬 코르세어 키(Corsair Key)에 있는 낡은 공중화장실 내부 칸막이 뒤 비밀 통로를 조사하세요. 짧은 탐색 이벤트를 완료하면 최대 스태미나 상한이 영구 상승합니다.'
+            "id": 24,
+            "category": "missable",
+            "nameKo": "마시조 시가 상자 x3",
+            "nameEn": "Macizo Cigars Box x3",
+            "region": "키 렌토 맨디의 집 마당",
+            "mission": "미션 7: 배관 작업 (Pipework)",
+            "missable": true,
+            "safeCode": null,
+            "x": 945,
+            "y": 1945,
+            "summary": "[놓치면 불가] 미션 7 종료 시 맨디가 창밖으로 던져버린 한정 수집품 시가 상자 3개입니다.",
+            "guide": "미션 7 \"배관 작업(Pipework)\" 컷신에서 맨디(Mandy)가 마당으로 던진 마시조 시가 상자 3개를 미션이 끝나자마자 현장을 떠나기 전에 바닥에서 직접 주워야 합니다. 구역을 벗어나면 영구 소멸합니다."
       },
       {
-        id: 28,
-        category: 'missable',
-        nameKo: '제트스키 타는 개 (Cool Dog 이스터에그)',
-        nameEn: 'Jet-Skiing Cool Dog Easter Egg',
-        region: '키 렌토 인근 외해 / 갬빗 만',
-        mission: '비밀 이스터에그 (개들의 섬 해금)',
-        missable: false,
-        safeCode: null,
-        x: 745,
-        y: 425,
-        summary: '선글라스를 끼고 제트스키를 타는 개를 추적해 약 $1,200와 숨겨진 섬을 해금하는 이스터에그입니다.',
-        guide: '키 렌토 남쪽 갬빗 만 인근 외해에서 물속에 뛰어들면 개 짖는 소리가 들립니다. 소리를 따라 선글라스를 쓴 "쿨 독(Cool Dog)"을 추적하면 현금 약 $1,200와 전용 선글라스, 그리고 비밀 구역 "개들의 섬"이 지도에 해금됩니다.'
+            "id": 25,
+            "category": "missable",
+            "nameKo": "도니가 잃어버린 마약 4개",
+            "nameEn": "Find the Lost Drugs x4",
+            "region": "마리아나 카운티 4곳 분산 (키 렌토 북부 수로·늪지 일대)",
+            "mission": "미션 12/14 이후 해금 (미션 20 전 마감)",
+            "missable": true,
+            "safeCode": null,
+            "x": 885,
+            "y": 1855,
+            "summary": "[놓치면 불가] 도니가 밀수 비행 중 떨어뜨린 방수 마약 가방 4개를 회수해 장물아비에게 판매하는 보조 활동입니다.",
+            "guide": "미션 12/14 이후 키 렌토 북부 수로와 가라앉은 보트 인근 등 마리아나 카운티 4곳에 마약 꾸러미가 스폰됩니다. 돌아올 수 없는 분기점인 미션 20 \"투어리스트 트랩\" 진입 전까지 회수해 타이론(Tyrone) 등 장물아비에게 매각하세요."
       },
       {
-        id: 29,
-        category: 'missable',
-        nameKo: '제이슨 은신처 이스터에그 (마이클 보트 & 파비앙 잡지)',
-        nameEn: "Jason's Safehouse Easter Eggs (Michael's Boat & Fabien)",
-        region: '키 렌토 제이슨 수상 가옥 (은신처)',
-        mission: '전작 오마주 이스터에그',
-        missable: false,
-        safeCode: null,
-        x: 655,
-        y: 378,
-        summary: 'GTA 5의 마이클 드 산타 요트 오마주 및 요가 강사 파비앙 잡지 3페이지를 볼 수 있는 이스터에그입니다.',
-        guide: '제이슨의 수상 가옥 부두 앞바다에 정박된 요트에서 전작 GTA 5 마이클의 보트 오마주를 감상할 수 있으며, 은신처 테라스 테이블 위에서는 요가 강사 파비앙(Fabien)이 등장하는 잡지 3페이지를 직접 펼쳐볼 수 있습니다.'
+            "id": 26,
+            "category": "missable",
+            "nameKo": "놓치면 불가 의상/액세서리 5종",
+            "nameEn": "5 Missable Outfits & Accessories",
+            "region": "키 렌토 일대 (마리나·요트·트레일러·병원)",
+            "mission": "미션 11 / 16 / 18 / 21 연동",
+            "missable": true,
+            "safeCode": null,
+            "x": 915,
+            "y": 1975,
+            "summary": "[놓치면 불가] 챕터 1 특정 미션 및 이벤트에서만 입수 가능한 고유 의상·장신구 5종입니다.",
+            "guide": "① 토마스 목걸이(미션 11 전 심부름), ② 루시아 선글라스(미션 16 \"데이 릴리즈\" 요트 중간 갑판 계단 커플 대화), ③ 도니 에비에이터 선글라스(미션 18 \"사라진 도니\" 트레일러 내부), ④ 앤디 재킷(미션 21 \"홈 스위트 홈\"), ⑤ 러스티 앵커 티셔츠/모자(챕터 1 바 이벤트). 미션 20 이후 복구 불가합니다."
+      },
+      {
+            "id": 27,
+            "category": "missable",
+            "nameKo": "코르세어 키 공중화장실 비밀 통로",
+            "nameEn": "Corsair Key Restroom Secret Passage",
+            "region": "키 렌토 북쪽 코르세어 키 공중화장실",
+            "mission": "비밀 탐색 (영구 스태미나 상승)",
+            "missable": false,
+            "safeCode": null,
+            "x": 995,
+            "y": 1850,
+            "summary": "비밀 통로 이벤트를 완료하면 캐릭터의 최대 스태미나 게이지가 영구적으로 증가합니다.",
+            "guide": "키 렌토 바로 북쪽의 작은 섬 코르세어 키(Corsair Key)에 있는 낡은 공중화장실 내부 칸막이 뒤 비밀 통로를 조사하세요. 짧은 탐색 이벤트를 완료하면 최대 스태미나 상한이 영구 상승합니다."
+      },
+      {
+            "id": 28,
+            "category": "missable",
+            "nameKo": "제트스키 타는 개 (Cool Dog 이스터에그)",
+            "nameEn": "Jet-Skiing Cool Dog Easter Egg",
+            "region": "키 렌토 인근 외해 / 갬빗 만",
+            "mission": "비밀 이스터에그 (개들의 섬 해금)",
+            "missable": false,
+            "safeCode": null,
+            "x": 985,
+            "y": 2020,
+            "summary": "선글라스를 끼고 제트스키를 타는 개를 추적해 약 $1,200와 숨겨진 섬을 해금하는 이스터에그입니다.",
+            "guide": "키 렌토 남쪽 갬빗 만 인근 외해에서 물속에 뛰어들면 개 짖는 소리가 들립니다. 소리를 따라 선글라스를 쓴 \"쿨 독(Cool Dog)\"을 추적하면 현금 약 $1,200와 전용 선글라스, 그리고 비밀 구역 \"개들의 섬\"이 지도에 해금됩니다."
+      },
+      {
+            "id": 29,
+            "category": "missable",
+            "nameKo": "제이슨 은신처 이스터에그 (마이클 보트 & 파비앙 잡지)",
+            "nameEn": "Jason's Safehouse Easter Eggs (Michael's Boat & Fabien)",
+            "region": "키 렌토 제이슨 수상 가옥 (은신처)",
+            "mission": "전작 오마주 이스터에그",
+            "missable": false,
+            "safeCode": null,
+            "x": 905,
+            "y": 1985,
+            "summary": "GTA 5의 마이클 드 산타 요트 오마주 및 요가 강사 파비앙 잡지 3페이지를 볼 수 있는 이스터에그입니다.",
+            "guide": "제이슨의 수상 가옥 부두 앞바다에 정박된 요트에서 전작 GTA 5 마이클의 보트 오마주를 감상할 수 있으며, 은신처 테라스 테이블 위에서는 요가 강사 파비앙(Fabien)이 등장하는 잡지 3페이지를 직접 펼쳐볼 수 있습니다."
       }
-    ];
+];
 
-    // 카테고리 메타데이터
     const CATEGORY_META = {
-      weapon: {
-        label: '고유 무기',
-        badgeText: '🟡 고유 무기',
-        color: '#f59e0b',
-        bgClass: 'bg-amber-500/15 text-amber-300 border-amber-500/35',
-        icon: '🔫'
+      "weapon": {
+            "label": "고유 무기",
+            "badgeText": "🟡 고유 무기",
+            "color": "#f59e0b",
+            "bgClass": "bg-amber-500/15 text-amber-300 border-amber-500/35",
+            "icon": "🔫"
       },
-      safe: {
-        label: '금고/키패드',
-        badgeText: '🔐 금고/키패드',
-        color: '#a855f7',
-        bgClass: 'bg-purple-500/15 text-purple-300 border-purple-500/35',
-        icon: '🔐'
+      "safe": {
+            "label": "금고/키패드",
+            "badgeText": "🔐 금고/키패드",
+            "color": "#a855f7",
+            "bgClass": "bg-purple-500/15 text-purple-300 border-purple-500/35",
+            "icon": "🔐"
       },
-      treasure: {
-        label: '수중 보물/난파선',
-        badgeText: '⚓ 수중 보물/난파선',
-        color: '#06b6d4',
-        bgClass: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/35',
-        icon: '⚓'
+      "treasure": {
+            "label": "수중 보물/난파선",
+            "badgeText": "⚓ 수중 보물/난파선",
+            "color": "#06b6d4",
+            "bgClass": "bg-cyan-500/15 text-cyan-300 border-cyan-500/35",
+            "icon": "⚓"
       },
-      missable: {
-        label: '놓치면 불가/비밀',
-        badgeText: '⭐ 놓치면 불가/비밀',
-        color: '#f43f5e',
-        bgClass: 'bg-rose-500/15 text-rose-300 border-rose-500/35',
-        icon: '⭐'
+      "missable": {
+            "label": "놓치면 불가/비밀",
+            "badgeText": "⭐ 놓치면 불가/비밀",
+            "color": "#f43f5e",
+            "bgClass": "bg-rose-500/15 text-rose-300 border-rose-500/35",
+            "icon": "⭐"
       }
-    };
+};
 
-    const STORAGE_KEY = 'gta6_ch1_tactical_map_completed_v1';
+    const STORAGE_KEY = "gta6_ch1_tactical_map_completed_v1";
 
-    // 애플리케이션 상태
     let state = {
       completedIds: new Set(),
       selectedId: 1,
       activeCategory: 'all',
       missableOnly: false,
       searchQuery: '',
-      // 카메라 변환 상태 (SVG 1200x800 좌표계 기준)
-      panX: 0,
-      panY: 0,
-      scale: 1
+      panX: VIEW_CX - DEFAULT_CAM.x * DEFAULT_CAM.scale,
+      panY: VIEW_CY - DEFAULT_CAM.y * DEFAULT_CAM.scale,
+      scale: DEFAULT_CAM.scale
     };
 
-    // 로컬 스토리지 안전 로드/저장
     function loadCompletedState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -1060,7 +845,6 @@
       }
     }
 
-    // 비차단형 토스트 알림 표시
     function showToast(message, type = 'teal') {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
@@ -1085,7 +869,6 @@
       }, 2400);
     }
 
-    // 클립보드 복사 (iFrame 호환 document.execCommand 사용)
     function copySafeCode(codeText) {
       const cleanCode = String(codeText).trim();
       const tempInput = document.createElement('textarea');
@@ -1104,7 +887,6 @@
       document.body.removeChild(tempInput);
     }
 
-    // 필터링된 항목 배열 반환
     function getFilteredItems() {
       const q = state.searchQuery.trim().toLowerCase();
       return COLLECTIBLES.filter((item) => {
@@ -1132,7 +914,6 @@
       });
     }
 
-    // 진행률 UI 업데이트
     function updateProgressUI() {
       const total = COLLECTIBLES.length;
       const done = state.completedIds.size;
@@ -1143,7 +924,6 @@
       document.getElementById('progress-bar-fill').style.width = `${pct}%`;
     }
 
-    // SVG 핀 렌더링
     function renderMapPins() {
       const pinsLayer = document.getElementById('pins-layer');
       pinsLayer.innerHTML = '';
@@ -1151,15 +931,13 @@
       const filtered = getFilteredItems();
       const filteredIds = new Set(filtered.map((i) => i.id));
 
-      // 선택된 핀이 가장 위에 그려지도록 정렬
       const sortedForRender = [...COLLECTIBLES].sort((a, b) => {
         if (a.id === state.selectedId) return 1;
         if (b.id === state.selectedId) return -1;
         return a.id - b.id;
       });
 
-      // 줌 배율에 따른 핀 역스케일 (확대 시 핀이 과도하게 커지지 않도록 보정)
-      const invScale = 1 / Math.pow(state.scale, 0.42);
+      const invScale = 2.4 / Math.pow(state.scale, 0.72);
 
       sortedForRender.forEach((item) => {
         const isVisible = filteredIds.has(item.id);
@@ -1169,40 +947,38 @@
 
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         g.setAttribute('class', 'map-pin-group');
-        g.setAttribute('transform', `translate(${item.x}, ${item.y}) scale(${invScale})`);
-        g.style.opacity = isVisible ? (isDone && !isSelected ? '0.62' : '1') : '0.12';
+        g.setAttribute('transform', `translate(${item.x}, ${item.y}) scale(${invScale.toFixed(4)})`);
+        g.style.opacity = isVisible ? (isDone && !isSelected ? '0.68' : '1') : '0.14';
         g.style.pointerEvents = isVisible ? 'auto' : 'none';
+        g.style.filter = 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))';
 
-        // 선택된 핀 펄스 링
         if (isSelected) {
           const pulseCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           pulseCircle.setAttribute('r', '15');
           pulseCircle.setAttribute('fill', 'none');
           pulseCircle.setAttribute('stroke', meta.color);
-          pulseCircle.setAttribute('stroke-width', '2.5');
+          pulseCircle.setAttribute('stroke-width', '2.6');
           pulseCircle.setAttribute('class', 'pin-pulse-ring');
           g.appendChild(pulseCircle);
 
           const outerRing = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           outerRing.setAttribute('r', '17');
           outerRing.setAttribute('fill', meta.color);
-          outerRing.setAttribute('fill-opacity', '0.22');
+          outerRing.setAttribute('fill-opacity', '0.25');
           outerRing.setAttribute('stroke', '#ffffff');
-          outerRing.setAttribute('stroke-width', '2');
+          outerRing.setAttribute('stroke-width', '2.2');
           g.appendChild(outerRing);
         }
 
-        // 핀 본체 원형 배지
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         circle.setAttribute('r', isSelected ? '12.5' : '10.5');
         circle.setAttribute('fill', isDone ? '#064e3b' : '#08121e');
         circle.setAttribute('stroke', isDone ? '#10b981' : meta.color);
-        circle.setAttribute('stroke-width', isSelected ? '3' : '2.3');
+        circle.setAttribute('stroke-width', isSelected ? '3' : '2.4');
         circle.setAttribute('class', 'pin-core');
         circle.style.color = meta.color;
         g.appendChild(circle);
 
-        // 내부 번호 또는 완료 체크 표시
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('y', '3.5');
         text.setAttribute('text-anchor', 'middle');
@@ -1213,7 +989,6 @@
         text.textContent = isDone ? '✓' : item.id;
         g.appendChild(text);
 
-        // 놓치면 불가(Missable) 빨간 경고 점 배지
         if (item.missable && !isDone) {
           const warnDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           warnDot.setAttribute('cx', '8.5');
@@ -1225,23 +1000,22 @@
           g.appendChild(warnDot);
         }
 
-        // 선택된 핀 상단 플로팅 라벨
         if (isSelected) {
           const labelBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-          const labelWidth = Math.max(110, item.nameKo.length * 10.5 + 20);
+          const labelWidth = Math.max(115, item.nameKo.length * 10.2 + 22);
           labelBg.setAttribute('x', -labelWidth / 2);
-          labelBg.setAttribute('y', '-38');
+          labelBg.setAttribute('y', '-39');
           labelBg.setAttribute('width', labelWidth);
-          labelBg.setAttribute('height', '20');
+          labelBg.setAttribute('height', '21');
           labelBg.setAttribute('rx', '6');
           labelBg.setAttribute('fill', '#08121e');
-          labelBg.setAttribute('fill-opacity', '0.94');
+          labelBg.setAttribute('fill-opacity', '0.95');
           labelBg.setAttribute('stroke', meta.color);
-          labelBg.setAttribute('stroke-width', '1.4');
+          labelBg.setAttribute('stroke-width', '1.5');
           g.appendChild(labelBg);
 
           const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-          labelText.setAttribute('y', '-24.5');
+          labelText.setAttribute('y', '-25');
           labelText.setAttribute('text-anchor', 'middle');
           labelText.setAttribute('font-family', 'Noto Sans KR, sans-serif');
           labelText.setAttribute('font-size', '10.5');
@@ -1251,7 +1025,6 @@
           g.appendChild(labelText);
         }
 
-        // 이벤트 바인딩 (클릭 & 호버 툴팁)
         g.addEventListener('click', (e) => {
           e.stopPropagation();
           selectItem(item.id, true);
@@ -1265,7 +1038,6 @@
       });
     }
 
-    // 호버 툴팁 제어
     function showTooltip(e, item) {
       const tooltip = document.getElementById('map-tooltip');
       const meta = CATEGORY_META[item.category];
@@ -1275,11 +1047,8 @@
       document.getElementById('tooltip-cat-text').textContent = `#${item.id} ${meta.label}`;
       document.getElementById('tooltip-cat-text').style.color = meta.color;
 
-      const missEl = document.getElementById('tooltip-missable');
-      missEl.classList.toggle('hidden', !item.missable);
-
-      const doneEl = document.getElementById('tooltip-done');
-      doneEl.classList.toggle('hidden', !isDone);
+      document.getElementById('tooltip-missable').classList.toggle('hidden', !item.missable);
+      document.getElementById('tooltip-done').classList.toggle('hidden', !isDone);
 
       document.getElementById('tooltip-title').textContent = item.nameKo;
       document.getElementById('tooltip-sub').textContent = `${item.nameEn} · ${item.region}`;
@@ -1294,12 +1063,8 @@
       let left = e.clientX + offset;
       let top = e.clientY + offset;
 
-      if (left + 260 > window.innerWidth) {
-        left = e.clientX - 260;
-      }
-      if (top + 85 > window.innerHeight) {
-        top = e.clientY - 85;
-      }
+      if (left + 260 > window.innerWidth) left = e.clientX - 260;
+      if (top + 85 > window.innerHeight) top = e.clientY - 85;
       tooltip.style.left = `${left}px`;
       tooltip.style.top = `${top}px`;
     }
@@ -1308,15 +1073,11 @@
       document.getElementById('map-tooltip').classList.add('hidden');
     }
 
-    // 우측 상단 상세 인스펙터 패널 렌더링
     function renderInspector() {
       const panel = document.getElementById('inspector-panel');
       const item = COLLECTIBLES.find((i) => i.id === state.selectedId) || COLLECTIBLES[0];
       const meta = CATEGORY_META[item.category];
       const isDone = state.completedIds.has(item.id);
-
-      const filtered = getFilteredItems();
-      const currentIdx = filtered.findIndex((i) => i.id === item.id);
 
       panel.innerHTML = `
         <div class="flex items-center justify-between gap-2 mb-2.5">
@@ -1327,7 +1088,7 @@
             ${
               item.missable
                 ? `<span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse">
-                    ⚠️ 챕터 1 놓치면 불가
+                    ⚠️ ${MISSABLE_LABEL}
                   </span>`
                 : ''
             }
@@ -1393,7 +1154,7 @@
             <span>${isDone ? '✅ 획득 완료됨 (클릭 시 해제)' : '⬜ 획득 완료 체크'}</span>
           </button>
 
-          <button type="button" onclick="focusSector(${item.x}, ${item.y}, Math.max(state.scale, 2.1))"
+          <button type="button" onclick="focusSector(${item.x}, ${item.y}, Math.max(state.scale, 3.6))"
             title="지도에서 이 핀 위치로 확대 이동"
             class="py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
             🎯 위치 포커스
@@ -1402,7 +1163,6 @@
       `;
     }
 
-    // 우측 하단 수집품 리스트 렌더링
     function renderItemsList() {
       const listEl = document.getElementById('items-list');
       const filtered = getFilteredItems();
@@ -1471,7 +1231,6 @@
         .join('');
     }
 
-    // 항목 선택 및 지도 부드러운 포커싱
     function selectItem(id, shouldPan = true) {
       state.selectedId = id;
       const item = COLLECTIBLES.find((i) => i.id === id);
@@ -1480,12 +1239,11 @@
       renderMapPins();
 
       if (item && shouldPan) {
-        const targetZoom = Math.max(state.scale, 1.75);
+        const targetZoom = Math.max(state.scale, 3.2);
         focusSector(item.x, item.y, targetZoom);
       }
     }
 
-    // 이전/다음 항목 순회
     function navigateItem(delta) {
       const filtered = getFilteredItems();
       if (filtered.length === 0) return;
@@ -1494,7 +1252,6 @@
       selectItem(filtered[nextIdx].id, true);
     }
 
-    // 획득 완료 상태 토글
     function toggleComplete(id) {
       const item = COLLECTIBLES.find((i) => i.id === id);
       if (state.completedIds.has(id)) {
@@ -1511,9 +1268,6 @@
       renderMapPins();
     }
 
-    // =========================================================================
-    // SVG 인터랙티브 카메라 팬(Pan) & 줌(Zoom) 엔진
-    // =========================================================================
     let cameraAnimFrame = null;
 
     function applyCameraTransform() {
@@ -1526,14 +1280,12 @@
       renderMapPins();
     }
 
-    // 특정 SVG 좌표(mapX, mapY)를 뷰포트 중앙으로 부드럽게 이동
-    function focusSector(mapX, mapY, targetScale = 1.8) {
+    function focusSector(mapX, mapY, targetScale = 2.6) {
       if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
 
-      const clampedScale = Math.min(Math.max(targetScale, 0.85), 4.0);
-      // ViewBox 중심 (600, 400) 기준 오프셋 계산
-      const targetPanX = 600 - mapX * clampedScale;
-      const targetPanY = 400 - mapY * clampedScale;
+      const clampedScale = Math.min(Math.max(targetScale, MIN_SCALE), MAX_SCALE);
+      const targetPanX = VIEW_CX - mapX * clampedScale;
+      const targetPanY = VIEW_CY - mapY * clampedScale;
 
       const startPanX = state.panX;
       const startPanY = state.panY;
@@ -1544,7 +1296,6 @@
       function step(now) {
         const elapsed = now - startTime;
         const t = Math.min(elapsed / duration, 1);
-        // easeOutCubic
         const ease = 1 - Math.pow(1 - t, 3);
 
         state.panX = startPanX + (targetPanX - startPanX) * ease;
@@ -1563,15 +1314,13 @@
       cameraAnimFrame = requestAnimationFrame(step);
     }
 
-    // 줌 배율 조절 (중앙 기준)
     function zoomByFactor(factor) {
       if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
-      const newScale = Math.min(Math.max(state.scale * factor, 0.85), 4.0);
+      const newScale = Math.min(Math.max(state.scale * factor, MIN_SCALE), MAX_SCALE);
       const ratio = newScale / state.scale;
 
-      // 뷰박스 중심 (600, 400) 고정 줌
-      state.panX = 600 - (600 - state.panX) * ratio;
-      state.panY = 400 - (400 - state.panY) * ratio;
+      state.panX = VIEW_CX - (VIEW_CX - state.panX) * ratio;
+      state.panY = VIEW_CY - (VIEW_CY - state.panY) * ratio;
       state.scale = newScale;
       applyCameraTransform();
     }
@@ -1586,16 +1335,14 @@
       let dragStartPanX = 0;
       let dragStartPanY = 0;
 
-      // 클라이언트 픽셀 이동량을 SVG ViewBox(1200x800) 단위로 환산
       function clientDeltaToSvgDelta(dx, dy) {
         const rect = svg.getBoundingClientRect();
-        const scaleX = 1200 / Math.max(rect.width, 1);
-        const scaleY = 800 / Math.max(rect.height, 1);
+        const scaleX = MAP_WIDTH / Math.max(rect.width, 1);
+        const scaleY = MAP_HEIGHT / Math.max(rect.height, 1);
         const uniform = Math.max(scaleX, scaleY);
         return { svgDx: dx * uniform, svgDy: dy * uniform };
       }
 
-      // 마우스 드래그 팬
       viewport.addEventListener('mousedown', (e) => {
         if (e.button !== 0) return;
         if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
@@ -1623,7 +1370,6 @@
         viewport.classList.remove('is-dragging');
       });
 
-      // 마우스 휠 줌
       viewport.addEventListener(
         'wheel',
         (e) => {
@@ -1634,7 +1380,6 @@
         { passive: false }
       );
 
-      // 터치 1손가락 팬 & 2손가락 핀치 줌
       let initialPinchDist = null;
       let initialPinchScale = 1;
 
@@ -1675,12 +1420,12 @@
             const dy = e.touches[0].clientY - e.touches[1].clientY;
             const currentDist = Math.hypot(dx, dy);
             const targetScale = Math.min(
-              Math.max(initialPinchScale * (currentDist / initialPinchDist), 0.85),
-              4.0
+              Math.max(initialPinchScale * (currentDist / initialPinchDist), MIN_SCALE),
+              MAX_SCALE
             );
             const ratio = targetScale / state.scale;
-            state.panX = 600 - (600 - state.panX) * ratio;
-            state.panY = 400 - (400 - state.panY) * ratio;
+            state.panX = VIEW_CX - (VIEW_CX - state.panX) * ratio;
+            state.panY = VIEW_CY - (VIEW_CY - state.panY) * ratio;
             state.scale = targetScale;
             applyCameraTransform();
           }
@@ -1693,15 +1438,12 @@
         initialPinchDist = null;
       });
 
-      // 우측 상단 줌 버튼
-      document.getElementById('btn-zoom-in').addEventListener('click', () => zoomByFactor(1.28));
-      document.getElementById('btn-zoom-out').addEventListener('click', () => zoomByFactor(0.78));
-      document.getElementById('btn-zoom-reset').addEventListener('click', () => focusSector(600, 400, 1));
+      document.getElementById('btn-zoom-in').addEventListener('click', () => zoomByFactor(1.3));
+      document.getElementById('btn-zoom-out').addEventListener('click', () => zoomByFactor(0.76));
+      document.getElementById('btn-zoom-reset').addEventListener('click', () => focusSector(DEFAULT_CAM.x, DEFAULT_CAM.y, DEFAULT_CAM.scale));
     }
 
-    // 필터 & 검색 UI 이벤트 초기화
     function initFilterControls() {
-      // 카테고리 필터 필 버튼
       const filterButtons = document.querySelectorAll('.filter-pill');
       filterButtons.forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -1718,7 +1460,6 @@
         });
       });
 
-      // 놓치면 불가만 보기 토글 버튼
       const missableBtn = document.getElementById('btn-missable-only');
       missableBtn.addEventListener('click', () => {
         state.missableOnly = !state.missableOnly;
@@ -1734,7 +1475,6 @@
         renderMapPins();
       });
 
-      // 실시간 검색 입력
       const searchInput = document.getElementById('search-input');
       const clearBtn = document.getElementById('btn-clear-search');
 
@@ -1753,7 +1493,6 @@
         renderMapPins();
       });
 
-      // 초기화 모달 제어
       const resetModal = document.getElementById('reset-modal');
       document.getElementById('btn-reset-progress').addEventListener('click', () => {
         resetModal.classList.remove('hidden');
@@ -1769,11 +1508,10 @@
         renderItemsList();
         renderMapPins();
         resetModal.classList.add('hidden');
-        showToast('🔄 챕터 1 수집 진행도가 초기화되었습니다.', 'rose');
+        showToast(`🔄 챕터 ${CHAPTER_NUM} 수집 진행도가 초기화되었습니다.`, 'rose');
       });
     }
 
-    // 페이지 로드 시 초기화
     window.addEventListener('DOMContentLoaded', () => {
       loadCompletedState();
       updateProgressUI();
