@@ -297,15 +297,21 @@
         Leonida Real Map (gta6map.city)
       </div>
 
-      <!-- 마우스 호버 툴팁 -->
-      <div id="map-tooltip" class="hidden fixed z-50 pointer-events-none max-w-xs bg-[#08121e]/95 border border-teal-400/50 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-md">
-        <div class="flex items-center gap-1.5 mb-0.5">
-          <span id="tooltip-cat-dot" class="w-2 h-2 rounded-full"></span>
-          <span id="tooltip-cat-text" class="text-[10px] font-bold uppercase tracking-wider"></span>
-          <span id="tooltip-missable" class="hidden text-[10px] font-bold px-1.5 py-0.2 rounded bg-rose-500/25 text-rose-300">놓치면 불가</span>
-          <span id="tooltip-done" class="hidden text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-500/25 text-emerald-300">완료</span>
+      <!-- 마우스 호버 / 모바일 탭 툴팁 -->
+      <div id="map-tooltip" class="hidden fixed z-50 pointer-events-auto max-w-[calc(100vw-20px)] sm:max-w-xs bg-[#08121e]/95 border border-teal-400/50 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-md">
+        <div class="flex items-start justify-between gap-2 mb-0.5">
+          <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+            <span id="tooltip-cat-dot" class="w-2 h-2 rounded-full shrink-0"></span>
+            <span id="tooltip-cat-text" class="text-[10px] font-bold uppercase tracking-wider"></span>
+            <span id="tooltip-missable" class="hidden text-[10px] font-bold px-1.5 py-0.2 rounded bg-rose-500/25 text-rose-300">놓치면 불가</span>
+            <span id="tooltip-done" class="hidden text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-500/25 text-emerald-300">완료</span>
+          </div>
+          <button id="btn-close-tooltip" type="button" aria-label="팝업 닫기"
+            class="-mr-1 -mt-0.5 w-6 h-6 rounded-lg bg-slate-800/90 hover:bg-rose-500/30 active:bg-rose-500/40 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center text-xs font-bold shrink-0 transition">
+            ✕
+          </button>
         </div>
-        <div id="tooltip-title" class="text-xs font-bold text-white leading-snug"></div>
+        <div id="tooltip-title" class="text-xs font-bold text-white leading-snug pr-1"></div>
         <div id="tooltip-sub" class="text-[11px] text-slate-400 font-mono"></div>
       </div>
 
@@ -1496,11 +1502,15 @@
     function moveTooltip(e) {
       const tooltip = document.getElementById('map-tooltip');
       const offset = 14;
+      const tipW = tooltip.offsetWidth || 260;
+      const tipH = tooltip.offsetHeight || 92;
       let left = e.clientX + offset;
       let top = e.clientY + offset;
 
-      if (left + 260 > window.innerWidth) left = e.clientX - 260;
-      if (top + 85 > window.innerHeight) top = e.clientY - 85;
+      if (left + tipW + 10 > window.innerWidth) left = e.clientX - tipW - offset;
+      if (top + tipH + 10 > window.innerHeight) top = e.clientY - tipH - offset;
+      left = Math.max(10, Math.min(left, window.innerWidth - tipW - 10));
+      top = Math.max(10, Math.min(top, window.innerHeight - tipH - 10));
       tooltip.style.left = `${left}px`;
       tooltip.style.top = `${top}px`;
     }
@@ -1808,8 +1818,22 @@
         return { svgDx: dx * uniform, svgDy: dy * uniform };
       }
 
+      const closeTooltipBtn = document.getElementById('btn-close-tooltip');
+      if (closeTooltipBtn) {
+        closeTooltipBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hideTooltip();
+        });
+        closeTooltipBtn.addEventListener('touchend', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          hideTooltip();
+        }, { passive: false });
+      }
+
       viewport.addEventListener('mousedown', (e) => {
         if (e.button !== 0) return;
+        if (!e.target.closest('.map-pin-group')) hideTooltip();
         if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
         isDragging = true;
         viewport.classList.add('is-dragging');
@@ -1839,6 +1863,7 @@
         'wheel',
         (e) => {
           e.preventDefault();
+          hideTooltip();
           const zoomFactor = e.deltaY < 0 ? 1.18 : 0.85;
           zoomByFactor(zoomFactor);
         },
@@ -1851,6 +1876,7 @@
       viewport.addEventListener(
         'touchstart',
         (e) => {
+          if (!e.target.closest('.map-pin-group')) hideTooltip();
           if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
           if (e.touches.length === 1) {
             isDragging = true;
