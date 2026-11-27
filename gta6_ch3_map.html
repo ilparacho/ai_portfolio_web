@@ -48,6 +48,7 @@
       --cat-outpost: #f97316;
       --cat-encounter: #10b981;
       --cat-crime: #ec4899;
+      --cat-vehicle: #38bdf8;
     }
 
     * {
@@ -144,7 +145,7 @@
                 GTA 6 챕터 3 숨겨진 요소 전술 지도
               </h1>
             </div>
-            바이스 시티 / 베이사이드 / 라 페를 / 사우스사이드 · 카르텔 강도 전 점검 · 총 46종 (수집품 28 + 적 거점 18 · 놓치면 불가 7종)
+            바이스 시티 / 베이사이드 / 라 페를 / 사우스사이드 · 실제 지도 정밀 검수 · 총 78종 (수집·거점 46 + 인카운터 8 + 범죄 10 + 희귀 차량 14)
             </p>
           </div>
         </div>
@@ -164,7 +165,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 3 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 64 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 78 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -185,7 +186,7 @@
       <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (64)
+          전체 (78)
         </button>
         <button type="button" data-category="outpost"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
@@ -198,6 +199,10 @@
         <button type="button" data-category="encounter"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-emerald-400/50 hover:text-emerald-200">
           🎲 랜덤 인카운터 (8)
+        </button>
+        <button type="button" data-category="vehicle"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-sky-400/50 hover:text-sky-200">
+          🏎️ 희귀 차량 (14+거점11)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
@@ -287,6 +292,7 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899] inline-block"></span>범죄/털이</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block"></span>랜덤 인카운터</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#38bdf8] inline-block"></span>희귀 차량</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -355,7 +361,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">64</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">78</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -1395,6 +1401,216 @@
             "y": 1058,
             "summary": "바이스 시티 후반부 주요 장물아비 네트워크입니다. 타이론(라 페를), 야스마니(리틀 쿠바), 랜디(발세로 차량), 킬텔리전스(북부 사냥품)로 역할이 나뉩니다.",
             "guide": "대형 은행/보석상에서 턴 장물과 고급 도난 차량은 각 품목별 최고가를 쳐주는 장물아비를 지도 인덱스에서 확인하고 넘기세요."
+      },
+      {
+            "id": 65,
+            "category": "vehicle",
+            "nameKo": "트루파드 앤드류 노드의 쓰랙스 (비밀 맨션)",
+            "nameEn": "Truffade Andrew Node's Thrax",
+            "region": "스타피시 섬 남부 앤드류 노드 저택 차고 (1345, 1190)",
+            "mission": "No Flusher 태그 10개 스캔 해금",
+            "missable": false,
+            "safeCode": null,
+            "payout": "최상급 커스텀 하이퍼카",
+            "x": 1345,
+            "y": 1190,
+            "summary": "오션 비치 전역의 'No Flusher' 태그 10개를 스캔한 뒤 스타피시 섬 앤드류 노드 저택 차고로 가면 해금되는 커스텀 쓰랙스입니다.",
+            "guide": "오션 비치에서 No Flusher 태그 스캔을 마치고 남부 스타피시 섬 저택 차고를 여세요."
+      },
+      {
+            "id": 66,
+            "category": "vehicle",
+            "nameKo": "페가시 단테의 비텔로 & 치타 (POUNCE 번호판)",
+            "nameEn": "Pegassi Dante's Vitello & Cheetah (POUNCE)",
+            "region": "스타피시 섬 단테 저택(1346, 1171) · 동부 저택(1359, 1156)",
+            "mission": "Standout 하이퍼카 (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "커스텀 슈퍼카 2종 + 보라색 인페르누스",
+            "x": 1346,
+            "y": 1171,
+            "summary": "스타피시 섬 단테 프레시 맨션 차고의 커스텀 비텔로(키 클로너)와 동부 저택의 'POUNCE' 번호판 치타, 인근 보라색 인페르누스(1323, 1171)입니다.",
+            "guide": "스타피시 섬 한 바퀴만 돌면 바이스 시티 최고급 슈퍼카 컬렉션을 단숨에 쓸어 담을 수 있습니다."
+      },
+      {
+            "id": 67,
+            "category": "vehicle",
+            "nameKo": "피스터 클래스 액트 코메트 (스타피시 서남부)",
+            "nameEn": "Pfister Class Act Comet",
+            "region": "스타피시 섬 서남부 맨션 차고 앞 (1325, 1192)",
+            "mission": "Standout 커스텀 스포츠카 (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "커스텀 Pfister Comet",
+            "x": 1325,
+            "y": 1192,
+            "summary": "스타피시 섬 서남쪽 저택 차고문 두 개 사이 진입로에 주차된 고급 사양 코메트입니다.",
+            "guide": "챕터 3 키 클로너를 소지한 상태에서 신호를 복제해 탈취하세요."
+      },
+      {
+            "id": 68,
+            "category": "vehicle",
+            "nameKo": "그로티 돌체 비타 RSX & 버블검 그라울러 (리알토)",
+            "nameEn": "Grotti Dolce Vita RSX & Bubblegum Growler",
+            "region": "리알토 제도 북부 빌라 (1314, 1064)",
+            "mission": "Standout 희귀 차량 2종 (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "슈퍼카 RSX (등록비 $40,650) + 걸리팝 그라울러",
+            "x": 1314,
+            "y": 1064,
+            "summary": "리알토 제도 럭셔리 빌라에 주차된 'Dolce Vita RSX'와 바로 옆 부자 집 차고의 핑크 'Bubblegum Growler'(1310, 1066)입니다.",
+            "guide": "베스푸치 저택 무기고(#45) 바로 북쪽이라 무기·차량 동시 수거가 가능합니다."
+      },
+      {
+            "id": 69,
+            "category": "vehicle",
+            "nameKo": "랜디 위시리스트: 그로티 이탈리 RSX (베스푸치 섬)",
+            "nameEn": "Grotti Itali RSX (Randy's Wish List)",
+            "region": "베스푸치 섬 남부 차고 (1323, 1102)",
+            "mission": "랜디 차량 의뢰 (담장 넘어 침입)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "랜디 의뢰 고액 보상",
+            "x": 1323,
+            "y": 1102,
+            "summary": "바이스 시티와 바이스 비치 사이 베스푸치 섬 주택 차고 안에 숨겨진 그로티 이탈리 RSX입니다.",
+            "guide": "정문 대신 나무 울타리를 넘어 뒤편 차고로 진입해 문을 따고 몰고 나오세요."
+      },
+      {
+            "id": 70,
+            "category": "vehicle",
+            "nameKo": "프로젠 블랙 위도우 에메루스 (SCOOP 컨테이너)",
+            "nameEn": "Progen Black Widow Emerus",
+            "region": "포트 바이스 시티 화물 부두 컨테이너 (1383, 1274)",
+            "mission": "Standout 하이퍼카 (챕터 3 커터 툴 개봉)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "블랙 커스텀 하이퍼카 + 컨테이너 고유무기 2종",
+            "x": 1383,
+            "y": 1274,
+            "summary": "포트 바이스 시티 부두의 SCOOP 컨테이너를 커터 툴(Cut-Off Tool)로 절단하면 얻는 커스텀 블랙 에메루스입니다.",
+            "guide": "인근 컨테이너에 고유 권총 'Cargo H&L .38'과 경기관총 'Mercenary LMG 6'이 있고, 남서쪽 컨테이너(1310, 1323)엔 무리카 도미네이터도 있습니다."
+      },
+      {
+            "id": 71,
+            "category": "vehicle",
+            "nameKo": "피치아 드래곤 게이트 퓨리아 (Y 호텔 발렛)",
+            "nameEn": "Piccia Dragon Gate Furia",
+            "region": "워싱턴 비치 Y 호텔 발렛 주차장 (1504, 1026)",
+            "mission": "Standout 슈퍼카 (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "용 문양 커스텀 슈퍼카",
+            "x": 1504,
+            "y": 1026,
+            "summary": "워싱턴 비치 Y 호텔 입구 발렛 구역에 세워진 드래곤 게이트 에디션 퓨리아(챕터 4 이후/키 클로너) 및 버킹엄 윈저 드롭(1496, 988) 스팟입니다.",
+            "guide": "북쪽 리프 링크스 맨션(1328, 923)에는 랜디 위시리스트 '64 맘바 GT'도 스폰됩니다."
+      },
+      {
+            "id": 72,
+            "category": "vehicle",
+            "nameKo": "랜디 위시리스트: 그란포르마 조루소 & 사이퍼 (오션 비치)",
+            "nameEn": "Granforma Zorrusso & Übermacht Cypher",
+            "region": "오션 비치 해더웨이 아파트(1493, 1196) · BITE 앞 재규어(1478, 1087)",
+            "mission": "랜디 위시리스트 (미션 Clonin' Keys 연계)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "랜디 의뢰 보상 + 하이퍼카",
+            "x": 1493,
+            "y": 1196,
+            "summary": "챕터 3 미션 'Clonin' Keys, Makin' GS' 중 해더웨이 아파트 차고에서 탈취하는 조루소와, 인근 쇼어 드라이브의 사이퍼·BITE 앞 오셀롯 주귤라(1478, 1087)입니다.",
+            "guide": "오션 비치 해변 도로를 따라 주귤라와 사이퍼를 순찰하듯 찾기 쉽습니다."
+      },
+      {
+            "id": 73,
+            "category": "vehicle",
+            "nameKo": "프로젠 허니콤 에메루스 & 립글로스 비텔로 (Dolos 렌터카)",
+            "nameEn": "Progen Honeycomb Emerus & Lipgloss Vitello",
+            "region": "크로스타운 병원 맞은편 Dolos Exotic Car Rental (1129, 1177)",
+            "mission": "Standout 하이퍼카 2종 (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "허니콤 에메루스 + 걸리팝 비텔로",
+            "x": 1129,
+            "y": 1177,
+            "summary": "바이스 시티 병원 맞은편 고급 렌터카(Dolos Exotic Car Rental) 주차장에 나란히 세워진 하이퍼카 2종입니다.",
+            "guide": "키 클로너로 도난 경보를 무력화한 뒤 바로 몰고 나오면 2종을 한 장소에서 확보할 수 있습니다."
+      },
+      {
+            "id": 74,
+            "category": "vehicle",
+            "nameKo": "페가시 '96 인페르누스 & 그래피티 코케트 D10",
+            "nameEn": "Pegassi Infernus '96 & Invetero Coquette D10 (Graffiti)",
+            "region": "크로스타운 경찰서 7층(1178, 1120) · 베이사이드(1209, 1051)",
+            "mission": "랜디 차량 의뢰 & Standout 스포츠카",
+            "missable": false,
+            "safeCode": null,
+            "payout": "클래식 '96 인페르누스 · 그래피티 D10",
+            "x": 1178,
+            "y": 1120,
+            "summary": "크로스타운 경찰서 주차타워 7층에 압류된 '96 인페르누스와 베이사이드의 그래피티 도색 코케트 D10(1209, 1051)입니다.",
+            "guide": "경찰서 주차장은 경찰차가 게이트를 열 때 틈타 진입하고, 탈출 시 스턴트 점프 램프로 뛰어내리면 쾌적합니다."
+      },
+      {
+            "id": 75,
+            "category": "vehicle",
+            "nameKo": "랜디 위시리스트: 브라바도 밴시 & 피스터 그라울러 (쇼룸)",
+            "nameEn": "Bravado Banshee & Pfister Growler (Southside Showrooms)",
+            "region": "북동 사우스사이드 선라이즈 프리미엄 오토 (1056, 1498)",
+            "mission": "랜디 위시리스트 (전시장 유리 돌파 탈취)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "브라바도 밴시 · 그라울러 · 발러 ST-D",
+            "x": 1056,
+            "y": 1498,
+            "summary": "사우스사이드 북동쪽 Sunrise Premium Autos 전시장 유리창을 깨고 몰고 나오는 밴시와 옆 Marlin Motors의 그라울러, 남쪽 볼러 ST-D(1040, 1516)입니다.",
+            "guide": "쇼룸 유리를 깨고 탈취하면 즉시 경찰 수배가 뜨므로 북쪽 고속도로 램프 방향을 미리 확인하세요."
+      },
+      {
+            "id": 76,
+            "category": "vehicle",
+            "nameKo": "그란포르마 쓰나미 조루소 & 피치아 퓨리아 (피콕 에스테이츠)",
+            "nameEn": "Granforma Tsunami Zorrusso & Piccia Furia",
+            "region": "남부 피콕 에스테이츠 대저택 차고 (1109, 1570 / 1106, 1544)",
+            "mission": "랜디 위시리스트 / Standout (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "쓰나미 조루소 · 퓨리아 · 돌체 비타 RSX",
+            "x": 1109,
+            "y": 1570,
+            "summary": "바이스 시티 남단 부촌 피콕 에스테이츠 저택 차고에 밀집한 초고급 슈퍼카 3종 구역입니다.",
+            "guide": "Palladia Ln 저택(1106, 1544)은 정문을 피하고 왼쪽 생울타리를 넘어 키 클로너로 차고를 여세요."
+      },
+      {
+            "id": 77,
+            "category": "vehicle",
+            "nameKo": "페가시 토로스 · 비텔로 · 코튼 캔디 데바니티",
+            "nameEn": "Pegassi Toros (Tequesta) & Vitello / Cotton Candy Devanity",
+            "region": "테퀘스타 18:30(1238, 1369) · 웨이닝 샌즈 빌라(1259, 683)",
+            "mission": "랜디 위시리스트 & 걸리팝 컬렉션",
+            "missable": false,
+            "safeCode": null,
+            "payout": "고급 SUV/슈퍼카 3종",
+            "x": 1238,
+            "y": 1369,
+            "summary": "저녁 6시 30분경 테퀘스타 Pegassi Residences 앞에 서는 토로스(경비 주의)와 동북부 웨이닝 샌즈의 비텔로·데바니티(1259, 683)입니다.",
+            "guide": "웨이닝 샌즈에서는 보석상 2곳(#63)을 털고 빌라 담장을 넘어 키 클로너로 비텔로를 훔치기 좋습니다."
+      },
+      {
+            "id": 78,
+            "category": "vehicle",
+            "nameKo": "모세 의뢰 #7: '74 디클라스 바모스 (루목스 차고 코드 2727)",
+            "nameEn": "'74 Declasse Vamos (Code 2727) & Millport Tempesta",
+            "region": "루목스 카운티 그레이슨 로클리지 Rd (574, 409)",
+            "mission": "모세 마지막 차량 의뢰 (차고 코드 2727)",
+            "missable": false,
+            "safeCode": "2727",
+            "payout": "모세 올클리어('Emperor Sultan' 해금)",
+            "x": 574,
+            "y": 409,
+            "summary": "모세의 마지막 7번째 차량 의뢰 타깃으로, 그레이슨 외곽 차고 키패드에 2727을 입력해야 회수할 수 있습니다.",
+            "guide": "차고 키패드 2727 입력 후 바모스를 몰고 포트 겔혼 모세 차고로 복귀하면 보상 차량 'Moses' Sultan'을 받습니다."
       }
 ];
 
@@ -1447,6 +1663,13 @@
             "color": "#ec4899",
             "bgClass": "bg-pink-500/15 text-pink-300 border-pink-500/35",
             "icon": "💰"
+      },
+      "vehicle": {
+            "label": "희귀 차량",
+            "badgeText": "🏎️ 희귀 차량",
+            "color": "#38bdf8",
+            "bgClass": "bg-sky-500/15 text-sky-300 border-sky-500/35",
+            "icon": "🏎️"
       }
 };
 
@@ -1536,6 +1759,8 @@
             if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
           } else if (state.activeCategory === 'crime') {
             if (item.category !== 'crime' && !item.crimeSpot) return false;
+          } else if (state.activeCategory === 'vehicle') {
+            if (item.category !== 'vehicle' && !item.vehicleReward) return false;
           } else if (item.category !== state.activeCategory) {
             return false;
           }

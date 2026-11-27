@@ -48,6 +48,7 @@
       --cat-outpost: #f97316;
       --cat-encounter: #10b981;
       --cat-crime: #ec4899;
+      --cat-vehicle: #38bdf8;
     }
 
     * {
@@ -164,7 +165,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 2 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 51 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 62 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -185,7 +186,7 @@
       <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (51)
+          전체 (62)
         </button>
         <button type="button" data-category="outpost"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
@@ -198,6 +199,10 @@
         <button type="button" data-category="encounter"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-emerald-400/50 hover:text-emerald-200">
           🎲 랜덤 인카운터 (7)
+        </button>
+        <button type="button" data-category="vehicle"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-sky-400/50 hover:text-sky-200">
+          🏎️ 희귀 차량 (11+거점8)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
@@ -288,6 +293,7 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899] inline-block"></span>범죄/털이</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block"></span>랜덤 인카운터</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#38bdf8] inline-block"></span>희귀 차량</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -356,7 +362,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">51</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">62</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -1184,6 +1190,171 @@
             "y": 892,
             "summary": "챕터 2 권역에서 단일 수익이 가장 큰 Druthers State Bank($15k~$45k)와 Brilliant Cuts 보석상(1098, 881)입니다.",
             "guide": "두 건물이 도보 거리로 인접해 있으며 서스티 울프 클럽하우스 등 벨빌 거점 공략 전후로 거액을 챙길 수 있습니다."
+      },
+      {
+            "id": 52,
+            "category": "vehicle",
+            "nameKo": "모세의 커스텀 술탄 (차량 의뢰 최종 보상)",
+            "nameEn": "Emperor Moses' Sultan",
+            "region": "포트 겔혼 남부 모세 오토샵 (454, 835)",
+            "mission": "모세 왓킨스 차량 배달 7종 완료 보상",
+            "missable": false,
+            "safeCode": null,
+            "payout": "커스텀 Street Racer · $0 (무료 증정)",
+            "x": 454,
+            "y": 835,
+            "summary": "모세 왓킨스(Moses Watkins)의 포트 겔혼 차량 탈취 의뢰 7건을 모두 완료하면 무료로 선물받는 커스텀 'Emperor Sultan'입니다.",
+            "guide": "모세의 차고(#13)에서 의뢰를 받아 '82 크롤러, 요세미티 1500, '95 헬리온, '85 푸토, '77 반디토, 나이트블레이드, '74 바모스를 모두 배달하면 해금됩니다."
+      },
+      {
+            "id": 53,
+            "category": "vehicle",
+            "nameKo": "모세 의뢰: '85 카린 푸토 (드래퍼 섬 우체국)",
+            "nameEn": "'85 Karin Futo (Moses Drop-Off)",
+            "region": "드래퍼 아일랜드 최남단 우체국 건물 (322, 623)",
+            "mission": "모세 차량 의뢰 (지붕 해치 침입)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "배달 보상 $1,250~$4,200+",
+            "x": 322,
+            "y": 623,
+            "summary": "드래퍼 아일랜드 남단 건물 지붕 사다리를 타고 올라가 해치로 진입해야 회수할 수 있는 희귀 '85 카린 푸토입니다.",
+            "guide": "우체국 건물 옆 사다리로 지붕에 오른 뒤 해치를 통해 창고 내부로 내려가 잠금을 풀고 차량을 몰고 나오세요."
+      },
+      {
+            "id": 54,
+            "category": "vehicle",
+            "nameKo": "모세 의뢰 3종: 요세미티 1500 · '95 헬리온 · '82 크롤러",
+            "nameEn": "Yosemite 1500 / '95 Annis Hellion / '82 Canis Crawler",
+            "region": "포트 겔혼 바스티온 St(428, 770) · 오차드 Ave(432, 762) · 트레이더스(523, 998)",
+            "mission": "모세 차량 의뢰 3연속 (포트 겔혼 권역)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "대당 $1,250~$4,200 + 무손상 보너스",
+            "x": 428,
+            "y": 770,
+            "summary": "포트 겔혼 시내 견인차 위(Yosemite 1500), 모세 샵 남쪽 방갈로('95 Hellion), 남부 트레이드 유니온('82 Crawler) 스폰 위치입니다.",
+            "guide": "Yosemite 1500은 견인차 기사를 제압해 내려서 모세에게 가져가야 하며, 손상을 줄일수록 보너스가 커집니다."
+      },
+      {
+            "id": 55,
+            "category": "vehicle",
+            "nameKo": "모세 의뢰 2종: '77 BF 반디토 & 웨스턴 나이트블레이드",
+            "nameEn": "'77 BF Bandito & Western Nightblade",
+            "region": "벅스킨 늪지(767, 1066) · 암브로시아 바이커 클럽(903, 770)",
+            "mission": "모세 차량 의뢰 (늪지 버기 · 바이커 바이크)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "대당 $1,250~$4,200+",
+            "x": 767,
+            "y": 1066,
+            "summary": "벅스킨 늪지 북동쪽 흙길 나무 옆 은색 '77 BF Bandito 버기와 암브로시아 Final Chapter 바이커 클럽(903, 770)의 나이트블레이드입니다.",
+            "guide": "암브로시아 나이트블레이드는 초록색 컨테이너를 밟고 담장을 넘어 바이크를 탈취하세요."
+      },
+      {
+            "id": 56,
+            "category": "vehicle",
+            "nameKo": "와이먼 복원 클래식카 ('67 트랜스그레서 등 5종)",
+            "nameEn": "Wyman Classic Car Restorations ('67 Transgressor)",
+            "region": "포트 겔혼 Tanglewood Ln(435, 772) · 와이먼 폐차장",
+            "mission": "WAiNK 난파선/폐차 스캔 복원 퀘스트",
+            "missable": false,
+            "safeCode": null,
+            "payout": "복원비 $1,500 · 최종 Born Free Deviant 증정",
+            "x": 435,
+            "y": 772,
+            "summary": "WAiNK 카메라로 폐차 잔해를 스캔해 '67 트랜스그레서(3개), '70 리아타(3개), '64 맘바 GT(4개), 레이놀즈 킷카(5개)를 복원하는 수집 라인입니다.",
+            "guide": "4종을 모두 복원하면 와이먼 정비소에서 최종 보상 커스텀 머슬카 'Born Free Deviant'가 자동 해금됩니다."
+      },
+      {
+            "id": 57,
+            "category": "vehicle",
+            "nameKo": "반 파인드: 카린 체셔 레블 & '65 바피드 도미네이터",
+            "nameEn": "Karin Cheshire Rebel (Barn Find) & Vapid '65 Dominator",
+            "region": "노스 겔혼 힐스 헛간 (554, 688)",
+            "mission": "Standout 희귀 차량 (Barn Find 2종)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "레이싱 커스텀 오프로더 + 클래식 컨버터블",
+            "x": 554,
+            "y": 688,
+            "summary": "노스 겔혼 힐스의 낡은 헛간 내부에 숨겨진 레이싱 사양 'Karin Cheshire Rebel'과 문 앞의 클래식 '65 Dominator입니다.",
+            "guide": "모세 차고에 등록하면 개인 차량으로 영구 보관할 수 있습니다."
+      },
+      {
+            "id": 58,
+            "category": "vehicle",
+            "nameKo": "'77 임폰테 피닉스 & 월터 고스트 크루저",
+            "nameEn": "Imponte Phoenix ('77) & Walter Ghost Cruiser",
+            "region": "서부 포트 겔혼(394, 770) · 남부 포트 겔혼(471, 855)",
+            "mission": "Standout 희귀 차량 2종",
+            "missable": false,
+            "safeCode": null,
+            "payout": "금장 파이어버드 머슬카 · 유령 순찰차",
+            "x": 394,
+            "y": 770,
+            "summary": "보닛에 금색 파이어버드 데칼이 그려진 블랙 '77 임폰테 피닉스와 남부 포트 겔혼의 특수 도색 순찰차 'Walter Ghost Cruiser'입니다.",
+            "guide": "라 카스카라 모텔 인근(394, 770)에서 피닉스를, 킹핀 볼링장 동쪽(471, 855)에서 고스트 크루저를 바로 탈취하세요."
+      },
+      {
+            "id": 59,
+            "category": "vehicle",
+            "nameKo": "'95 바이슨 900 (미니 몬스터트럭) & 쉬즈 올 댓 블리스타",
+            "nameEn": "'95 Bison 900 & Dinka \"She's All That\" Blista",
+            "region": "남부 포트 겔혼(452, 890) · 뷰티 서플라이 앞(425, 766)",
+            "mission": "Standout 커스텀 차량 2종",
+            "missable": false,
+            "safeCode": null,
+            "payout": "대형 휠 오프로더 + 걸리팝 핑크 블리스타",
+            "x": 452,
+            "y": 890,
+            "summary": "거대한 휠을 장착한 미니 몬스터트럭 스타일 '95 Bison 900과 속눈썹·입술 데칼의 'She's All That Blista'입니다.",
+            "guide": "Bison 900은 남부 포트 겔혼 해안도로 근처, Blista는 뷰티 서플라이 매장 앞(425, 766)에 고정 주차되어 있습니다."
+      },
+      {
+            "id": 60,
+            "category": "vehicle",
+            "nameKo": "그로티 스테이터스 RSX & '64 디클라스 맘바 GT",
+            "nameEn": "Grotti Status RSX & Declasse Mamba GT '64",
+            "region": "겔혼 레이스웨이 카 캐리어(490, 1078) · 교도소 북쪽(615, 1007)",
+            "mission": "Standout 슈퍼카 / 와이먼 복원 차량",
+            "missable": false,
+            "safeCode": null,
+            "payout": "슈퍼카 Grotti Status RSX",
+            "x": 490,
+            "y": 1078,
+            "summary": "겔혼 인터내셔널 레이스웨이 자동차 운반 트레일러 위에 실려 있는 'Grotti Status RSX' 슈퍼카 스폰 지점입니다.",
+            "guide": "인근 레오니다 주립 교도소 북쪽 농가 차고(615, 1007)에서는 와이먼의 '64 맘바 GT 잔해도 찾을 수 있습니다."
+      },
+      {
+            "id": 61,
+            "category": "vehicle",
+            "nameKo": "프로젠 시스프레이 에메루스 & 애니스 픽셀 엘레지 (카프리)",
+            "nameEn": "Progen Seaspray Emerus & Annis Pixel Elegy",
+            "region": "북서부 카프리(373, 1174) · 남부 카프리(389, 1249)",
+            "mission": "Standout 하이퍼카 (스냅 건 · 키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "하이퍼카 (등록비 $59,900)",
+            "x": 373,
+            "y": 1174,
+            "summary": "포트 겔혼 남쪽 카프리 북서쪽 주택 차고를 스냅 건(Snap Gun)으로 따고 얻는 커스텀 에메루스와 카프리 남부의 픽셀 엘레지입니다.",
+            "guide": "바로 남쪽 경찰서 앞 전시대의 'Invetero Enforcer Coquette'(368, 1177) 및 할로윈 하우스 앞(432, 1230) 희귀 SUV도 함께 챙기세요."
+      },
+      {
+            "id": 62,
+            "category": "vehicle",
+            "nameKo": "페가시 골드 로프 인페르누스 & 무리카 도미네이터",
+            "nameEn": "Pegassi Gold Rope Infernus & Vapid Murica Dominator",
+            "region": "북동부 암브로시아 호숫가(932, 741) · 프로그스워터(878, 672)",
+            "mission": "Standout 희귀 슈퍼카 / 머슬카 (키 클로너)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "한정 도색 슈퍼카 · 스톡카",
+            "x": 932,
+            "y": 741,
+            "summary": "암브로시아 Reservoir St 물가 집 현관 아래 주차된 '골드 로프 인페르누스'(키 클로너 필요)와 프로그스워터의 성조기 '무리카 도미네이터'입니다.",
+            "guide": "골드 로프 인페르누스는 챕터 3 키 클로너 해금 후 방문하거나 창문·차고 진입 조건을 확인하세요."
       }
 ];
 
@@ -1236,6 +1407,13 @@
             "color": "#ec4899",
             "bgClass": "bg-pink-500/15 text-pink-300 border-pink-500/35",
             "icon": "💰"
+      },
+      "vehicle": {
+            "label": "희귀 차량",
+            "badgeText": "🏎️ 희귀 차량",
+            "color": "#38bdf8",
+            "bgClass": "bg-sky-500/15 text-sky-300 border-sky-500/35",
+            "icon": "🏎️"
       }
 };
 
@@ -1325,6 +1503,8 @@
             if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
           } else if (state.activeCategory === 'crime') {
             if (item.category !== 'crime' && !item.crimeSpot) return false;
+          } else if (state.activeCategory === 'vehicle') {
+            if (item.category !== 'vehicle' && !item.vehicleReward) return false;
           } else if (item.category !== state.activeCategory) {
             return false;
           }
