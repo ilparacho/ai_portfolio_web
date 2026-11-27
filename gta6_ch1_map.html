@@ -46,6 +46,8 @@
       --cat-treasure: #06b6d4;
       --cat-missable: #f43f5e;
       --cat-outpost: #f97316;
+      --cat-encounter: #10b981;
+      --cat-crime: #ec4899;
     }
 
     * {
@@ -142,7 +144,7 @@
                 GTA 6 챕터 1 숨겨진 요소 전술 지도
               </h1>
             </div>
-            마리아나 카운티 / 리오나이다 키스 / 펠리칸 밸리 · 실제 지도 기반 · 총 38종 (수집품 29 + 적 거점 9 · 놓치면 불가 4종)
+            마리아나 카운티 / 리오나이다 키스 / 펠리칸 밸리 · 실제 지도 정밀 검수 · 총 52종 (수집·거점 38 + 랜덤 인카운터 7 + 범죄·털이 7)
             </p>
           </div>
         </div>
@@ -162,7 +164,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 1 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 38 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 52 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -180,14 +182,22 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (38)
+          전체 (52)
         </button>
         <button type="button" data-category="outpost"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
           🏴‍☠️ 적 거점 (9)
+        </button>
+        <button type="button" data-category="crime"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-pink-400/50 hover:text-pink-200">
+          💰 범죄/털이 (7+1)
+        </button>
+        <button type="button" data-category="encounter"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-emerald-400/50 hover:text-emerald-200">
+          🎲 랜덤 인카운터 (7)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
@@ -242,8 +252,8 @@
         <button type="button" onclick="focusSector(700, 1820, 2.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">챕터 1 전도</button>
         <button type="button" onclick="focusSector(930, 1975, 4.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">키 렌토 본섬</button>
         <button type="button" onclick="focusSector(740, 1710, 3.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">그래스리버스 습지</button>
-        <button type="button" onclick="focusSector(425, 2020, 3.6)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">퍼밋 키스 / 마일 제로</button>
-        <button type="button" onclick="focusSector(275, 2025, 4.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">밥캣 키 (서부)</button>
+        <button type="button" onclick="focusSector(385, 2015, 3.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">퍼밋 키스 / 마일 제로</button>
+        <button type="button" onclick="focusSector(420, 1490, 3.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">밥캣 키 / 빅 파인</button>
         <button type="button" onclick="focusSector(1010, 2045, 3.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">동남부 난파선 해역</button>
                 <button type="button" onclick="focusSector(640, 1520, 3.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">왓슨 베이 / 북부 재배지</button>
         <button type="button" onclick="focusSector(940, 1650, 3.8)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">햄릿 (M7 거점)</button>
@@ -276,6 +286,8 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>수중 보물/난파선</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899] inline-block"></span>범죄/털이</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block"></span>랜덤 인카운터</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -338,7 +350,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">38</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">52</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -387,8 +399,8 @@
             "mission": "자유 탐색 (극초반 무전투 가능)",
             "missable": false,
             "safeCode": null,
-            "x": 525,
-            "y": 2055,
+            "x": 563,
+            "y": 2056,
             "summary": "극초반 보트만으로 전투 없이 무료 획득 가능한 소음기 기본 장착 권총입니다.",
             "guide": "퍼밋 키스(Permit Keys) 최남단 동쪽 끝(해군 기지 경계 인근)에 좌초된 선박에 보트로 접근하세요. 갑판의 열린 해치 내부로 내려가 포커스 모드로 상자를 수색하면 비싼 소음기가 달린 고유 권총을 즉시 얻을 수 있습니다."
       },
@@ -401,8 +413,8 @@
             "mission": "자유 탐색",
             "missable": false,
             "safeCode": null,
-            "x": 470,
-            "y": 1965,
+            "x": 494,
+            "y": 1961,
             "summary": "밀수업자들이 개조한 단축형 스터비 샷건으로 근거리 화력이 뛰어납니다.",
             "guide": "마일 제로 비행장 바로 남쪽, 퍼밋 키스 군도 최북단의 작은 섬 해안가로 이동하세요. 모래사장에 버려진 밀수선 잔해 바로 옆에 놓인 총기 케이스에서 전투 없이 회수할 수 있습니다."
       },
@@ -415,10 +427,10 @@
             "mission": "자유 탐색 (시간 조건: 새벽 2시경)",
             "missable": false,
             "safeCode": null,
-            "x": 985,
-            "y": 1925,
-            "summary": "특정 시간대에 집주인이 집에 머무를 때만 스폰되는 특수 기관단총입니다.",
-            "guide": "키 렌토(Key Lento) 동쪽 해변의 \"건 너트 하우스\" 외부 계단으로 올라가 문을 강제로 부수고 진입한 뒤 주방 카운터 위를 확인하세요. ※ 중요: 집주인이 집에 있는 새벽 2시경(02:00 전후)에만 무기가 스폰됩니다."
+            "x": 906,
+            "y": 2027,
+            "summary": "키 렌토 남부 Wonder Whale 인근 낡은 집(Gun Nut House) 벽면에서 얻는 Shrewsbury SMS-01 기반 고유 저격소총입니다.",
+            "guide": "키 렌토 남부 Wonder Whale(888, 2017) 동쪽 건 너트 하우스 현관문을 박차고 들어가면 거실 벽에서 고유 저격소총 'Gun Nut SMS-01'을 얻습니다. 욕조 안 로켓 런처와 금고도 함께 회수하세요(북부 White House 쪽 별도 스폰도 존재)."
       },
       {
             "id": 4,
@@ -430,7 +442,7 @@
             "missable": false,
             "safeCode": null,
             "x": 910,
-            "y": 1935,
+            "y": 1976,
             "summary": "2층 화장실 문 뒤편에 숨겨져 있는 전술 컴뱃 샷건입니다.",
             "guide": "키 렌토 본섬 북서쪽 끝(세븐 마일 브릿지 진입부 인근) 해안가 건물 내부로 들어가 2층으로 올라가세요. 2층 화장실 문을 활짝 열면 문 뒤쪽 구석에 세워져 있습니다."
       },
@@ -439,42 +451,42 @@
             "category": "weapon",
             "nameKo": "턴트 니퍼 .38",
             "nameEn": "Turnt Nipper .38",
-            "region": "밥캣 키 최남단 끝자락",
+            "region": "밥캣 바이트 / 케이프 로마노 해안 소나무 위 (추락 패러트라이크)",
             "mission": "자유 탐색",
             "missable": false,
             "safeCode": null,
-            "x": 270,
-            "y": 2075,
+            "x": 344,
+            "y": 1321,
             "summary": "나무에 걸린 패러글라이더 조난 현장 근처에서 얻는 고유 권총입니다.",
-            "guide": "서쪽 외곽 밥캣 키(Bobcat Key) 최남단 곶으로 이동하면 나무 위에 패러글라이더 낙하산이 걸려 있는 것을 볼 수 있습니다. 바로 아래 지면과 바위 틈을 수색해 회수하세요."
+            "guide": "마리아나 카운티 서북부 케이프 로마노(밥캣 바이트) 해안가 소나무 위에 걸린 추락한 패러트라이크(동력 패러글라이더) 잔해에서 회수할 수 있습니다. (기존 마일 제로 표기 오류 수정)"
       },
       {
             "id": 6,
             "category": "weapon",
             "nameKo": "더블 크로스 바트라",
             "nameEn": "Double Cross Vatra",
-            "region": "밥캣 키 서쪽 리오나이다 만 해저",
+            "region": "밥캣 키 서쪽 해저 (코카인 요트 난파 지점 아래)",
             "mission": "자유 탐색 (잠수 필요)",
             "missable": false,
             "safeCode": null,
-            "x": 225,
-            "y": 2040,
+            "x": 363,
+            "y": 1530,
             "summary": "침몰 보트 잔해 아래 해저 바닥에서 건져 올리는 고유 자동권총입니다.",
-            "guide": "밥캣 키 서쪽 리오나이다 만(Gulf of Leonida) 해역으로 보트를 타고 나간 뒤 수면 아래 침몰한 보트 잔해를 찾아 잠수하세요. 뒤집힌 선체 하단 모래바닥에 놓여 있습니다."
+            "guide": "밥캣 키 서쪽 외해(밥캣 다이빙 구역 인근) 코카인 요트 아래 해저에서 회수하는 고유 중기관단총(Heavy SMG)입니다. 스쿠버 장비를 착용하고 다이빙하세요."
       },
       {
             "id": 7,
             "category": "weapon",
             "nameKo": "군인의 전투 단검",
             "nameEn": "Soldier's Combat Knife",
-            "region": "밥캣 키 ~ 밥캣 바이트 사이 해변",
+            "region": "밥캣 키 북서쪽 ~ 밥캣 바이트 사이 반침수 탱크 해변",
             "mission": "자유 탐색",
             "missable": false,
             "safeCode": null,
-            "x": 310,
-            "y": 1995,
+            "x": 428,
+            "y": 1442,
             "summary": "모래사장에 반쯤 잠긴 낡은 군용 탱크 잔해 옆에서 습득하는 근접 무기입니다.",
-            "guide": "밥캣 키 동쪽 해안과 밥캣 바이트(Bobcat Bight) 사이 만곡부 해변을 따라 이동하면 바닷물에 반쯤 잠긴 탱크 잔해가 보입니다. 탱크 포탑 옆 해변 바닥에서 획득할 수 있습니다."
+            "guide": "밥캣 바이트와 밥캣 키 사이 해변 물가에 절반쯤 잠긴 구형 전차(탱크) 해치 안쪽에서 근접 고유 무기 '군인의 전투 단검'을 획득합니다."
       },
       {
             "id": 8,
@@ -485,8 +497,8 @@
             "mission": "미션 18: 사라진 도니 (Don Gone)",
             "missable": true,
             "safeCode": null,
-            "x": 955,
-            "y": 1965,
+            "x": 922,
+            "y": 1971,
             "summary": "[놓치면 불가] 미션 18 진행 중 차량에 불을 지르기 직전에만 회수 가능한 도니의 유품 리볼버입니다.",
             "guide": "미션 18 \"사라진 도니(Don Gone)\"에서 도니의 도주를 위장하기 위해 트레일러 앞 빨간색 Blista 차량을 불태워야 합니다. 불을 붙이기 전에 반드시 차량 트렁크를 먼저 열어 회수하세요. 차량이 폭파되면 영구히 얻을 수 없습니다."
       },
@@ -495,26 +507,26 @@
             "category": "weapon",
             "nameKo": "도니의 단검",
             "nameEn": "Donnie's Knife",
-            "region": "그래스리버스 남부 빅 파인 사냥터 남서쪽",
+            "region": "그래스리버스 북서부 빅 파인 (Richardson 사냥용품점 인근)",
             "mission": "자유 탐색",
             "missable": false,
             "safeCode": null,
-            "x": 645,
-            "y": 1755,
+            "x": 614,
+            "y": 1455,
             "summary": "빅 파인 사냥터 인근 늪지대에서 발견되는 도니의 또 다른 고유 단검입니다.",
-            "guide": "북부 그래스리버스(Grassrivers) 남단 빅 파인(Big Pine) 사냥터 구역에서 남서쪽 늪지대 수풀 방향으로 이동한 뒤 포커스 모드를 켜면 빛나는 단검을 발견할 수 있습니다."
+            "guide": "그래스리버스 서북부 빅 파인(Big Pine) 사냥터 인근에서 획득하는 고유 단검입니다."
       },
       {
             "id": 10,
             "category": "weapon",
             "nameKo": "호스타일 슈퍼400",
             "nameEn": "Hostile Super400",
-            "region": "그래스리버스 밀 스테이션 레이더 기지",
+            "region": "그래스리버스 왓슨 베이 북쪽 밀 스테이션 레이더 기지",
             "mission": "불법 작전 거점 소탕",
             "missable": false,
             "safeCode": null,
-            "x": 785,
-            "y": 1625,
+            "x": 641,
+            "y": 1542,
             "summary": "밀 스테이션 레이더 기지 거점을 제압하면 얻는 고화력 전술 샷건입니다.",
             "guide": "그래스리버스 북부의 밀 스테이션 레이더 기지(Mill Station Radar Base)에 주둔한 적 무장 세력을 모두 소탕한 뒤 중앙 레이더 관제동 내부 무기 보관함에서 획득하세요."
       },
@@ -523,12 +535,12 @@
             "category": "weapon",
             "nameKo": "크랩쉑 VF5",
             "nameEn": "Crabshack VF5",
-            "region": "그래스리버스 펠리컨 밸리 게 연구소 보트하우스",
+            "region": "그래스리버스 펠리칸 밸리 거대 게(Giant Crab) 연구 오두막",
             "mission": "금고 & 키패드 연계 퍼즐",
             "missable": false,
             "safeCode": "00072 / 0212",
-            "x": 880,
-            "y": 1715,
+            "x": 757,
+            "y": 1731,
             "summary": "연구소 금고(00072) 개봉 후 핏자국을 추적해 보트하우스 키패드(0212)를 열면 얻는 기관단총입니다.",
             "guide": "펠리컨 밸리 게 연구소 본관 금고에 비밀번호 00072를 입력해 단서를 확인하세요. 이후 바닥의 핏자국을 따라 보트하우스 문으로 이동해 키패드에 0212를 입력하면 내부 작업대에서 획득할 수 있습니다."
       },
@@ -537,12 +549,12 @@
             "category": "weapon",
             "nameKo": "미스터 맹그로브 레어드 350",
             "nameEn": "Mister Mangrove Laird 350",
-            "region": "그래스리버스 코튼마우스 호수 남쪽 습지대",
+            "region": "남부 그래스리버스 맹그로브 늪지 (코튼마우스 호수 남동쪽)",
             "mission": "습지대 돌발 이벤트 보상",
             "missable": false,
             "safeCode": null,
-            "x": 715,
-            "y": 1690,
+            "x": 841,
+            "y": 1857,
             "summary": "코튼마우스 호수 남쪽 맹그로브 습지대 인카운터 보상으로 받는 저격소총입니다.",
             "guide": "그래스리버스 코튼마우스 호수(Cottonmouth Lake) 남쪽 맹그로브 수로를 보트나 도보로 이동할 때 발생하는 습지대 돌발 이벤트를 해결하면 보상으로 획득합니다."
       },
@@ -551,12 +563,12 @@
             "category": "safe",
             "nameKo": "키 렌토 남부 트레일러 금고",
             "nameEn": "Southern Key Lento Trailer Safe",
-            "region": "키 렌토 남부 / 그래스리버스 남단 경계 트레일러",
+            "region": "코튼마우스 호수 남단 트레일러 (남부 그래스리버스)",
             "mission": "자유 탐색 (비밀번호: 44017)",
             "missable": false,
             "safeCode": "44017",
-            "x": 895,
-            "y": 2015,
+            "x": 772,
+            "y": 1839,
             "summary": "트레일러 벽면에 붙은 엽서들의 숫자를 조합해 여는 숨겨진 금고입니다.",
             "guide": "트레일러 내부 벽면에 걸린 관광 엽서 3장의 숫자를 조합한 비밀번호 44017을 다이얼에 입력하면 내부의 현금 다발과 귀중품을 획득할 수 있습니다."
       },
@@ -565,12 +577,12 @@
             "category": "safe",
             "nameKo": "BURG 해저 연구 시설 #1 금고",
             "nameEn": "BURG Underwater Research Facility #1 Safe",
-            "region": "마일 제로 비행장 서쪽 노란 해상 플랫폼 아래",
+            "region": "마일 제로 비행장 서쪽 · 리케자스 키스 남쪽 노란 해상 플랫폼 아래",
             "mission": "해저 시설 탐사 (비밀번호: 80085)",
             "missable": false,
             "safeCode": "80085",
-            "x": 315,
-            "y": 1945,
+            "x": 225,
+            "y": 2038,
             "summary": "해저 시설 내부 단말기 이메일에서 코드를 확인해 여는 금고로, 내부에 희귀 운석이 들어 있습니다.",
             "guide": "마일 제로 비행장 서쪽 해상의 노란색 연구 플랫폼 아래로 잠수해 침수된 BURG 해저 시설에 진입하세요. 컴퓨터 단말기 이메일 확인 후 금고에 80085를 입력하면 현금과 해저 운석을 획득합니다."
       },
@@ -579,26 +591,26 @@
             "category": "safe",
             "nameKo": "브라이언의 창고 자물쇠",
             "nameEn": "Brian's Marina Shed Padlock",
-            "region": "키 렌토 브라이언 마리나 창고",
+            "region": "키 렌토 남서부 Isla Tropical 클럽 옆 골목 (브라이언의 락업)",
             "mission": "자유 탐색 (비밀번호: 7700)",
             "missable": false,
             "safeCode": "7700",
-            "x": 925,
-            "y": 1995,
+            "x": 852,
+            "y": 2032,
             "summary": "브라이언 헤더의 선착장 보급 창고 문을 잠그고 있는 4자리 다이얼 자물쇠입니다.",
-            "guide": "키 렌토 남부 브라이언 마리나(Brian's Marina) 부두 옆 자재 창고 문에 걸린 4자리 자물쇠에 7700을 입력하면 탄약, 현금, 보급 상자를 챙길 수 있습니다."
+            "guide": "챕터 1 미션 'Lab Fees' 완료 후 브라이언이 전화로 알려주는 골목 철문 키패드(코드 7700)를 여세요. 브라이언의 락업 장물 금고로도 계속 사용합니다."
       },
       {
             "id": 16,
             "category": "safe",
             "nameKo": "펠리컨 밸리 게 연구소 금고 & 키패드",
             "nameEn": "Pelican Valley Crab Lab Safe & Keypad",
-            "region": "그래스리버스 펠리컨 밸리 게 연구소",
+            "region": "그래스리버스 펠리칸 밸리 거대 게 연구소 (코드 0072)",
             "mission": "자유 탐색 (금고: 00072 / 문: 0212)",
             "missable": false,
             "safeCode": "00072 / 0212",
-            "x": 860,
-            "y": 1695,
+            "x": 760,
+            "y": 1738,
             "summary": "연구소 사무실 금고(00072)와 보트하우스 전자 키패드(0212)로 이어지는 이중 보안 장치입니다.",
             "guide": "연구소 본관 사무실 금고에 00072를 입력해 현금과 연구 메모를 회수한 뒤, 이어지는 핏자국을 따라 보트하우스 키패드에 0212를 입력하면 고유 무기 크랩쉑 VF5 보관실이 열립니다."
       },
@@ -607,12 +619,12 @@
             "category": "treasure",
             "nameKo": "난파선: 누에스트라 세뇨라 델 오시오",
             "nameEn": "Shipwreck: Nuestra Señora del Ocio",
-            "region": "키 렌토 동쪽 리오나이다 해협",
+            "region": "키 렌토 동쪽 리오나이다 해협 (작은 섬 너머 외해)",
             "mission": "미션 9: 아일랜드 드림즈 (Island Dreams)",
             "missable": false,
             "safeCode": null,
-            "x": 1055,
-            "y": 1945,
+            "x": 1205,
+            "y": 1868,
             "summary": "미션 9에서 보물 사냥꾼 켄튼과 함께 처음 탐사하는 난파선으로 금 더블룬 4점을 회수할 수 있습니다.",
             "guide": "키 렌토 동쪽 리오나이다 해협 해저에 침몰해 있습니다. 미션 9 진행 중 또는 이후 자유 잠수로 선체 내부를 수색해 금 더블룬 4점을 모두 회수하고 켄튼에게 매각하세요."
       },
@@ -625,8 +637,8 @@
             "mission": "수중 유물 수집 (유물 5점)",
             "missable": false,
             "safeCode": null,
-            "x": 685,
-            "y": 2180,
+            "x": 846,
+            "y": 2149,
             "summary": "아비스모 키 동쪽 암초 절벽 가장자리에 가라앉은 난파선으로 고대 코담배 갑 등 유물 5점이 있습니다.",
             "guide": "남동쪽 아비스모 키(Abismo Key) 동편 급경사 해저 가장자리에 위치합니다. 수심이 깊으므로 산소 게이지를 주시하며 고대 코담배 갑을 포함한 유물 5점을 모두 인양하세요."
       },
@@ -639,7 +651,7 @@
             "mission": "수중 유물 수집 (유물 6점)",
             "missable": false,
             "safeCode": null,
-            "x": 965,
+            "x": 931,
             "y": 2065,
             "summary": "작은 모래섬과 암초 사이에 부서진 보물선으로 고대 의식용 가면 등 유물 6점을 얻을 수 있습니다.",
             "guide": "키 렌토 남동쪽 작은 섬들 사이 해저 협곡에 선체 파편이 흩어져 있습니다. 포커스 모드를 활용해 고대 의식용 가면 등 유물 6점을 빠짐없이 회수하세요."
@@ -653,8 +665,8 @@
             "mission": "수중 유물 수집 (유물 6점)",
             "missable": false,
             "safeCode": null,
-            "x": 845,
-            "y": 2125,
+            "x": 905,
+            "y": 2077,
             "summary": "남동쪽 녹색 군도 인근 해초 지대 아래 침몰한 난파선으로 황금 라마 등 유물 6점이 있습니다.",
             "guide": "아비스모 키 남서쪽 녹색 군도 인근 수중 해초 지대를 탐색하면 낡은 목선 잔해가 나타납니다. 선실 틈새에서 황금 라마 조각상을 포함한 유물 6점을 챙기세요."
       },
@@ -667,8 +679,8 @@
             "mission": "수중 유물 수집 (유물 6점)",
             "missable": false,
             "safeCode": null,
-            "x": 1095,
-            "y": 2135,
+            "x": 1017,
+            "y": 2091,
             "summary": "마리아나 카운티 최남동단 외해 경계에 침몰한 난파선으로 산타 시에라의 종 등 유물 6점이 있습니다.",
             "guide": "리오나이다 해협(Leonida Straits) 남동쪽 외곽 심해 경계에 위치합니다. 주변 상어 출몰에 주의하면서 산타 시에라의 종을 비롯한 유물 6점을 회수하세요."
       },
@@ -677,12 +689,12 @@
             "category": "treasure",
             "nameKo": "밥캣 다이빙 구역",
             "nameEn": "Bobcat Dive Site",
-            "region": "밥캣 키 서쪽 해역",
+            "region": "밥캣 키 서쪽 해저 (밥캣 다이빙 구역)",
             "mission": "수중 유물 수집 (유물 6점)",
             "missable": false,
             "safeCode": null,
-            "x": 210,
-            "y": 1995,
+            "x": 375,
+            "y": 1547,
             "summary": "서부 밥캣 키 앞바다의 다이빙 포인트로 항해용 아스트롤라베 등 유물 6점을 인양할 수 있습니다.",
             "guide": "밥캣 키(Bobcat Key) 서쪽 해안에서 보트로 조금만 나가면 수면 위 기포와 표식이 있는 다이빙 포인트가 보입니다. 해저 암반 사이에서 아스트롤라베 등 유물 6점을 회수하세요."
       },
@@ -695,8 +707,8 @@
             "mission": "희귀 수집품 (켄튼 고가 매각)",
             "missable": false,
             "safeCode": "80085",
-            "x": 305,
-            "y": 1962,
+            "x": 225,
+            "y": 2052,
             "summary": "보물 감정사 켄튼에게 매각 시 막대한 초반 자금을 확보할 수 있는 희귀 해저 운석입니다.",
             "guide": "마일 제로 비행장 서쪽 노란 해상 플랫폼 아래 해저 바닥 균열과 침수된 시설 내부 금고(비밀번호 80085)에서 해저 운석을 회수할 수 있습니다. 켄튼에게 가져가면 최고가로 판매됩니다."
       },
@@ -709,8 +721,8 @@
             "mission": "미션 7: 배관 작업 (Pipework)",
             "missable": true,
             "safeCode": null,
-            "x": 945,
-            "y": 1945,
+            "x": 928,
+            "y": 1955,
             "summary": "[놓치면 불가] 미션 7 종료 시 맨디가 창밖으로 던져버린 한정 수집품 시가 상자 3개입니다.",
             "guide": "미션 7 \"배관 작업(Pipework)\" 컷신에서 맨디(Mandy)가 마당으로 던진 마시조 시가 상자 3개를 미션이 끝나자마자 현장을 떠나기 전에 바닥에서 직접 주워야 합니다. 구역을 벗어나면 영구 소멸합니다."
       },
@@ -719,12 +731,12 @@
             "category": "missable",
             "nameKo": "도니가 잃어버린 마약 4개",
             "nameEn": "Find the Lost Drugs x4",
-            "region": "마리아나 카운티 4곳 분산 (키 렌토 북부 수로·늪지 일대)",
+            "region": "키 렌토 해변 공원 농구장 (농구공) & 키 렌토 북부 일대",
             "mission": "미션 12/14 이후 해금 (미션 20 전 마감)",
             "missable": true,
             "safeCode": null,
-            "x": 885,
-            "y": 1855,
+            "x": 936,
+            "y": 1990,
             "summary": "[놓치면 불가] 도니가 밀수 비행 중 떨어뜨린 방수 마약 가방 4개를 회수해 장물아비에게 판매하는 보조 활동입니다.",
             "guide": "미션 12/14 이후 키 렌토 북부 수로와 가라앉은 보트 인근 등 마리아나 카운티 4곳에 마약 꾸러미가 스폰됩니다. 돌아올 수 없는 분기점인 미션 20 \"투어리스트 트랩\" 진입 전까지 회수해 타이론(Tyrone) 등 장물아비에게 매각하세요."
       },
@@ -737,8 +749,8 @@
             "mission": "미션 11 / 16 / 18 / 21 연동",
             "missable": true,
             "safeCode": null,
-            "x": 915,
-            "y": 1975,
+            "x": 935,
+            "y": 1978,
             "summary": "[놓치면 불가] 챕터 1 특정 미션 및 이벤트에서만 입수 가능한 고유 의상·장신구 5종입니다.",
             "guide": "① 토마스 목걸이(미션 11 전 심부름), ② 루시아 선글라스(미션 16 \"데이 릴리즈\" 요트 중간 갑판 계단 커플 대화), ③ 도니 에비에이터 선글라스(미션 18 \"사라진 도니\" 트레일러 내부), ④ 앤디 재킷(미션 21 \"홈 스위트 홈\"), ⑤ 러스티 앵커 티셔츠/모자(챕터 1 바 이벤트). 미션 20 이후 복구 불가합니다."
       },
@@ -747,12 +759,12 @@
             "category": "missable",
             "nameKo": "코르세어 키 공중화장실 비밀 통로",
             "nameEn": "Corsair Key Restroom Secret Passage",
-            "region": "키 렌토 북쪽 코르세어 키 공중화장실",
+            "region": "페레그린 베이 / 코르세어 키 동쪽 해변 공중화장실 (NoFlushers QR)",
             "mission": "비밀 탐색 (영구 스태미나 상승)",
             "missable": false,
             "safeCode": null,
-            "x": 995,
-            "y": 1850,
+            "x": 1129,
+            "y": 1725,
             "summary": "비밀 통로 이벤트를 완료하면 캐릭터의 최대 스태미나 게이지가 영구적으로 증가합니다.",
             "guide": "키 렌토 바로 북쪽의 작은 섬 코르세어 키(Corsair Key)에 있는 낡은 공중화장실 내부 칸막이 뒤 비밀 통로를 조사하세요. 짧은 탐색 이벤트를 완료하면 최대 스태미나 상한이 영구 상승합니다."
       },
@@ -761,12 +773,12 @@
             "category": "missable",
             "nameKo": "제트스키 타는 개 (Cool Dog 이스터에그)",
             "nameEn": "Jet-Skiing Cool Dog Easter Egg",
-            "region": "키 렌토 인근 외해 / 갬빗 만",
+            "region": "남부 그래스리버스 ~ 갬빗 만 해역",
             "mission": "비밀 이스터에그 (개들의 섬 해금)",
             "missable": false,
             "safeCode": null,
-            "x": 985,
-            "y": 2020,
+            "x": 760,
+            "y": 1869,
             "summary": "선글라스를 끼고 제트스키를 타는 개를 추적해 약 $1,200와 숨겨진 섬을 해금하는 이스터에그입니다.",
             "guide": "키 렌토 남쪽 갬빗 만 인근 외해에서 물속에 뛰어들면 개 짖는 소리가 들립니다. 소리를 따라 선글라스를 쓴 \"쿨 독(Cool Dog)\"을 추적하면 현금 약 $1,200와 전용 선글라스, 그리고 비밀 구역 \"개들의 섬\"이 지도에 해금됩니다."
       },
@@ -779,8 +791,8 @@
             "mission": "전작 오마주 이스터에그",
             "missable": false,
             "safeCode": null,
-            "x": 905,
-            "y": 1985,
+            "x": 959,
+            "y": 1903,
             "summary": "GTA 5의 마이클 드 산타 요트 오마주 및 요가 강사 파비앙 잡지 3페이지를 볼 수 있는 이스터에그입니다.",
             "guide": "제이슨의 수상 가옥 부두 앞바다에 정박된 요트에서 전작 GTA 5 마이클의 보트 오마주를 감상할 수 있으며, 은신처 테라스 테이블 위에서는 요가 강사 파비앙(Fabien)이 등장하는 잡지 3페이지를 직접 펼쳐볼 수 있습니다."
       },
@@ -851,10 +863,12 @@
             "security": "보통 (Medium)",
             "weaponReward": null,
             "vehicleReward": null,
-            "x": 936,
+            "x": 944,
             "y": 1964,
             "summary": "키 렌토 주류상점 점원에게 뒷방의 이상한 새 소리를 물어보면 해금되는 초반 자금 확보용 숨겨진 거점입니다.",
-            "guide": "※ 주의: 'Get Shirley's Rum' 진행 시 먼저 럼주를 챙긴 뒤 점원에게 뒷방 소음에 대해 질문하세요(전투 시 상점이 일시 폐쇄됨). 건물 뒤편 골목 울타리를 넘어 무장 인원을 제압하고, 시끄러운 앵무새 우리 옆 뒷방 금고와 현금(약 $1,366~$5,000+)을 챙기세요."
+            "guide": "※ 주의: 'Get Shirley's Rum' 진행 시 먼저 럼주를 챙긴 뒤 점원에게 뒷방 소음에 대해 질문하세요(전투 시 상점이 일시 폐쇄됨). 건물 뒤편 골목 울타리를 넘어 무장 인원을 제압하고, 시끄러운 앵무새 우리 옆 뒷방 금고와 현금(약 $1,366~$5,000+)을 챙기세요.",
+            "crimeSpot": true,
+            "payout": "$1,366~$5,000+ (금고·밀수품)"
       },
       {
             "id": 34,
@@ -905,8 +919,8 @@
             "security": "높음 (High)",
             "weaponReward": null,
             "vehicleReward": null,
-            "x": 648,
-            "y": 1545,
+            "x": 636,
+            "y": 1546,
             "summary": "기존 #10 '호스타일 슈퍼400' 고유 샷건과 함께 캐릭터의 최대 체력을 영구히 올려주는 실험 아이템 및 금고가 있는 거점입니다.",
             "guide": "무장 경비가 삼엄하므로 엄폐를 유지하며 기지를 제압하세요. 중앙 레이더 관제동에서 고유 샷건 '호스타일 슈퍼400'(지도 #10)과 잠긴 금고(드라이버/점착폭탄 개방)를 챙기고, 기지 내부의 실험용 체력 강화 아이템(제이슨/루시아 최대 체력 영구 상승)과 마약 보급품을 빠짐없이 회수하세요."
       },
@@ -945,6 +959,224 @@
             "y": 1649,
             "summary": "키 렌토 바로 위 햄릿에 위치한 M7 폐차장 거점으로, 고유 소총 'Marabunta Grande KZ-59'와 금고(7777)·특수 로우라이더를 얻습니다.",
             "guide": "인게임 메뉴명 'M7 Compound'(현장명 'Nova Auto Junkyard')입니다. 입구 바이커가 떠난 뒤 오른쪽 철조망 틈으로 잠입하세요. ① 북쪽 차양 아래 작업대(파란 쓰레기통 옆)에서 'Marabunta Grande KZ-59' 및 금도금 AK 획득, ② 남동쪽 노란 스쿨버스 옆 사무실 금고에 벽면 코드 7777 입력, ③ 인접 차고의 'Albany Teniente Manana' 차량을 타고 탈출하세요."
+      },
+      {
+            "id": 39,
+            "category": "encounter",
+            "nameKo": "술 취한 노선원 (무소음 작살총)",
+            "nameEn": "Drunk Old Sailor (Arras Bullhead)",
+            "region": "키 렌토 제이슨 집 남서쪽 술집 앞",
+            "mission": "랜덤 인카운터 (새벽 02:00~04:00 · 고유 작살총)",
+            "missable": false,
+            "safeCode": null,
+            "triggerTime": "02:00~04:00",
+            "payout": "Arras Bullhead 작살총",
+            "x": 922,
+            "y": 1980,
+            "summary": "새벽 2~4시 사이 키 렌토 술집 앞에서 술 취한 선원을 만나 무소음 수중 작살총 'Arras Bullhead'를 영구 획득합니다.",
+            "guide": "제이슨의 수상 가옥 남서쪽 바 주변을 새벽 2시~4시에 배회하면 이벤트가 발생합니다. 대화 후 얻는 'Arras Bullhead'는 무소음 원거리 무기로 잠입이나 상어 대응에 매우 유용합니다."
+      },
+      {
+            "id": 40,
+            "category": "encounter",
+            "nameKo": "마약 운반선 상어 습격",
+            "nameEn": "Cocaine Yacht Shark Attack",
+            "region": "밥캣 키 서쪽 외해",
+            "mission": "랜덤 인카운터 (해상 폭발음)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "약 $2,000+ (마약 가방)",
+            "x": 485,
+            "y": 1651,
+            "summary": "밥캣 키 서쪽 바다를 보트로 지나갈 때 폭발음과 함께 불타는 밀수 요트와 약 $2,000 상당의 마약을 줍습니다.",
+            "guide": "보트 항해 중 폭발음이 들리면 연기를 따라 접근하세요. 상어 떼가 몰려드니 수중 작살총이나 빠른 수영으로 물 위·선체 주변 마약 패키지를 회수한 뒤 장물아비에게 처분하세요."
+      },
+      {
+            "id": 41,
+            "category": "encounter",
+            "nameKo": "비행기 추락 밀수품 수색",
+            "nameEn": "Plane Crash Drug Drop",
+            "region": "북부 그래스리버스 늪지",
+            "mission": "랜덤 인카운터 (추락 잔해)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$1,000~$2,000",
+            "x": 702,
+            "y": 1549,
+            "summary": "그래스리버스 상공에서 밀수 경비행기가 추락하며 주변 늪지에 $1,000~$2,000 상당의 마약 보따리를 떨어뜨립니다.",
+            "guide": "불타는 추락 지점 반경 수십 미터를 수색해 떨어진 마약 패키지를 모두 줍고, 경찰·경쟁 갱이 오기 전 보트나 오프로드 차량으로 이탈하세요."
+      },
+      {
+            "id": 42,
+            "category": "encounter",
+            "nameKo": "오발 사고 사냥꾼 구조 (빅 파인)",
+            "nameEn": "Hunter Shoots His Friend (Big Pine)",
+            "region": "그래스리버스 빅 파인 숲길",
+            "mission": "랜덤 인카운터 (총성 추적)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "Hunter's Laird 350 · 포커스 +3%",
+            "x": 560,
+            "y": 1432,
+            "summary": "총성을 따라가 다친 사냥꾼 두 명을 병원으로 이송하면 고유 사냥총 'Hunter's Laird 350'과 영구 포커스 +3%를 받습니다.",
+            "guide": "4인승 이상 차량을 몰고 가 두 사냥꾼을 모두 태워 시간 내 병원으로 데려다주세요(햄릿 남쪽 #43 지점에서도 유사 인카운터 발생)."
+      },
+      {
+            "id": 43,
+            "category": "encounter",
+            "nameKo": "햄릿 M7 신고식 & 상점 인질 구출",
+            "nameEn": "M7 Initiation & Store Hostage Rescue",
+            "region": "햄릿 북부 상가 · LTD 주유소",
+            "mission": "랜덤 인카운터 2종 (거점 힌트·보상)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "노바 오토 금고(7777) 위치 해금",
+            "x": 965,
+            "y": 1650,
+            "summary": "햄릿 시내에서 M7 갱단이 신입을 구타하는 현장을 목격하면 노바 오토 폐차장(#38) 위치와 금고 힌트가 지도에 찍힙니다.",
+            "guide": "인근 LTD 주유소(937, 1676)의 열린 트렁크 핏자국을 따라가면 인질 구출 랜덤 인카운터도 함께 수행할 수 있습니다."
+      },
+      {
+            "id": 44,
+            "category": "encounter",
+            "nameKo": "늪지의 마녀 & 인어 스트리머",
+            "nameEn": "Witch of the Swamp & Merman Encounter",
+            "region": "남부 그래스리버스 ~ 갬빗 만 해변",
+            "mission": "랜덤 인카운터 (기이 현상 2종)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "현금 · 스태미나/이스터에그",
+            "x": 872,
+            "y": 1801,
+            "summary": "남부 늪지의 정체불명 마녀(공격 시 악어 소환)와 갬빗 만 해변의 인어 꼬리 스트리머(762, 1900) 이벤트입니다.",
+            "guide": "늪지 마녀와 대화를 끝내지 않고 선제공격하면 주변 악어가 덤비니 주의하세요. 남쪽 갬빗 만 해변의 인어 스트리머는 물로 던지거나 사진 촬영 반응을 볼 수 있습니다."
+      },
+      {
+            "id": 45,
+            "category": "encounter",
+            "nameKo": "점쟁이 천막 & 악어 중고세일",
+            "nameEn": "Fortune Teller & Yard Sale (Alligator Gary)",
+            "region": "키 렌토 서남단(점쟁이) / 중부(악어 세일)",
+            "mission": "랜덤 인카운터 (스토리 복선·유머)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$1~$1,000 선택지",
+            "x": 851,
+            "y": 2050,
+            "summary": "키 렌토 점쟁이에게 $1~$1,000를 내고 미래 암시를 듣거나, 키 렌토 마당세일(970, 1915)에서 반려악어 게리를 구경합니다.",
+            "guide": "점쟁이에게 $1,000를 지불하면 향후 챕터 전개에 대한 특별 대사를 들을 수 있습니다. 아비스모 키 도로에서는 야간 마약 거래(632, 2107)와 킹피셔 매복도 발생합니다."
+      },
+      {
+            "id": 46,
+            "category": "crime",
+            "crimeType": "은행 털이",
+            "nameKo": "플리카 은행 — 키 렌토 (Fleeca Bank)",
+            "nameEn": "Fleeca – Key Lento",
+            "region": "키 렌토 중심가 상업지구",
+            "mission": "자유 범죄 / 은행 강도 (Smash & Grab)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$5,000~$20,000",
+            "x": 917,
+            "y": 1981,
+            "summary": "키 렌토 도심에서 챕터 1 초반부터 털 수 있는 플리카 지점입니다.",
+            "guide": "마스크를 쓰고 진입해 직원이나 금고문을 제압한 뒤 현금을 털고, 본섬 1번 국도나 보트를 미리 대기시켜 빠르게 수배를 따돌리세요."
+      },
+      {
+            "id": 47,
+            "category": "crime",
+            "crimeType": "보석상 털이",
+            "nameKo": "더 사이렌스 체스트 보석상 (Smash 'n' Grab)",
+            "nameEn": "The Siren's Chest (Jeweller)",
+            "region": "키 렌토 남서쪽 (브라이언 락업 인근)",
+            "mission": "자유 범죄 / 보석 진열장 파쇄 강도",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$1,000~$10,000 (보석)",
+            "x": 856,
+            "y": 2044,
+            "summary": "유리 진열장을 깨고 보석을 쓸어 담은 뒤 바로 옆 브라이언 락업(7700)이나 도니에게 장물로 넘기기 좋은 보석상입니다.",
+            "guide": "근처 브라이언의 락업(852, 2032)과 도보 거리라 탈취 후 장물 처분이 매우 빠릅니다. 경보가 울리면 90초 내 도주하세요."
+      },
+      {
+            "id": 48,
+            "category": "crime",
+            "crimeType": "주류점/창고 털이",
+            "nameKo": "셜리의 럼 & 원스톱 주류점 강도",
+            "nameEn": "Get Shirley's Rum & One Stop Liquor",
+            "region": "키 렌토 (Three Sheets 인근 · 원스톱 주유소)",
+            "mission": "자유 범죄 / 편의점·주류점 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$1,000~$5,000 + 특수 럼",
+            "x": 947,
+            "y": 1957,
+            "summary": "Three Sheets 주류점의 '셜리의 럼' 탈취 스팟이자, 뒷방 불법 동물 밀수 아지트(#33) 및 원스톱 주류점(892, 2002) 강도 구역입니다.",
+            "guide": "Three Sheets에서 럼주를 먼저 챙긴 뒤 #33 불법 동물 아지트까지 한 번에 털면 효율적입니다. 460, 2019 사우스윈드에는 트럭으로 뜯어낼 수 있는 견인 가능 ATM(#99)도 있습니다."
+      },
+      {
+            "id": 49,
+            "category": "crime",
+            "crimeType": "은행/전당포",
+            "nameKo": "왓슨 베이 쇼어프론트 은행 & 타임리스 전당포",
+            "nameEn": "Shorefront Bank & Timeless Peculiars (Watson Bay)",
+            "region": "왓슨 베이 중심 상가",
+            "mission": "자유 범죄 / 은행·전당포 연쇄 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "은행 $5,000~$20,000 · 전당포 $4,500~$12,000",
+            "x": 624,
+            "y": 1631,
+            "summary": "왓슨 베이 상가에 은행과 전당포(Timeless Peculiars, 645, 1650)가 나란히 있어 단기 대박 자금 확보에 좋습니다.",
+            "guide": "도주로로 보트나 고성능 오프로드 차량을 왓슨 베이 부두에 세워두고 전당포→은행 순으로 빠르게 치고 빠지세요."
+      },
+      {
+            "id": 50,
+            "category": "crime",
+            "crimeType": "전당포/대출소",
+            "nameKo": "햄릿 전당포 & 소액대출소 2곳 (Quick Buck / Payline)",
+            "nameEn": "Hamlet Pawn, Quick Buck & Payline Loans 247",
+            "region": "햄릿 시내 중심 ~ 동부",
+            "mission": "자유 범죄 / 전당포·대출업체 연쇄 강도",
+            "missable": false,
+            "safeCode": null,
+            "payout": "각 $4,500~$15,000 (총 $15,000+)",
+            "x": 936,
+            "y": 1674,
+            "summary": "햄릿에 Hamlet Pawn(936, 1674), Quick Buck(932, 1676), Payline Loans 247(973, 1630) 3개 고수익 범죄 타깃이 밀집해 있습니다.",
+            "guide": "Quick Buck과 Hamlet Pawn은 바로 붙어 있고 M7 노바 오토 폐차장(#38)과도 지근거리입니다. 초반 무기 구매·은신처 자금 벌이 최고의 루트입니다."
+      },
+      {
+            "id": 51,
+            "category": "crime",
+            "crimeType": "은행/보석상",
+            "nameKo": "카프리 깁슨 브라더스 은행 & 빅토리아 리 보석상",
+            "nameEn": "Gibson Brothers Bank & Victoria Lee Jeweler (Capri)",
+            "region": "마리아나 카운티 서북부 카프리(Capri) 시내",
+            "mission": "자유 범죄 / 서부 해안 고액 강도",
+            "missable": false,
+            "safeCode": null,
+            "payout": "은행 $10,000~$30,000 · 보석상 $9,000~$20,000",
+            "x": 391,
+            "y": 1200,
+            "summary": "마리아나 카운티 서북단 카프리에 위치한 고액 은행(Gibson Brothers)과 보석상(Victoria Lee Jeweler, 400, 1205)입니다.",
+            "guide": "밥캣 바이트 무기(#5)와 밥캣 키 무기(#6, #7)를 회수하러 북상할 때 함께 공략하면 최대 $50,000 가까운 현금·보석을 챙길 수 있습니다."
+      },
+      {
+            "id": 52,
+            "category": "crime",
+            "crimeType": "장물아비 (Fence)",
+            "nameKo": "키 렌토 3대 장물아비 (도니 · 브라이언 · 켄튼)",
+            "nameEn": "Key Lento Fences (Donnie / Brian / Kenton)",
+            "region": "키 렌토 북부(도니 919,1971 · 켄튼 1003,1929 · 브라이언 849,2033)",
+            "mission": "장물 매각 & 보물 환전 (도니가 브라이언보다 고가 매입)",
+            "missable": false,
+            "safeCode": "7700",
+            "payout": "도난품·보물 현금화",
+            "x": 919,
+            "y": 1971,
+            "summary": "챕터 1에서 훔친 마약·보석·지폐를 파는 장물아비 거점입니다. 도니(919, 1971)가 브라이언 락업(7700)보다 더 높은 가격을 쳐줍니다.",
+            "guide": "수중 난파선 보물·운석은 동쪽 켄튼의 다이빙 샵(1003, 1929)에, 강도·적 거점에서 얻은 마약과 보석은 도니의 트레일러(919, 1971)에 팔면 수익이 극대화됩니다."
       }
 ];
 
@@ -983,6 +1215,20 @@
             "color": "#f97316",
             "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
             "icon": "🏴‍☠️"
+      },
+      "encounter": {
+            "label": "랜덤 인카운터",
+            "badgeText": "🎲 랜덤 인카운터",
+            "color": "#10b981",
+            "bgClass": "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+            "icon": "🎲"
+      },
+      "crime": {
+            "label": "범죄/털이",
+            "badgeText": "💰 범죄/털이",
+            "color": "#ec4899",
+            "bgClass": "bg-pink-500/15 text-pink-300 border-pink-500/35",
+            "icon": "💰"
       }
 };
 
@@ -1070,6 +1316,8 @@
           if (state.activeCategory === 'weapon') {
             const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
             if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (state.activeCategory === 'crime') {
+            if (item.category !== 'crime' && !item.crimeSpot) return false;
           } else if (item.category !== state.activeCategory) {
             return false;
           }
@@ -1089,7 +1337,10 @@
             item.gang || '',
             item.security || '',
             item.weaponReward || '',
-            item.vehicleReward || ''
+            item.vehicleReward || '',
+            item.payout || '',
+            item.crimeType || '',
+            item.triggerTime || ''
           ]
             .join(' ')
             .toLowerCase();
@@ -1310,6 +1561,15 @@
         </div>
 
         ${
+          item.payout || item.triggerTime || item.crimeType
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.payout ? `<div class="bg-emerald-950/25 border border-emerald-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-emerald-300/80 block">💵 예상 보상 / 수익</span><span class="font-bold text-emerald-200">${item.payout}</span></div>` : ''}
+                ${item.crimeType || item.triggerTime ? `<div class="bg-pink-950/25 border border-pink-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-pink-300/80 block">${item.triggerTime ? '🕒 발생 조건 / 시간' : '💰 범죄 유형'}</span><span class="font-semibold text-pink-200">${item.triggerTime || item.crimeType}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
           item.gang || item.weaponReward || item.vehicleReward
             ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
                 ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
@@ -1413,6 +1673,11 @@
                   ${
                     item.weaponReward && item.category === 'outpost'
                       ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
+                      : ''
+                  }
+                  ${
+                    item.payout
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shrink-0">💵 ${item.payout.split(' (')[0]}</span>`
                       : ''
                   }
                   ${

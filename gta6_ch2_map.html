@@ -46,6 +46,8 @@
       --cat-treasure: #06b6d4;
       --cat-missable: #f43f5e;
       --cat-outpost: #f97316;
+      --cat-encounter: #10b981;
+      --cat-crime: #ec4899;
     }
 
     * {
@@ -162,7 +164,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 2 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 38 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 51 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -180,14 +182,22 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (38)
+          전체 (51)
         </button>
         <button type="button" data-category="outpost"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
           🏴‍☠️ 적 거점 (14)
+        </button>
+        <button type="button" data-category="crime"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-pink-400/50 hover:text-pink-200">
+          💰 범죄/털이 (6)
+        </button>
+        <button type="button" data-category="encounter"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-emerald-400/50 hover:text-emerald-200">
+          🎲 랜덤 인카운터 (7)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
@@ -199,7 +209,7 @@
         </button>
         <button type="button" data-category="treasure"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-200">
-          📘 수집품/WAiNK (4)
+          💎 수집품/WAiNK (4)
         </button>
         <button type="button" data-category="missable"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-rose-400/50 hover:text-rose-200">
@@ -211,7 +221,7 @@
         <button id="btn-missable-only" type="button" aria-pressed="false"
           class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-rose-500/35 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 flex items-center justify-center gap-1.5 shrink-0">
           <span>⚠️ 챕터 2 놓치면 불가만 보기</span>
-          <span id="missable-badge-count" class="px-1.5 py-0.2 rounded-md text-[11px] bg-rose-500/25 text-rose-100 font-mono">5</span>
+          <span id="missable-badge-count" class="px-1.5 py-0.2 rounded-md text-[11px] bg-rose-500/25 text-rose-100 font-mono">6</span>
         </button>
 
         <div class="relative flex-1 sm:w-64 md:w-72">
@@ -276,6 +286,8 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>수집품/WAiNK</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899] inline-block"></span>범죄/털이</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block"></span>랜덤 인카운터</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -338,7 +350,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">38</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">51</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -387,8 +399,8 @@
             "mission": "사이드 작전: Hit Kingpin Bowling",
             "missable": false,
             "safeCode": "0300",
-            "x": 458,
-            "y": 842,
+            "x": 465,
+            "y": 835,
             "summary": "킹핀 볼링장 내부 당구대 위에서 회수하는 콜츠 세력 전용 고유 샷건입니다.",
             "guide": "미션 9 '커피 브레이크' 이후 열리는 남부 포트 겔혼의 킹핀 볼링장(모세의 차고 인근)을 습격하세요. 북동쪽 구석 당구대 위에 고유 샷건이 놓여 있으며, 사무실 금고(0300)와 명품 시계를 함께 챙겨 경찰을 따돌리면 'Let's Go Bowling' 트로피가 해금됩니다."
       },
@@ -397,12 +409,12 @@
             "category": "weapon",
             "nameKo": "클렁커 556",
             "nameEn": "Clunker 556",
-            "region": "북부 포트 겔혼 브룩스 보트웍스 조선소",
+            "region": "북부 포트 겔혼 브룩스 보트웍스 조선소 내 사무실",
             "mission": "콜츠 불법 작전 거점 (Brooks Boatworks)",
             "missable": false,
             "safeCode": "6823",
-            "x": 388,
-            "y": 678,
+            "x": 437,
+            "y": 710,
             "summary": "드래퍼 섬 다리 북쪽 조선소 거점에서 얻는 고유 카빈 돌격소총입니다.",
             "guide": "포트 겔혼 북부 해안의 브룩스 보트웍스(Brooks Boatworks) 불법 작전 구역으로 동쪽 울타리 틈을 통해 잠입하세요. 창고 내 금고(6823) 공략과 함께 고유 무기 클렁커 556을 확보할 수 있습니다."
       },
@@ -415,8 +427,8 @@
             "mission": "콜츠 불법 작전 거점 (La Cascara Motel)",
             "missable": false,
             "safeCode": "6969",
-            "x": 382,
-            "y": 785,
+            "x": 396,
+            "y": 750,
             "summary": "드래퍼 베이 해안가의 콜츠 거점 모텔에서 획득하는 고유 기관단총입니다.",
             "guide": "포트 겔혼 서쪽 끝 드래퍼 베이 해안의 라 카스카라 모텔(La Cascara Motel)을 제압하세요. 스크래퍼 VF5C 무기와 함께 최상층 금고(6969, 최대 $46,000~$50,000) 및 외부 주차장의 Vapid Firebug Dominator 차량까지 회수할 수 있습니다."
       },
@@ -429,8 +441,8 @@
             "mission": "콜츠 불법 작전 거점 (June Warehouse)",
             "missable": false,
             "safeCode": null,
-            "x": 412,
-            "y": 758,
+            "x": 447,
+            "y": 801,
             "summary": "메인 차고 뒤편 무기 보관함에 들어 있는 콜츠 전용 중형 SMG입니다.",
             "guide": "포트 겔혼의 세레나 바겐 스토어(Sarena's Bargain Store) 건너편·딜라이츠 카바레 서쪽에 위치한 준 웨어하우스(June Warehouse)에 진입하세요. 메인 차고 뒷벽 금고 옆 무기 케이스에서 획득할 수 있으며 외부에 Caracara 4x4도 있습니다."
       },
@@ -443,8 +455,8 @@
             "mission": "콜츠 불법 작전 거점 (Stash House)",
             "missable": false,
             "safeCode": null,
-            "x": 432,
-            "y": 690,
+            "x": 465,
+            "y": 710,
             "summary": "주방 카운터 위에 놓여 있으며, 집어 드는 순간 적의 매복이 발동하는 고유 소총입니다.",
             "guide": "브룩스 보트웍스 동쪽 노후 주택가에 있는 스태시 하우스(Stash House)에 진입해 주방 카운터 위에서 획득하세요. 무기를 줍는 즉시 추가 갱단원이 기습하므로 엄폐물을 확보한 뒤 집는 것이 안전합니다. (경찰 급습 시 현금만 회수 가능)"
       },
@@ -457,8 +469,8 @@
             "mission": "상점 한정 진열 구매 ($2,420~)",
             "missable": false,
             "safeCode": null,
-            "x": 445,
-            "y": 775,
+            "x": 466,
+            "y": 823,
             "summary": "포트 겔혼 내 총기상과 전당포에서만 별도로 판매하는 지역 한정 고유 총기 2종입니다.",
             "guide": "포트 겔혼 총기상의 진열대에서 다크나이트 드리프터($2,420)를, 시내 Pawn & Gun 매장에서 배셔 고스 425를 구매해 무기 보관함에 영구 등록할 수 있습니다."
       },
@@ -467,12 +479,12 @@
             "category": "weapon",
             "nameKo": "카우치 포테이토 머스탱 .357",
             "nameEn": "Couch Potato Mustang .357",
-            "region": "탱글우드 레인 인근 나무에 매달린 소파",
+            "region": "포트 겔혼 Tanglewood Ln 트레일러 옆 나무에 매달린 소파",
             "mission": "자유 탐색 (커뮤니티 제보 위치)",
             "missable": false,
             "safeCode": null,
-            "x": 595,
-            "y": 730,
+            "x": 451,
+            "y": 785,
             "summary": "켈리 카운티 숲길 나무에 매달린 소파 위에서 발견된다고 보고된 이색 고유 리볼버입니다.",
             "guide": "스타렛 모텔 북동쪽 탱글우드 레인(Tanglewood Ln) 인근 수풀을 탐색해 나무에 밧줄로 매달린 소파를 찾아보세요. 포커스 모드로 소파 쿠션 주변을 살펴 고유 리볼버 여부를 확인하세요."
       },
@@ -485,8 +497,8 @@
             "mission": "사이드: Hit Kingpin Bowling (코드: 0300)",
             "missable": false,
             "safeCode": "0300",
-            "x": 468,
-            "y": 848,
+            "x": 462,
+            "y": 841,
             "summary": "앞자리 0을 포함한 0300으로 열리는 콜츠 거점 금고입니다. (남겨두면 챕터 3 재스폰)",
             "guide": "볼링장 내부 메모에는 코드가 적혀 있지 않으며 브룩스 보트웍스 벽지도에 단서가 있습니다. 남쪽 울타리 틈→옥상 사다리 루트로 진입해 경비 순찰을 피한 뒤 북동쪽 작은 사무실 금고에 0300을 입력하세요. (약 $3,000 + 명품 시계)"
       },
@@ -499,8 +511,8 @@
             "mission": "콜츠 3개 거점 코드 해금 (코드: 6823)",
             "missable": false,
             "safeCode": "6823",
-            "x": 398,
-            "y": 672,
+            "x": 439,
+            "y": 708,
             "summary": "포트 겔혼 콜츠 거점 3곳의 금고 비밀번호가 모두 표시된 벽지도가 있는 핵심 거점입니다.",
             "guide": "동쪽 외부 계단을 올라 회색 건물 2층 사무실에 들어가 L2/LT로 벽지도를 조사하면 킹핀 볼링장(0300)·브룩스 보트웍스(6823)·라 카스카라(6969) 코드가 모두 저장됩니다. 창고·사무실 금고에 6823을 입력하세요."
       },
@@ -513,8 +525,8 @@
             "mission": "최고액 콜츠 거점 금고 (코드: 6969)",
             "missable": false,
             "safeCode": "6969",
-            "x": 390,
-            "y": 795,
+            "x": 402,
+            "y": 749,
             "summary": "챕터 2 자금 $15,000 목표를 단번에 채울 수 있는 최대 $50,000 상당의 거점 금고입니다.",
             "guide": "모텔 최상층 그래피티가 그려진 간부 방 금고에 비밀번호 6969를 입력하세요. 챕터 2 거점 중 보상 규모(최대 약 $46,000~$50,000)가 가장 크므로 이사 자금 마련에 최우선으로 추천됩니다."
       },
@@ -527,8 +539,8 @@
             "mission": "미션 10: 애프터눈 딜라이트 (Afternoon Delight)",
             "missable": false,
             "safeCode": "2008",
-            "x": 430,
-            "y": 760,
+            "x": 462,
+            "y": 795,
             "summary": "비키(Vicki)와 함께 진행하는 스토리 미션에서 $10,000 보상을 여는 고정 금고입니다.",
             "guide": "미션 10 '애프터눈 딜라이트'에서 제이슨으로 클럽 후면으로 잠입해 탈의실 합류 후 후면 사무실 금고에 2008을 입력하세요. 완료 다음 날 BuckMe를 통해 $10,000가 입금됩니다."
       },
@@ -541,8 +553,8 @@
             "mission": "불법 작전 거점 (코드 없음 / 드라이버 해체)",
             "missable": false,
             "safeCode": null,
-            "x": 442,
-            "y": 696,
+            "x": 463,
+            "y": 708,
             "summary": "비밀번호 입력 없이 드라이버 미니게임으로 여는 금고로, 내부에 브룩스 메모(6823)가 있습니다.",
             "guide": "별도 키패드 코드가 없으므로 금고 앞에서 삼각형/Y 버튼과 우측 스틱 미니게임으로 잠금을 해체하세요. 벽 환풍구 내부 현금 다발도 함께 챙기면 좋습니다."
       },
@@ -555,8 +567,8 @@
             "mission": "강제 개방 · 점착 폭탄 금고",
             "missable": false,
             "safeCode": null,
-            "x": 472,
-            "y": 818,
+            "x": 451,
+            "y": 841,
             "summary": "비밀번호가 없어 강제 개방하거나 점착 폭탄으로 폭파해 약 $2,400+를 챙기는 금고 2곳입니다.",
             "guide": "준 웨어하우스 금고는 키패드 없이 강제 개방하며, 모세의 차고 동쪽 'Pearl House Hair Salon' 뒷방 대마 거점(약 $2,200~$2,400) 역시 코드 없이 점착 폭탄 또는 강제 개방으로 열 수 있습니다."
       },
@@ -569,8 +581,8 @@
             "mission": "사이드: Hit Avery Pawn (랜덤 코드)",
             "missable": false,
             "safeCode": null,
-            "x": 450,
-            "y": 795,
+            "x": 460,
+            "y": 773,
             "summary": "매장 직원을 위협해 회차별 랜덤 비밀번호를 받아 여는 전당포 강도 금고입니다.",
             "guide": "미션 9 '커피 브레이크' 이후 해금됩니다. 진열장을 부수면 즉시 수배(별 2개)가 뜨므로 먼저 점원을 위협해 뒷방 금고 코드를 받아낸 뒤 털고 도주하세요."
       },
@@ -579,12 +591,12 @@
             "category": "treasure",
             "nameKo": "포트 겔혼 시내 잡지 & 할리 카드",
             "nameEn": "The Johnsons Magazine & Harley Card",
-            "region": "알파 주유소 잡지대 / 딜라이츠 카바레 동쪽 벽 부스",
+            "region": "스타렛 모텔 북동쪽 알파 주유소 (The Johnsons) & 딜라이츠 동쪽 부스",
             "mission": "자유 탐색 (100% 수집품)",
             "missable": false,
             "safeCode": null,
-            "x": 485,
-            "y": 765,
+            "x": 605,
+            "y": 780,
             "summary": "모텔 인근 알파 주유소의 잡지(The Johnsons)와 스트립 클럽 내 Delights Dancers 카드입니다.",
             "guide": "스타렛 모텔 인근 알파 주유소(Alpha Gas) 잡지 거치대에서 'The Johnsons'를 확인하고, 딜라이츠 카바레(Delights Cabaret) 동쪽 벽면 부스 좌석에서 'Harley' 수집 카드를 획득하세요."
       },
@@ -593,12 +605,12 @@
             "category": "treasure",
             "nameKo": "Dicked Down Deep in Space (잡지)",
             "nameEn": "Dicked Down Deep in Space Magazine",
-            "region": "로스트 비스타 트레일러 내부 테이블",
+            "region": "포트 겔혼 스테이션 차고 북서쪽 트레일러 (Dicked Down Deep in Space)",
             "mission": "자유 탐색 (Dunk 강도 대상 트레일러)",
             "missable": false,
             "safeCode": null,
-            "x": 525,
-            "y": 825,
+            "x": 412,
+            "y": 770,
             "summary": "Dunk가 강도 목표로 찍어둔 로스트 비스타 트레일러 테이블 위 잡지입니다.",
             "guide": "포트 겔혼 남동쪽 로스트 비스타(Lost Vista) 트레일러 내부 테이블에 놓여 있습니다. Dunk 관련 강도 작업을 진행할 때 함께 살펴보고(Examine) 회수하는 것이 가장 수월합니다."
       },
@@ -607,12 +619,12 @@
             "category": "treasure",
             "nameKo": "겔혼 펀 페어 & 호프만 천문대 (WAiNK)",
             "nameEn": "Gellhorn Fun Fair & Hoffman Observatory WAiNK",
-            "region": "쇼어 드라이브 대관람차 / 북부 켈리 카운티 언덕",
+            "region": "포트 겔혼 남부 겔혼 펀 페어(대관람차) / 북부 켈리 카운티",
             "mission": "WAiNK 스캔 (100% 달성 100건 필요)",
             "missable": false,
             "safeCode": null,
-            "x": 410,
-            "y": 730,
+            "x": 441,
+            "y": 848,
             "summary": "100% 달성 조건인 WAiNK 앱 스캔 포인트 중 포트 겔혼 서부 해안과 북부 언덕 지점 2곳입니다.",
             "guide": "쇼어 드라이브(Shore Dr) 오이스터 포인트 주유소 북쪽의 낡은 대관람차(Gellhorn Fun Fair)를 스마트폰 WAiNK 앱으로 스캔하고, 북부 켈리 카운티 서쪽 언덕 꼭대기의 호프만 천문대(Hoffman Observatory)도 함께 스캔하세요."
       },
@@ -621,12 +633,12 @@
             "category": "treasure",
             "nameKo": "파머 스크럼피 과수원 & 레드 록스 명상",
             "nameEn": "Farmer Scrumpy's Orchard & Red Rocks Meditation",
-            "region": "로저스 목장 북쪽 과수원 / 매니페스트 캐년 철도 교차로",
+            "region": "매니페스트 캐년 · 로저스 목장 북쪽 과수원 (Farmer Scrumpy)",
             "mission": "WAiNK 스캔 + 명상 포인트 (100% 연동)",
             "missable": false,
             "safeCode": null,
-            "x": 685,
-            "y": 660,
+            "x": 526,
+            "y": 593,
             "summary": "북동부 농장 지대의 WAiNK 스캔, 명상 스팟(100%용 15곳 중 1곳), 사격장(24금메달) 구역입니다.",
             "guide": "로저스 목장(사격장 6코스) 북쪽의 파머 스크럼피 사과 과수원 본관을 WAiNK로 스캔하고, 매니페스트 캐년(Manifest Canyon) 철길과 고속도로 교차 지점에서 'Red Rocks' 명상 포인트를 완료하세요."
       },
@@ -639,8 +651,8 @@
             "mission": "미션 11 '체킹 아웃(Checking Out)' 시작 전 필수",
             "missable": true,
             "safeCode": null,
-            "x": 545,
-            "y": 762,
+            "x": 587,
+            "y": 815,
             "summary": "[놓치면 불가] 챕터 2 종료 시 스타렛 모텔이 영구 폐쇄되므로 반드시 먼저 읽어야 할 잡지입니다.",
             "guide": "스타렛 모텔 리셉션 입구 왼쪽 컴퓨터 옆 테이블에 놓여 있습니다. 'Examine'으로 살펴봐야 도감에 기록되며, 마지막 미션 'Checking Out'을 시작하면 모텔에 다시 들어갈 수 없습니다."
       },
@@ -653,8 +665,8 @@
             "mission": "미션 11 '체킹 아웃(Checking Out)' 시작 전 필수",
             "missable": true,
             "safeCode": null,
-            "x": 558,
-            "y": 762,
+            "x": 589,
+            "y": 810,
             "summary": "[놓치면 불가] 스타렛 모텔 카페테리아 창가 카운터에 놓인 챕터 2 한정 잡지입니다.",
             "guide": "모텔 내 카페테리아 구역의 창문·라디오 옆 카운터에서 직접 'Examine'하세요. (레오니다 전역의 다른 고정 위치에서 대체 습득도 가능하지만 모텔 버전은 챕터 2 종료 후 소멸합니다.)"
       },
@@ -667,8 +679,8 @@
             "mission": "미션 11 '체킹 아웃(Checking Out)' 시작 전 필수",
             "missable": true,
             "safeCode": null,
-            "x": 552,
-            "y": 774,
+            "x": 586,
+            "y": 806,
             "summary": "[놓치면 불가] 모텔 내부 3곳에 흩어진 수집 카드 3장 세트입니다.",
             "guide": "① Victor Maravilla: 공용 주방/라운지 냉장고 문, ② Bryson Powers: 세탁실 세탁기 위, ③ Vicki: 리셉션 뒤 사무실 화장실 변기 옆 바닥. 방에 들어갈 필요 없이 모텔 공용 구역에서 모두 주울 수 있습니다."
       },
@@ -681,8 +693,8 @@
             "mission": "체킹 아웃 시작 전 필수 (수동 세이브 권장)",
             "missable": true,
             "safeCode": null,
-            "x": 565,
-            "y": 774,
+            "x": 591,
+            "y": 822,
             "summary": "[놓치면 불가] 모텔 주차장 와이먼의 Mamba GT 수리 이벤트 및 밀린 방세 정산 이벤트입니다.",
             "guide": "① 모텔 주차장에서 와이먼(Wyman)의 Mamba GT 복원 작업을 도와주세요. ② 'Behind on Payments'에서 린다(Linda)에게 $900를 갚아 챕터 1 목걸이 담보를 되찾으세요. ③ 미션 'Moses'의 첫 무료 차량 등록권도 고가 스포츠카에 쓰면 유리합니다."
       },
@@ -691,12 +703,12 @@
             "category": "missable",
             "nameKo": "카일 맥키트릭 농장 퀘스트 분기 주의",
             "nameEn": "McKittrick Farm Questline Warning",
-            "region": "북동부 맥키트릭 농장 비행장",
+            "region": "프로그스워터 맥키트릭 농장 인근",
             "mission": "Strangers & Freaks: Check Out McKittrick Farm",
             "missable": true,
             "safeCode": null,
-            "x": 660,
-            "y": 685,
+            "x": 697,
+            "y": 733,
             "summary": "[놓치면 불가 위험] 카일이 사망하거나 비행기가 추락하면 후속 퀘스트가 영구 잠금될 수 있습니다.",
             "guide": "농장 임무 시작 전 반드시 수동 세이브를 남기세요. 임무 중 카일이 죽거나 비행기가 파손되면 후속 임무(Collect Chemicals for Kyle / Buddy?)가 꼬여 S&F 진행이 막힐 수 있습니다. 문제 시 농장으로 돌아가 비행기를 훔쳐 탈출하면 문자가 올 수 있습니다."
       },
@@ -705,12 +717,12 @@
             "category": "missable",
             "nameKo": "UFO 외계인 이스터에그 (트로피)",
             "nameEn": "UFO Easter Egg (The Truth Is Out There)",
-            "region": "스타렛 모텔 북서쪽 비포장도로 숲길",
+            "region": "스타렛 모텔 북서쪽 도로 (새벽 2시 이후 단독 방문)",
             "mission": "이스터에그 (새벽 02:00 이후 혼자 방문)",
             "missable": false,
             "safeCode": null,
-            "x": 515,
-            "y": 710,
+            "x": 553,
+            "y": 795,
             "summary": "특정 시간·단독 조건 충족 시 외계인 조우 이벤트와 트로피를 얻는 유명 이스터에그입니다.",
             "guide": "챕터 2 진입 후 새벽 2시(02:00) 이후 반드시 제이슨이나 루시아 '혼자서' 스타렛 모텔 북서쪽 비포장도로를 탐색하세요. 비상등이 켜진 정차 차량을 따라 숲으로 들어가면 랜덤 스폰되며 'The Truth Is Out There' 트로피를 얻습니다."
       },
@@ -965,6 +977,207 @@
             "y": 190,
             "summary": "맵 최북단 보난자(Bonanza) 만 끝자락의 코카인 밀수 보트하우스로, 엄청난 양의 코카인($18,000~$37,000)이 보관된 거점입니다.",
             "guide": "만 동쪽 끝 곶의 폐보트하우스이므로 보트로 해안에서 접근하는 것이 가장 유리합니다. 경비를 정리한 뒤 내부의 잠긴 금고(현장 단서 또는 강제/점착폭탄 개방)와 고가 코카인 보급품을 최대한 실어 장물아비에게 매각하세요."
+      },
+      {
+            "id": 39,
+            "category": "encounter",
+            "nameKo": "아서 모건 모자 마당세일",
+            "nameEn": "Yard Sale (Arthur Morgan's Hat)",
+            "region": "남부 포트 겔혼 (445, 875)",
+            "mission": "랜덤 인카운터 (RDR2 오마주)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "아서 모건 모자 의상",
+            "x": 445,
+            "y": 875,
+            "summary": "레드 데드 리뎀션 2의 주인공 아서 모건의 모자를 파는 마당세일 랜덤 인카운터입니다.",
+            "guide": "남부 포트 겔혼 주택가 앞 마당세일 좌판에서 말 걸어 아서 모건의 상징적인 가죽 모자를 구매·획득하세요."
+      },
+      {
+            "id": 40,
+            "category": "encounter",
+            "nameKo": "총격 피해자 '살' & 콜트사 복수",
+            "nameEn": "Sal, Shooting Victim & Kolt Revenge",
+            "region": "포트 겔혼 중심가(462, 771) → 남부(448, 858)",
+            "mission": "랜덤 인카운터 2연작",
+            "missable": false,
+            "safeCode": null,
+            "payout": "현금 보상 · 복수 의뢰",
+            "x": 462,
+            "y": 771,
+            "summary": "지갑 강도에게 총을 맞은 '살(Sal)'에게 진통제를 건네고 치료하면, 이후 콜트 & 어소시에이츠 관련 복수 인카운터가 이어집니다.",
+            "guide": "진통제를 건네면 나중에 살이 남부 포트 겔혼(448, 858)에서 부커(Booker)에게 복수해달라고 요청합니다."
+      },
+      {
+            "id": 41,
+            "category": "encounter",
+            "nameKo": "이구아나 사격 내기 ($250)",
+            "nameEn": "Iguana Target Practice",
+            "region": "노스 겔혼 힐스 (스타렛 모텔 서쪽 도로)",
+            "mission": "랜덤 인카운터 (사격 미니게임)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$250 내기 승리",
+            "x": 504,
+            "y": 773,
+            "summary": "이구아나를 더 많이 맞히는 사격 내기로 $250를 따는 이벤트입니다.",
+            "guide": "집중(Focus) 모드를 활용하면 쉽게 내기에서 승리해 $250를 챙길 수 있습니다."
+      },
+      {
+            "id": 42,
+            "category": "encounter",
+            "nameKo": "덤프스터 다이버 (스타렛 모텔 · 챕터 2 한정)",
+            "nameEn": "Dumpster Diver (Chapter 2)",
+            "region": "스타렛 모텔 뒤편 쓰레기통",
+            "mission": "랜덤 인카운터 (챕터 2 놓치면 불가)",
+            "missable": true,
+            "safeCode": null,
+            "payout": "아이템·현금 이벤트",
+            "x": 587,
+            "y": 809,
+            "summary": "챕터 2 동안 스타렛 모텔 뒤편에서 볼 수 있는 특수 덤프스터 다이버 이벤트입니다.",
+            "guide": "챕터 2가 끝나고 바이스 시티로 이동하기 전 스타렛 모텔에 머물 때 뒤편을 확인하세요."
+      },
+      {
+            "id": 43,
+            "category": "encounter",
+            "nameKo": "팔레오 브로 & 외계인 사냥꾼 버드",
+            "nameEn": "Paleo Bro (Alpha Gas) & Bud the Alien Hunter",
+            "region": "알파 주유소(609, 762) & 마운트 마운틴(717, 585)",
+            "mission": "랜덤 인카운터 (19:00 무렵 버드 등장)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "특수 대화·수집 힌트",
+            "x": 609,
+            "y": 762,
+            "summary": "알파 주유소 옆 원시인 컨셉 유튜버(Paleo Bro)와 19시경 마운트 마운틴 천문대 근처의 외계인 사냥꾼 버드 인카운터입니다.",
+            "guide": "버드(717, 585)는 저녁 19시 전후 'woo woo' 외침 소리를 따라가면 찾을 수 있습니다."
+      },
+      {
+            "id": 44,
+            "category": "encounter",
+            "nameKo": "만취 트랙터 케일럽 & 유령 소녀",
+            "nameEn": "Caleb Drunk Tractor & Emerald Ghost Girl",
+            "region": "사우스 암브로시아(788, 851) & 에메랄드 스프링스(701, 902)",
+            "mission": "랜덤 인카운터 2종",
+            "missable": false,
+            "safeCode": null,
+            "payout": "이송 보상 / 호러 이스터에그",
+            "x": 788,
+            "y": 851,
+            "summary": "만취 트랙터 운전자 케일럽을 집으로 데려다주는 이벤트와 에메랄드 스프링스의 심야 유령 소녀(701, 902) 조우입니다.",
+            "guide": "남부 암브로시아 길가에서는 바나나 트럭 강도(785, 875) 이벤트도 빈번하게 발생합니다."
+      },
+      {
+            "id": 45,
+            "category": "encounter",
+            "nameKo": "벨빌 소파 함정 (납치 주의)",
+            "nameEn": "Couch Trap in Belville",
+            "region": "벨빌 동남부 (1100, 873)",
+            "mission": "랜덤 인카운터 (함정 납치 이벤트)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "생존 탈출",
+            "x": 1100,
+            "y": 873,
+            "summary": "소파 옮기는 걸 도와달라는 행인을 돕다 기절해 컨테이너 안에서 깨어나는 유명한 함정 인카운터입니다.",
+            "guide": "일부 소지품이나 차량과 떨어질 수 있으니 벨빌 동부 외곽 진입 시 세이브 후 체험하세요."
+      },
+      {
+            "id": 46,
+            "category": "crime",
+            "crimeType": "전당포/대출소",
+            "nameKo": "포트 겔혼 북부: 아베리 전당포 & 캐시 플로우",
+            "nameEn": "Avery Pawn & Cash Flow (Port Gellhorn)",
+            "region": "포트 겔혼 중북부 (461, 765)",
+            "mission": "자유 범죄 / 전당포·소액대출소 연쇄 강도",
+            "missable": false,
+            "safeCode": null,
+            "payout": "전당포 $1,000~$10,000 · 대출소 $2,000~$10,000",
+            "x": 461,
+            "y": 765,
+            "summary": "아베리 전당포(#14 금고)와 바로 북쪽의 Cash Flow 대출소(456, 757), 견인 ATM #1(459, 765)이 한 블록에 모여 있습니다.",
+            "guide": "한 번에 전당포와 대출소를 연속으로 털고 북쪽 고속도로나 바닷가 쪽으로 이탈하면 초반 이주 자금 $15,000 모으기가 매우 빨라집니다."
+      },
+      {
+            "id": 47,
+            "category": "crime",
+            "crimeType": "전당포/보석상",
+            "nameKo": "포트 겔혼 남부: 벅스 보석·전당포 & 견인 ATM #2",
+            "nameEn": "Buck's Jewelry & Pawn + Towable ATM #2",
+            "region": "포트 겔혼 남부 킹핀 볼링장 북쪽 (454, 860)",
+            "mission": "자유 범죄 / 전당포·ATM 탈취",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$1,000~$10,000 + ATM 현금",
+            "x": 454,
+            "y": 860,
+            "summary": "남부 포트 겔혼 킹핀 볼링장 근처의 Buck's Jewelry & Pawn과 Pawn & Gun(#6), 견인 ATM #2(462, 812) 강도 스팟입니다.",
+            "guide": "픽업트럭이나 견인차로 견인 ATM #2를 뜯어내고 벅스 전당포까지 털어 모세(451, 841)나 덩크(452, 791)에게 넘기세요."
+      },
+      {
+            "id": 48,
+            "category": "crime",
+            "crimeType": "장물아비 (Fence)",
+            "nameKo": "포트 겔혼 3대 장물아비 (덩크 · 모세 · 피트)",
+            "nameEn": "Port Gellhorn Fences (Dunk / Moses / Pete)",
+            "region": "시내 덩크(452, 791) · 모세(451, 841) · 서부 피트(358, 816)",
+            "mission": "장물 매각 & 차량·마약 처분",
+            "missable": false,
+            "safeCode": null,
+            "payout": "도난품·차량 고가 매각",
+            "x": 452,
+            "y": 791,
+            "summary": "챕터 2 메인 장물아비 3곳입니다. 모세는 도난 차량을, 덩크는 보석·마약을 주로 매입합니다.",
+            "guide": "드래퍼 섬 서쪽 끝 피트(358, 816)는 비행/밀수 화물을 취급하며, 모세 차고(451, 841)에는 별도 사무실 금고(#13)도 있습니다."
+      },
+      {
+            "id": 49,
+            "category": "crime",
+            "crimeType": "강도/편의점",
+            "nameKo": "행크스 와플 & 엉클 잭스 주류점 (Stick-Ups)",
+            "nameEn": "Hank's Waffles & Uncle Jack's Liquor",
+            "region": "스타렛 모텔 남쪽(604, 832) & 서부 포트 겔혼(396, 806)",
+            "mission": "자유 범죄 / 식당·주류점 강도",
+            "missable": false,
+            "safeCode": null,
+            "payout": "카운터 현금 & 뒷방 금고",
+            "x": 604,
+            "y": 832,
+            "summary": "트레일러에서부터 등장한 명소 '행크스 와플(Hank's Waffles)'과 포트 겔혼 엉클 잭스 주류점 강도 위치입니다.",
+            "guide": "행크스 와플은 스타렛 모텔 바로 남쪽이라 챕터 2 은신처 복귀 길에 가볍게 털기 좋습니다."
+      },
+      {
+            "id": 50,
+            "category": "crime",
+            "crimeType": "은행/보석상",
+            "nameKo": "암브로시아 쇼어프론트 은행 & 플로렌스 보석상",
+            "nameEn": "Shorefront Bank & Florence & Co. (Ambrosia)",
+            "region": "레너드 카운티 암브로시아 중심가 (907, 700)",
+            "mission": "자유 범죄 / 동부 원정 고액 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "은행 $5,000~$15,000 · 보석상 $4,500~$12,000",
+            "x": 907,
+            "y": 700,
+            "summary": "챕터 2 거점 #31~#34가 몰려 있는 암브로시아 시내의 은행과 Florence & Co.(904, 677)입니다.",
+            "guide": "암브로시아 일대 적 거점을 털고 내려오는 길에 Florence & Co.와 쇼어프론트 은행을 연달아 공략하세요."
+      },
+      {
+            "id": 51,
+            "category": "crime",
+            "crimeType": "은행/보석상",
+            "nameKo": "벨빌 드러더스 주립은행 & 브릴리언트 컷츠 보석상",
+            "nameEn": "Druthers State Bank & Brilliant Cuts (Belville)",
+            "region": "레너드 카운티 벨빌 시내 (1077, 892)",
+            "mission": "자유 범죄 / 챕터 2 최고액 은행·보석상",
+            "missable": false,
+            "safeCode": null,
+            "payout": "은행 $15,000~$45,000 · 보석상 $9,000~$20,000",
+            "x": 1077,
+            "y": 892,
+            "summary": "챕터 2 권역에서 단일 수익이 가장 큰 Druthers State Bank($15k~$45k)와 Brilliant Cuts 보석상(1098, 881)입니다.",
+            "guide": "두 건물이 도보 거리로 인접해 있으며 서스티 울프 클럽하우스 등 벨빌 거점 공략 전후로 거액을 챙길 수 있습니다."
       }
 ];
 
@@ -1003,6 +1216,20 @@
             "color": "#f97316",
             "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
             "icon": "🏴‍☠️"
+      },
+      "encounter": {
+            "label": "랜덤 인카운터",
+            "badgeText": "🎲 랜덤 인카운터",
+            "color": "#10b981",
+            "bgClass": "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+            "icon": "🎲"
+      },
+      "crime": {
+            "label": "범죄/털이",
+            "badgeText": "💰 범죄/털이",
+            "color": "#ec4899",
+            "bgClass": "bg-pink-500/15 text-pink-300 border-pink-500/35",
+            "icon": "💰"
       }
 };
 
@@ -1090,6 +1317,8 @@
           if (state.activeCategory === 'weapon') {
             const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
             if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (state.activeCategory === 'crime') {
+            if (item.category !== 'crime' && !item.crimeSpot) return false;
           } else if (item.category !== state.activeCategory) {
             return false;
           }
@@ -1109,7 +1338,10 @@
             item.gang || '',
             item.security || '',
             item.weaponReward || '',
-            item.vehicleReward || ''
+            item.vehicleReward || '',
+            item.payout || '',
+            item.crimeType || '',
+            item.triggerTime || ''
           ]
             .join(' ')
             .toLowerCase();
@@ -1330,6 +1562,15 @@
         </div>
 
         ${
+          item.payout || item.triggerTime || item.crimeType
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.payout ? `<div class="bg-emerald-950/25 border border-emerald-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-emerald-300/80 block">💵 예상 보상 / 수익</span><span class="font-bold text-emerald-200">${item.payout}</span></div>` : ''}
+                ${item.crimeType || item.triggerTime ? `<div class="bg-pink-950/25 border border-pink-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-pink-300/80 block">${item.triggerTime ? '🕒 발생 조건 / 시간' : '💰 범죄 유형'}</span><span class="font-semibold text-pink-200">${item.triggerTime || item.crimeType}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
           item.gang || item.weaponReward || item.vehicleReward
             ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
                 ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
@@ -1433,6 +1674,11 @@
                   ${
                     item.weaponReward && item.category === 'outpost'
                       ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
+                      : ''
+                  }
+                  ${
+                    item.payout
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shrink-0">💵 ${item.payout.split(' (')[0]}</span>`
                       : ''
                   }
                   ${

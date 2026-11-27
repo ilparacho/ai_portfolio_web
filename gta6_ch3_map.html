@@ -46,6 +46,8 @@
       --cat-treasure: #06b6d4;
       --cat-missable: #f43f5e;
       --cat-outpost: #f97316;
+      --cat-encounter: #10b981;
+      --cat-crime: #ec4899;
     }
 
     * {
@@ -162,7 +164,7 @@
           <div class="flex items-center justify-between text-xs mb-1">
             <span class="font-semibold text-slate-300">챕터 3 수집 진행률</span>
             <span class="font-mono font-bold text-teal-400">
-              <span id="progress-count">0</span> / 46 (<span id="progress-percent">0%</span>)
+              <span id="progress-count">0</span> / 64 (<span id="progress-percent">0%</span>)
             </span>
           </div>
           <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
@@ -180,14 +182,22 @@
   <!-- 필터 및 실시간 검색 컨트롤 바 -->
   <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
     <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
         <button type="button" data-category="all"
           class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
-          전체 (46)
+          전체 (64)
         </button>
         <button type="button" data-category="outpost"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
           🏴‍☠️ 적 거점 (18)
+        </button>
+        <button type="button" data-category="crime"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-pink-400/50 hover:text-pink-200">
+          💰 범죄/털이 (10)
+        </button>
+        <button type="button" data-category="encounter"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-emerald-400/50 hover:text-emerald-200">
+          🎲 랜덤 인카운터 (8)
         </button>
         <button type="button" data-category="weapon"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
@@ -199,7 +209,7 @@
         </button>
         <button type="button" data-category="treasure"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-200">
-          📻 라디오/수집품 (4)
+          📻 비밀 라디오/잡지 (4)
         </button>
         <button type="button" data-category="missable"
           class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-rose-400/50 hover:text-rose-200">
@@ -275,6 +285,8 @@
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>라디오/수집품</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
         <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899] inline-block"></span>범죄/털이</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block"></span>랜덤 인카운터</span>
         <span class="text-slate-500">|</span>
         <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
       </div>
@@ -337,7 +349,7 @@
 
       <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
         <span class="font-bold text-slate-300">
-          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">46</span>건)
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">64</span>건)
         </span>
         <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
       </div>
@@ -386,8 +398,8 @@
             "mission": "카르텔 강도(The Cartel Heist) 전 필수!",
             "missable": true,
             "safeCode": "Muffins-Queen-15 / 92665",
-            "x": 1220,
-            "y": 1105,
+            "x": 1190,
+            "y": 1083,
             "summary": "[놓치면 불가] 마커가 뜨지 않는 은닉 비밀로, 약 $22,660 상당의 핑크 그라울러와 영구 차고를 무료로 얻습니다.",
             "guide": "① 복도 액자(Muffins), ② 침실 서랍장 스케치북(Queen), ③ 뒷면 숫자(15) 단서를 모아 바네사 노트북에 Muffins-Queen-15를 입력하세요. WhatUp 메시지에서 코드 92665를 확인한 뒤 라 페를 Aline's Thrift Store 옆 골목 리본 그려진 차고에서 92665를 입력해 차를 등록하세요. 챕터 3 종료 시 영구 소멸합니다."
       },
@@ -400,8 +412,8 @@
             "mission": "카르텔 강도(The Cartel Heist) 전 필수!",
             "missable": true,
             "safeCode": null,
-            "x": 1232,
-            "y": 1112,
+            "x": 1196,
+            "y": 1086,
             "summary": "[놓치면 불가] 챕터 4 Y호텔로 이사하면 다시 들어갈 수 없는 베이사이드 은신처 한정 잡지 2종입니다.",
             "guide": "챕터 3 시작 직후 바네사 아파트 내부에서 바로 확인하세요. 'Passion B.C.'는 욕실 욕조 옆 바닥에, 'Two Pricks in the Brush'는 거실 TV 앞 테이블 위에 놓여 있습니다."
       },
@@ -414,8 +426,8 @@
             "mission": "미션 21: 더 미싱 링크 (The Missing Link)",
             "missable": true,
             "safeCode": null,
-            "x": 615,
-            "y": 1650,
+            "x": 642,
+            "y": 1640,
             "summary": "[놓치면 불가] 금장 각인이 새겨진 고유 Duke 1922 권총으로, 미션 중 방을 떠나면 영구 복구 불가입니다.",
             "guide": "루시아로 몬티를 기절시킨 직후 총격전이 시작되면 첫 번째 적을 제압한 뒤 즉시 뒤돌아 촬영실(Photography room) 안으로 다시 들어가 바닥의 권총을 줍고 탈출하세요. (챕터 1~4는 미션 재플레이가 없습니다.)"
       },
@@ -428,8 +440,8 @@
             "mission": "미션 22: 세이프 워드 (Safe Word)",
             "missable": true,
             "safeCode": null,
-            "x": 1225,
-            "y": 1005,
+            "x": 1207,
+            "y": 1025,
             "summary": "[놓치면 불가] 라울 아지트의 금고 따기 연습을 끝까지 완료해야만 얻을 수 있는 고유 권총입니다.",
             "guide": "미션 'Safe Word' 후반부 니콜과 금고 따기 연습 시 중간에 그만두지 말고 드릴→케이블 유도→문 개방 3단계를 모두 성공시켜 금고 안의 길의 칼링가 .50과 $1,500를 챙기세요."
       },
@@ -470,7 +482,7 @@
             "mission": "카르텔 강도 전 한정 ($3,500 + 프로페셔널 보너스)",
             "missable": true,
             "safeCode": null,
-            "x": 1175,
+            "x": 1166,
             "y": 1085,
             "summary": "[놓치면 불가] 챕터 3 특정 미션 및 챕터 4 은신처 이동 전까지만 볼 수 있는 보상과 씬 모음입니다.",
             "guide": "① 미션 'Bricked Up' 첫 번째 방의 빨간 가방을 챙기면 $3,500+프로페셔널 보너스를 얻습니다. ② 디메즈를 만나기 전 클럽에서 Dwnfly 공연과 부비 VIP 대화를 놓치지 마세요. ③ 챕터 4 전에 Y호텔 입구의 고급 차량을 미리 탈취하세요."
@@ -480,12 +492,12 @@
             "category": "missable",
             "nameKo": "마벨 유령 호텔 & 심해 크라켄 이스터에그",
             "nameEn": "Marbelle Haunted Hotel & Kraken Easter Egg",
-            "region": "크로스타운 남부 NW 8th St / 글로리아나 키 남동쪽 심해",
+            "region": "크로스타운 남부 마벨 호텔 (NW 8th St) / 글로리아나 키",
             "mission": "이스터에그 (금고 코드: 955214)",
             "missable": false,
             "safeCode": "955214",
-            "x": 1185,
-            "y": 1098,
+            "x": 1175,
+            "y": 1158,
             "summary": "사일런트 힐을 오마주한 유령 호텔 금고(955214)와 바이스 시티 앞바다 심해 크라켄 이스터에그입니다.",
             "guide": "① 크로스타운 남부 NW 8th St(NINE1NINE 인근) 마벨 호텔 뒷문으로 들어가 금고에 955214를 입력하면 Crowex 시계와 현금을 얻습니다(뒤 계단 캐비닛 Ratface 카드 확인). ② 글로리아나 키(1315, 1390) 남동쪽 심해 난파선으로 잠수 장비를 메고 내려가면 거대 크라켄을 목격할 수 있습니다."
       },
@@ -498,8 +510,8 @@
             "mission": "San4San 불법 작전 거점 (코드: 4444)",
             "missable": false,
             "safeCode": "4444",
-            "x": 1135,
-            "y": 1078,
+            "x": 1093,
+            "y": 1088,
             "summary": "냉장고 포스트잇에 적힌 비밀번호 4444로 여는 San4San 거점 금고입니다.",
             "guide": "라 페를 남쪽 끝(Simon's Tires 북서쪽) 잔작의 차고에서 타이어 더미를 밟고 지붕으로 올라가 진입하세요. 옆방 냉장고 메모의 4444를 입력하고 고유 무기 San4San KZ-59 및 Pink Gin Tulip 차량을 챙기세요."
       },
@@ -512,8 +524,8 @@
             "mission": "San4San 불법 작전 거점 (코드: 4124)",
             "missable": false,
             "safeCode": "4124",
-            "x": 1152,
-            "y": 1052,
+            "x": 1125,
+            "y": 1053,
             "summary": "스니커즈 매장 뒷방 단서가 가리키는 길 건너 2층 비밀 금고입니다.",
             "guide": "라 페를 Drip Drops 뒷방 금고를 조사한 뒤, 길 건너편 건물 2층으로 올라가 오른쪽 세 번째 문 안쪽 금고에 4124를 입력하세요."
       },
@@ -522,12 +534,12 @@
             "category": "safe",
             "nameKo": "카사 과르디아 금고",
             "nameEn": "Casa Guardia Safe",
-            "region": "리틀 쿠바 북동쪽 강변 (외부 사다리→지붕 해치)",
+            "region": "리틀 쿠바 북동쪽 강변 (Casa Guardia)",
             "mission": "Guardia Brothers 불법 작전 (코드: 1965)",
             "missable": false,
             "safeCode": "1965",
-            "x": 1155,
-            "y": 1180,
+            "x": 1108,
+            "y": 1188,
             "summary": "외부 사다리로 지붕 해치를 통해 잠입하는 과르디아 형제단 핵심 금고입니다.",
             "guide": "리틀 쿠바 북동쪽 강변 대형 교차로 인근 저택 외벽 사다리를 타고 지붕으로 올라가 해치로 뛰어내리세요. 금고에 1965를 입력하면 고유 무기 Guardia Brothers FRA, 명품 시계, Nightlight Schafter를 얻습니다."
       },
@@ -536,12 +548,12 @@
             "category": "safe",
             "nameKo": "세이버 쉬핑 야드 금고",
             "nameEn": "Saber Shipping Yard Safe",
-            "region": "서부 리틀 쿠바 강변",
+            "region": "서부 리틀 쿠바 ~ 발세로 강변 (Saber Shipping Yard)",
             "mission": "Guardia Brothers 불법 작전 (코드: 8046)",
             "missable": false,
             "safeCode": "8046",
-            "x": 1110,
-            "y": 1205,
+            "x": 1072,
+            "y": 1213,
             "summary": "서부 리틀 쿠바 하역장에 위치한 과르디아 형제단 금고입니다.",
             "guide": "서부 리틀 쿠바 강변의 세이버 쉬핑 야드 거점을 소탕한 뒤 금고에 8046을 입력해 고유 무기 The Guardian ES18과 Cherry Bomb Chino 차량을 회수하세요."
       },
@@ -554,8 +566,8 @@
             "mission": "Guardia Brothers 거점 (코드: 1122 / 1965)",
             "missable": false,
             "safeCode": "1122",
-            "x": 1092,
-            "y": 1155,
+            "x": 1056,
+            "y": 1162,
             "summary": "노란색 리프트를 타고 지붕으로 진입하며, 다른 과르디아 거점 코드 단서가 있는 곳입니다.",
             "guide": "동부 발세로 강변 시설에서 노란 리프트를 이용해 지붕으로 진입한 뒤 2층 커피 테이블에서 고유 무기 Guardia Brothers VF5를 챙기세요. 금고 코드는 1122(또는 1965)이며 실패 시 현장 단서를 확인하세요."
       },
@@ -564,12 +576,12 @@
             "category": "safe",
             "nameKo": "리오나이다 운송 창고 금고",
             "nameEn": "Leonida Carrier Warehouse Safe",
-            "region": "발세로 랜디 차고 동쪽 (지붕 해치 진입)",
+            "region": "서부 발세로 리오나이다 운송 창고 (Leonida Carrier Warehouse)",
             "mission": "불법 작전 거점 (코드: 9256 · GRX 556)",
             "missable": false,
             "safeCode": "9256",
-            "x": 1065,
-            "y": 1165,
+            "x": 964,
+            "y": 1149,
             "summary": "지붕 해치를 통해 후면 사무실로 들어가 여는 발세로 창고 금고입니다.",
             "guide": "발세로(랜디 차고 동쪽 / 철도 조차장 서쪽) 창고 지붕 해치로 침투해 후면 사무실 금고에 9256을 입력하세요. 고유 무기 GRX 556과 거점 차량을 획득할 수 있습니다."
       },
@@ -578,12 +590,12 @@
             "category": "safe",
             "nameKo": "챗필드 물류 창고 금고",
             "nameEn": "Chatfield Storage & Logistics Safe",
-            "region": "리알토 제도 왁스맨 섬 화물 야적장 (Pay 'n' Spray 북쪽)",
+            "region": "왁스맨 섬 서부 챗필드 물류 창고 (Chatfield Storage)",
             "mission": "불법 작전 거점 (코드: 5800)",
             "missable": false,
             "safeCode": "5800",
-            "x": 1305,
-            "y": 1065,
+            "x": 1264,
+            "y": 1190,
             "summary": "니트로가 장착된 보라색 Emerus 슈퍼카와 고유 권총을 함께 얻는 섬 거점 금고입니다.",
             "guide": "왁스맨 섬 항만 야적장 사무실 노트북 이메일에서 확인되는 코드 5800으로 금고를 여세요. 고유 권총 Quarter Mile ES9과 컨테이너 안의 추적기 없는 보라색 Emerus 슈퍼카도 놓치지 마세요."
       },
@@ -592,12 +604,12 @@
             "category": "safe",
             "nameKo": "블랙 이글 임포트 문 & 금고",
             "nameEn": "Black Eagle Import Door & Safe",
-            "region": "발세로 블랙 이글 임포트 창고",
+            "region": "북부 발세로 블랙 이글 임포트 창고 (Black Eagle Import)",
             "mission": "이중 코드 및 지게차 퍼즐 (789987 / 031462)",
             "missable": false,
             "safeCode": "789987 / 031462",
-            "x": 1075,
-            "y": 1140,
+            "x": 929,
+            "y": 1063,
             "summary": "출입문(789987)과 금고(031462), 그리고 지게차로 상자를 치워 얻는 숨겨진 총기까지 있는 거점입니다.",
             "guide": "출입문 키패드에 789987, 내부 금고에 031462를 입력해 Black Eagle Import Kalinga를 얻으세요. 추가로 창고 안 철창 방에서는 지게차로 적재 상자 더미를 옮겨야 고유 무기 M306 TMR을 꺼낼 수 있습니다."
       },
@@ -606,12 +618,12 @@
             "category": "safe",
             "nameKo": "퍼스트 임프레션 차고 키패드",
             "nameEn": "First Impressions Garage Keypad",
-            "region": "왁스맨 섬 라울 강도 지원 차고 벽 패널",
+            "region": "왁스맨 섬 동부 라울 강도 지원 차고 (First Impressions)",
             "mission": "미션 12: 퍼스트 임프레션 (First Impressions)",
             "missable": false,
             "safeCode": "2404",
-            "x": 1320,
-            "y": 1085,
+            "x": 1319,
+            "y": 1217,
             "summary": "라울의 은행 강도 도주 지원 미션 중 차고 문을 여는 스토리 키패드 코드입니다.",
             "guide": "미션 'First Impressions' 진행 시 왁스맨 섬(Waxman Island) 차고 벽면 키패드에 2404를 입력해 도주 차량을 확보하세요."
       },
@@ -620,12 +632,12 @@
             "category": "weapon",
             "nameKo": "음모론자 타입 9 기관단총",
             "nameEn": "Conspiracist Type 9 SMG",
-            "region": "발세로 대형 안테나 접시 트레일러 지하 벙커",
+            "region": "북부 발세로 안테나 트레일러 지하 벙커 (Conspiracist Type 9)",
             "mission": "자유 탐색 (무료 고정 스폰)",
             "missable": false,
             "safeCode": null,
-            "x": 1055,
-            "y": 1155,
+            "x": 961,
+            "y": 1082,
             "summary": "거대한 위성 안테나가 달린 트레일러 아래 비밀 벙커에 숨겨진 무료 기관단총입니다.",
             "guide": "발세로 지역에서 거대한 안테나 접시가 세워진 트레일러를 찾은 뒤, 아래쪽 지하 벙커로 내려가면 무료로 획득할 수 있습니다. (Building a Life 완료 후 접근 권장)"
       },
@@ -634,12 +646,12 @@
             "category": "weapon",
             "nameKo": "베스푸치 저택 무기고 (Kingpin Heathen)",
             "nameEn": "Vespucci Mansion Armory & Emerus",
-            "region": "리알토 제도 베스푸치 섬 서쪽 저택",
+            "region": "리알토 제도 베스푸치 저택 무기고 (Vespucci Mansion)",
             "mission": "저택 강도 거점 (이중 금고 $9,000 + Emerus)",
             "missable": false,
             "safeCode": null,
-            "x": 1315,
-            "y": 1105,
+            "x": 1309,
+            "y": 1081,
             "summary": "이중 금고 뒤편 무기고에서 고유 소총을 얻고, 밖의 루비색 슈퍼카까지 챙기는 최고급 거점입니다.",
             "guide": "리알토 제도 내 베스푸치 섬(Vespucci Island) 서쪽 저택을 습격하세요. 약 $9,000가 든 금고 2개 뒤 무기고에서 Kingpin Heathen 소총을 획득하고, 마당의 Progen Royal Ruby Emerus(잠금·추적기 없음)를 타고 탈출하세요."
       },
@@ -648,12 +660,12 @@
             "category": "weapon",
             "nameKo": "오션 비치 마약 연구소 (Zodiac Nipper .38)",
             "nameEn": "Ocean Beach Lab - Zodiac Nipper .38",
-            "region": "오션 비치 Fleeca 은행 북쪽 뒷골목 차고",
+            "region": "오션 비치 동부 연구소 (Ocean Beach Lab)",
             "mission": "불법 작전 거점 (Ocean Beach Lab)",
             "missable": false,
             "safeCode": null,
-            "x": 1435,
-            "y": 1140,
+            "x": 1471,
+            "y": 1161,
             "summary": "오션 비치 골목 차고 마약 제조실을 소탕해 얻는 고유 권총입니다.",
             "guide": "바이스 비치 남단 오션 비치(Ocean Beach) Fleeca 은행 북쪽(Kington Hotel 남서쪽 약 100m) 뒷골목 차고를 습격해 고유 권총 Zodiac Nipper .38을 획득하세요."
       },
@@ -662,11 +674,11 @@
             "category": "weapon",
             "nameKo": "San4San 거점 3종 무기 (K17 / Gorse 425 / Chromium W-10)",
             "nameEn": "San4San Hideout Unique Weapons",
-            "region": "스톡야드 고가 밑 · 남부 록리지 · 북서부 라 페를",
+            "region": "크로스타운 미라마 드라이브 (베이사이드 맞은편)",
             "mission": "San4San 불법 작전 3곳 소탕",
             "missable": false,
             "safeCode": null,
-            "x": 1120,
+            "x": 1180,
             "y": 1125,
             "summary": "라 페를~록리지 일대 San4San 거점 3곳에서 회수하는 고유 무기 3종 묶음입니다.",
             "guide": "① 스톡야드·라 페를 교차 고가 하단 Sound4Sound Studio → San4San K17, ② 남부 록리지 혈액원 맞은편 Parlor Apartments → San4San Gorse 425, ③ 북서부 라 페를(Zak's Liquor 남쪽) Trap House 게임방 → Chromium W-10."
@@ -676,12 +688,12 @@
             "category": "weapon",
             "nameKo": "과르디아 & PTT 거점 무기 (Guardian ES18 / PTT K17)",
             "nameEn": "Guardia & PTT Hideout Weapons",
-            "region": "리틀 쿠바 / 북부 사우스사이드 커뮤니티 센터",
+            "region": "사우스사이드 카마 데본 커뮤니티 센터 (PTT Youngin$)",
             "mission": "불법 작전 거점 (Kamar Devon Community Center 등)",
             "missable": false,
             "safeCode": null,
-            "x": 1080,
-            "y": 1455,
+            "x": 1041,
+            "y": 1475,
             "summary": "공항 남쪽 사우스사이드의 PTT Youngin$ 거점 등에서 회수하는 고유 무기들입니다.",
             "guide": "VCIA 공항 남쪽 북부 사우스사이드(Strip Mall 북쪽 100m) Kamar Devon 커뮤니티 센터를 소탕해 PTT Youngin$ K17을 얻고, 인근 Illegal Goods Store에서 Eris Fresh DSG도 확인하세요."
       },
@@ -690,12 +702,12 @@
             "category": "weapon",
             "nameKo": "바이스 시티 총기상 한정 골드 무기 (14종 상점)",
             "nameEn": "Vice City Gun Store Gold Variants (14)",
-            "region": "록리지 · 스톡야드 · 다운타운 · 발세로 · 오션 비치",
+            "region": "다운타운 퀵스코프 외 바이스 시티 전역 5대 총기상",
             "mission": "상점 전용 판매 (100% 필수 아님, 최고가 $5,930)",
             "missable": false,
             "safeCode": null,
-            "x": 1200,
-            "y": 1240,
+            "x": 1170,
+            "y": 1206,
             "summary": "바이스 시티 전역 총기상·전당포 진열대에서 구매 가능한 골드(고유) 무기 14종 대표 위치입니다.",
             "guide": "대표 매장: Vice City Gun & Pawn(록리지, Bruiser Super400 $5,930), Prestige Firearms(오션 비치, Vice City Heathen $5,150), Quickscope(다운타운, Rogue Alpha DRX $4,410), Black Eagle(발세로, Nitepower AZ1200 $4,830), Iron & Oak(스톡야드), Zenon's Pawn(라 페를), Martez Empeños(리틀 쿠바)."
       },
@@ -704,12 +716,12 @@
             "category": "weapon",
             "nameKo": "배-럭스의 방망이 & 킬텔리전스 SM-69",
             "nameEn": "Bae-Luxe's Bat & Killtelligence SM-69",
-            "region": "미션 Cooties 클리어 / 북부 루목스 카운티 브렛 보겔",
+            "region": "북부 루목스 카운티 킬텔리전스 (SM-69) & 크로스타운 (배-럭스 방망이)",
             "mission": "스토리 보상 / 사냥 퀘스트 (챕터 3 제이슨 완료 권장)",
             "missable": false,
             "safeCode": null,
-            "x": 780,
-            "y": 310,
+            "x": 902,
+            "y": 337,
             "summary": "뮤직비디오 촬영 미션 'Cooties'의 근접 무기 보상과 북부 루목스 카운티의 사냥용 저격소총입니다.",
             "guide": "① 미션 'Cooties'에서 DWNPLY 갱단을 따돌리고 차를 스튜디오로 반납하면 '배-럭스의 방망이'를 얻습니다. ② 제이슨으로 북부 루목스 카운티(Lummox County)의 브렛 보겔(Bret Vogel) 퀘스트를 아직 안 했다면 챕터 3 내에 방문해 Killtelligence SM-69 소총과 사냥 시스템을 해금하세요."
       },
@@ -718,12 +730,12 @@
             "category": "treasure",
             "nameKo": "비밀 라디오 1: The Vault (100% 달성 필수!)",
             "nameEn": "Secret Playlist: The Vault (100% Required)",
-            "region": "다운타운 북부 The Vault 나이트클럽 입구 (NINE1NINE 옆)",
+            "region": "다운타운 북부 The Vault 나이트클럽 입구",
             "mission": "WAiNK 포스터 스캔 (100% 필수 요소)",
             "missable": false,
             "safeCode": null,
-            "x": 1190,
-            "y": 1215,
+            "x": 1148,
+            "y": 1172,
             "summary": "[100% 필수] 대체 여유분 없이 게임 내 2개뿐인 비밀 라디오 플레이리스트 중 첫 번째 해금입니다.",
             "guide": "다운타운 북부 NINE1NINE 인근 'The Vault' 나이트클럽 입구 바로 안쪽 벽에 붙은 빨간 포스터를 스마트폰 WAiNK 앱으로 스캔하세요. 비밀 라디오 2종은 모두 100% 달성에 필수입니다."
       },
@@ -736,7 +748,7 @@
             "mission": "WAiNK 포스터 4곳 모두 스캔 (챕터 3 해금)",
             "missable": false,
             "safeCode": null,
-            "x": 1142,
+            "x": 1145,
             "y": 1062,
             "summary": "[100% 필수] 라 페를과 크로스타운의 포스터 4장을 모두 스캔해야 해금되는 두 번째 비밀 라디오입니다.",
             "guide": "① Aunt Zola's Soul Food(라 페를), ② TWA Ponya Tattoo(라 페를), ③ Drip Drops(라 페를), ④ 크로스타운 Jack of Hearts 2층 녹음 스튜디오(챕터 3 오픈). 4곳 포스터를 전부 WAiNK로 스캔하세요."
@@ -746,12 +758,12 @@
             "category": "treasure",
             "nameKo": "바이스 시티 상시 잡지 3종 (Ratface / High Rollerz / BOMBAZO!)",
             "nameEn": "3 Non-Missable Vice City Magazines",
-            "region": "라 페를 Xero Mart · Jack of Hearts 2층 · 워싱턴 비치 Ron Stop",
+            "region": "워싱턴 비치 올드비 섬 Ron Stop'N'Snack",
             "mission": "100% 수집품 (언제든 습득 가능)",
             "missable": false,
             "safeCode": null,
-            "x": 1440,
-            "y": 970,
+            "x": 1453,
+            "y": 1024,
             "summary": "베이사이드 아파트 잡지 2종과 달리 챕터 3 이후에도 자유롭게 얻을 수 있는 상시 잡지 3종입니다.",
             "guide": "① Ratface #1: 라 페를 Xero Food Mart 잡지대, ② High Rollerz #37: 크로스타운 Jack of Hearts 2층 스튜디오 옆, ③ BOMBAZO! #2342: 워싱턴 비치 Ron Stop'n'Snack 잡지대."
       },
@@ -760,12 +772,12 @@
             "category": "treasure",
             "nameKo": "코카인 플라밍고 & 다운타운 잠망경 (WAiNK)",
             "nameEn": "La Perle Flamingo & Downtown Periscope (WAiNK)",
-            "region": "라 페를 타이론 아파트 인근 / 다운타운 카탈란 블러바드 해안",
+            "region": "라 페를 타이론 암시장 (Tyrone Fence)",
             "mission": "자유 탐색 & WAiNK 스캔 (100% 연동)",
             "missable": false,
             "safeCode": null,
-            "x": 1225,
-            "y": 1230,
+            "x": 1157,
+            "y": 1058,
             "summary": "라 페를 코카인 플라밍고(즉시 타이론에게 매각 가능)와 다운타운 해안 WAiNK 스캔 포인트입니다.",
             "guide": "① 라 페를 타이론 아파트 인근의 검정·흰색 부리 핑크 플라밍고 조각상을 총으로 쏴 코카인 꾸러미를 얻고 타이론에게 최고가로 파세요. ② 다운타운 카탈란 블러바드 해안가(Catalan Blvd)에서 Downtown Periscope & Dock Ring을 WAiNK로 스캔하세요."
       },
@@ -1092,6 +1104,291 @@
             "y": 1584,
             "summary": "남부 바이스-데일 채석장 인근에 위치한 파이널 챕터의 보조 MC 창고 구역으로, 특수 밴 'Vapid Rumpo'와 마약을 확보할 수 있습니다.",
             "guide": "아폴로 채석장·에모리 애비뉴 인근 창고를 습격해 바이커 잔당을 소탕하고 보급품 및 'Vapid Rumpo' 차량을 회수하세요. (100% 39거점 외 추가 현장 포인트)"
+      },
+      {
+            "id": 47,
+            "category": "encounter",
+            "nameKo": "야간 도주 여우 퍼리 (Furry DW-9)",
+            "nameEn": "Furry on the Run (Furry DW-9)",
+            "region": "크로스타운 미라마 드라이브 (21:00~04:00)",
+            "mission": "랜덤 인카운터 (고유 무기 or 현금)",
+            "missable": false,
+            "safeCode": null,
+            "triggerTime": "21:00~04:00",
+            "payout": "고유 권총 Furry DW-9",
+            "x": 1181,
+            "y": 1130,
+            "summary": "밤 9시~새벽 4시 사이 크로스타운 미라마 드라이브(베이사이드 아파트 맞은편)에서 여우 탈 인물을 만나 고유 무기 'Furry DW-9'을 얻습니다.",
+            "guide": "기존 #21과 연계되는 핵심 인카운터로, 여우 탈 NPC를 추격/제압하거나 선택지에 따라 특수 권총 'Furry DW-9'을 획득할 수 있습니다."
+      },
+      {
+            "id": 48,
+            "category": "encounter",
+            "nameKo": "압류업자와 페가시 템페스타 (13:00)",
+            "nameEn": "Repo Man & Pegassi Tempesta",
+            "region": "바이스 시티 NE 3rd Street",
+            "mission": "랜덤 인카운터 (차량 탈취)",
+            "missable": false,
+            "safeCode": null,
+            "triggerTime": "13:00 전후",
+            "payout": "Pegassi Tempesta 슈퍼카",
+            "x": 1117,
+            "y": 1196,
+            "summary": "오후 1시경 NE 3rd Street에서 차를 압류하려는 업자와 차주 다툼을 틈타 슈퍼카 'Pegassi Tempesta'를 탈취합니다.",
+            "guide": "발세로 장물아비 랜디(923, 1130)의 요청 차량 리스트를 채우거나 초반 고급 슈퍼카로 활용하기 좋습니다."
+      },
+      {
+            "id": 49,
+            "category": "encounter",
+            "nameKo": "해변 그래플러 격투 내기 (제이슨 전용)",
+            "nameEn": "Beach Grappler ($1,000 Fight)",
+            "region": "바이스 시티 산책로 잔디밭 (주간)",
+            "mission": "랜덤 인카운터 (제이슨 단독 · 도보)",
+            "missable": false,
+            "safeCode": null,
+            "triggerTime": "주간 (도보)",
+            "payout": "$1,000 상금",
+            "x": 1123,
+            "y": 1175,
+            "summary": "낮에 제이슨 혼자 해변 산책로를 걸어가면 그래플러가 격투 내기를 걸어오며 승리 시 $1,000를 얻습니다.",
+            "guide": "맨손 격투 회피·카운터를 적절히 사용해 제압하세요. 루시아 동행 중이거나 차량 탑승 시에는 잘 뜨지 않습니다."
+      },
+      {
+            "id": 50,
+            "category": "encounter",
+            "nameKo": "덤프스터 변호사 / 수염 약물 거래",
+            "nameEn": "Dumpster Lawyer / Man (Bayside & Peacock Bay)",
+            "region": "베이사이드(1188, 1089) · 피콕 베이(1094, 1448) 등",
+            "mission": "랜덤 인카운터 (모래시계 스페셜)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "현금 / 약물 교환 보상",
+            "x": 1188,
+            "y": 1089,
+            "summary": "쓰레기통에 갇히거나 숨어 있는 변호사에게 진통제를 건네면 현금을 듬뿍 쥐여주는 바이스 시티 시그니처 인카운터입니다.",
+            "guide": "베이사이드 아파트(1188, 1089), 도노반 뱅크스 앞(1094, 1448), 다운타운(1171, 1252) 등 도심 골목 곳곳에서 등장합니다."
+      },
+      {
+            "id": 51,
+            "category": "encounter",
+            "nameKo": "라 페를 소파 함정 & 의자에 묶인 경찰",
+            "nameEn": "Couch Trap (La Perle) & Cop Tied to a Chair (Salton)",
+            "region": "라 페를(1151, 1045) & 살튼(1039, 1197)",
+            "mission": "랜덤 인카운터 2종",
+            "missable": false,
+            "safeCode": null,
+            "payout": "무기/현금 & 경찰 구조 보상",
+            "x": 1151,
+            "y": 1045,
+            "summary": "라 페를 Jeudy's Food Depot 옆의 함정 이벤트와 살튼 골목에서 의자에 묶여 있는 경찰관 구출 이벤트입니다.",
+            "guide": "살튼(1039, 1197)의 묶인 경찰을 풀어주거나, 인접한 살튼 스트리트 레이스 도전(1099, 1350)에도 참가해 보세요."
+      },
+      {
+            "id": 52,
+            "category": "encounter",
+            "nameKo": "고속도로 북극곰 해방 시위대",
+            "nameEn": "Polar Bear Protest (Salton Freeway)",
+            "region": "살튼 고속도로(999, 1206) · 서부 바이스-데일(733, 1197)",
+            "mission": "랜덤 인카운터 (동물권 시위)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "북극곰 해방 / 돌발 혼란",
+            "x": 999,
+            "y": 1206,
+            "summary": "동물권 시위대가 고속도로에서 동물 수송 트럭을 가로막고 북극곰을 풀어달라고 요구하는 돌발 이벤트입니다.",
+            "guide": "수송 트럭 문을 열면 북극곰이 뛰쳐나와 현장이 아수라장이 됩니다(리틀 쿠바 1129, 1166에서도 흑곰 트럭 시위 발생)."
+      },
+      {
+            "id": 53,
+            "category": "encounter",
+            "nameKo": "리틀 하딘 섬 유령선 등대 (야간)",
+            "nameEn": "Ghost Ship Lighthouse (Little Hardin Island)",
+            "region": "북동부 리틀 하딘 섬 동단 (1333, 470)",
+            "mission": "랜덤 인카운터 (야간 단서 탐색 · Cursed Knife 연계)",
+            "missable": false,
+            "safeCode": null,
+            "triggerTime": "야간",
+            "payout": "Cursed Knife(1327, 470) 단서",
+            "x": 1333,
+            "y": 470,
+            "summary": "밤에 리틀 하딘 섬 등대 주변을 탐색하면 유령선의 단서를 발견하고, 인근 침몰 보트(1327, 470)에서 고유 단검 'Cursed Knife'를 얻습니다.",
+            "guide": "등대 단서를 따라 동쪽 해안 바위 부근의 침몰한 보트를 조사해 저주받은 단검을 챙기세요."
+      },
+      {
+            "id": 54,
+            "category": "encounter",
+            "nameKo": "북부 유령 여인 & 우는 여인 라 요로나",
+            "nameEn": "Ghost Woman (Moreau) & La Llorona (01:00~04:00)",
+            "region": "루목스 카운티 모로(905, 303) · 킬텔리전스 북쪽(902, 337)",
+            "mission": "랜덤 인카운터 (심야 공포 이벤트)",
+            "missable": false,
+            "safeCode": null,
+            "triggerTime": "01:00~04:00",
+            "payout": "유령 차량 / 특별 대화",
+            "x": 905,
+            "y": 303,
+            "summary": "밤에 모로 도로를 달리면 차 시동이 꺼지며 유령 여인이 기어오고, 새벽 1~4시 단독 방문 시 라 요로나가 출몰합니다.",
+            "guide": "라 요로나 이벤트는 파트너와 떨어져 혼자(Split Up) 새벽 1시~4시 사이에 진입해야 트리거됩니다."
+      },
+      {
+            "id": 55,
+            "category": "crime",
+            "crimeType": "대형 은행 털이",
+            "nameKo": "롬뱅크 & 플리카 — 다운타운 (최고액 금고)",
+            "nameEn": "Lombank & Fleeca – Downtown Vice City",
+            "region": "다운타운 중심 금융가 (1177, 1271 / 1161, 1254)",
+            "mission": "자유 범죄 / 대형 은행 금고 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "롬뱅크 $135,000~$205,000 · 플리카 $100,000~$150,000",
+            "x": 1177,
+            "y": 1271,
+            "summary": "GTA 6 전체 범죄 스팟 중 단일 수익 1위($13.5만~$20.5만)인 롬뱅크 다운타운과 바로 옆 플리카 다운타운 지점입니다.",
+            "guide": "경비 수준이 높고 수배가 빠르게 붙으므로 방탄복·중화기를 완비하고, 지하철/터널/고속 보트 도주로를 확보한 뒤 공략하세요. (바로 북쪽 1173, 1255에는 Icegem 보석상도 있음)"
+      },
+      {
+            "id": 56,
+            "category": "crime",
+            "crimeType": "대형 은행 털이",
+            "nameKo": "롬뱅크 & 플리카 — 오션 비치 1호점",
+            "nameEn": "Lombank & Fleeca – Ocean Beach #1",
+            "region": "바이스 비치 오션 비치 남부 (1454, 1229)",
+            "mission": "자유 범죄 / 대형 은행 금고 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "롬뱅크 $135,000~$205,000 · 플리카 $75,000~$135,000",
+            "x": 1454,
+            "y": 1229,
+            "summary": "다운타운과 함께 최고액($13.5만~$20.5만)을 자랑하는 오션 비치 롬뱅크와 인접 플리카 은행(1459, 1227)입니다.",
+            "guide": "근처 오션 비치 해안가에 제트스키나 고속 보트를 대기시켜 두면 경찰 포위망을 바다 쪽으로 손쉽게 돌파할 수 있습니다."
+      },
+      {
+            "id": 57,
+            "category": "crime",
+            "crimeType": "대형 은행 털이",
+            "nameKo": "플리카 공항지점(VCIA) & 테퀘스타 지점",
+            "nameEn": "Fleeca – VCIA & Fleeca – Tequesta",
+            "region": "VCIA 공항(1036, 1293) · 테퀘스타(1133, 1367)",
+            "mission": "자유 범죄 / 고액 플리카 은행",
+            "missable": false,
+            "safeCode": null,
+            "payout": "VCIA $100,000~$150,000 · 테퀘스타 $65,000~$110,000",
+            "x": 1036,
+            "y": 1293,
+            "summary": "공항 인근에서 6자리 달러($10만~$15만)를 쏠쏠하게 털 수 있는 VCIA 플리카 은행과 테퀘스타 플리카 은행입니다.",
+            "guide": "VCIA 활주로 쪽이나 고속도로 램프를 이용해 빠르게 도주하세요. 테퀘스타에는 Plush 보석상(1136, 1359, $9k~$20k)도 인접합니다."
+      },
+      {
+            "id": 58,
+            "category": "crime",
+            "crimeType": "은행/보석상",
+            "nameKo": "오션 비치 북부: 쇼어프론트 은행 & 아코야 보석상",
+            "nameEn": "Shorefront Bank & Akoya Jewelers (Oldby / Ocean Beach)",
+            "region": "오션 비치 북부 ~ 올드비 섬 (1461, 1076 / 1455, 1070)",
+            "mission": "자유 범죄 / 은행·최고급 보석상 세트",
+            "missable": false,
+            "safeCode": null,
+            "payout": "은행 $95,000~$140,000 · 보석상 $14,000~$25,000",
+            "x": 1461,
+            "y": 1076,
+            "summary": "오션 비치 쇼어프론트 1호점과 아코야 보석상(Akoya), 마샬(Marshal's, 1493, 1070), 로코코 리치(1468, 1153)가 해변 축에 몰려 있습니다.",
+            "guide": "워싱턴 비치 Fleeca(1436, 1012)와 함께 해변 종단 강도 루트를 짜기 좋습니다."
+      },
+      {
+            "id": 59,
+            "category": "crime",
+            "crimeType": "고급 보석상",
+            "nameKo": "데코 디스트릭트 3대 명품 보석상",
+            "nameEn": "Blanc & Giroux / Roval / Covgari (Decor District)",
+            "region": "바이스 데코 디스트릭트 (1211, 956)",
+            "mission": "자유 범죄 / 최고급 보석상 3연속 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "각 $14,000~$25,000 (총 $4.2만~$7.5만)",
+            "x": 1211,
+            "y": 956,
+            "summary": "Blanc & Giroux(1214, 961), Roval(1209, 959), Covgari(1211, 952) 세 명품 보석상이 한 골목에 붙어 있습니다.",
+            "guide": "전부 최고 등급($14,000~$25,000) 매장이므로 차량 1대로 순식간에 진열장을 깨고 수배가 오르기 전에 북쪽 고속도로로 빠지세요."
+      },
+      {
+            "id": 60,
+            "category": "crime",
+            "crimeType": "보석상/은행",
+            "nameKo": "다운타운 아이스젬 보석상 & 올댓글리터스",
+            "nameEn": "Icegem Diamonds & All That Glitters (Downtown)",
+            "region": "다운타운 중심부 (1173, 1255 / 1212, 1221)",
+            "mission": "자유 범죄 / 도심 보석상 연쇄 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$14,000~$25,000 + $9,000~$20,000",
+            "x": 1173,
+            "y": 1255,
+            "summary": "Icegem Diamonds, Richardson Jewelry, All That Glitters, Peacock 보석상이 다운타운에 밀집해 있습니다.",
+            "guide": "인근 쇼어프론트 다운타운 은행(1155, 1261)과 함께 소규모 전술 강도 루트로 돌기 좋습니다."
+      },
+      {
+            "id": 61,
+            "category": "crime",
+            "crimeType": "보석상/은행",
+            "nameKo": "피콕 베이 도노반 뱅크스 & 롬뱅크",
+            "nameEn": "Donovan Banks & Co. / Lombank Peacock Bay",
+            "region": "피콕 베이 상업지구 (1097, 1443)",
+            "mission": "자유 범죄 / 남부 보석상·은행",
+            "missable": false,
+            "safeCode": null,
+            "payout": "보석상 $14,000~$25,000 · 은행 각 $5k~$20k",
+            "x": 1097,
+            "y": 1443,
+            "summary": "피콕 베이 고급 보석상 Donovan Banks & Co.와 바로 옆 Lombank/Fleeca 지점(1086, 1452)입니다.",
+            "guide": "남쪽 사우스사이드 전당포(Ernesto's, Joyeria) 및 Payday Loans Store(1045, 1482)와 묶어서 털기 좋습니다."
+      },
+      {
+            "id": 62,
+            "category": "crime",
+            "crimeType": "대출소/전당포",
+            "nameKo": "리틀 쿠바·라 페를·록리지 소액대출소 & 전당포",
+            "nameEn": "Payday Loans & Pawn Shops (Little Cuba / La Perle / Rockridge)",
+            "region": "리틀 쿠바(1089, 1180) · 록리지(1107, 1110) · 라 페를(1170, 1033)",
+            "mission": "자유 범죄 / 도심 대출업체 & 전당포 털이",
+            "missable": false,
+            "safeCode": null,
+            "payout": "리틀 쿠바 $15,000~$25,000 · 기타 각 $5k~$15k",
+            "x": 1089,
+            "y": 1180,
+            "summary": "은행보다 경비가 약하면서도 한 번에 $1.5만~$2.5만을 주는 리틀 쿠바 Payday Loans와 라 페를 Quick Buck / Pawn Stash, 바이스 시티 전당포입니다.",
+            "guide": "라 페를의 타이론(1157, 1058)이나 리틀 쿠바 야스마니(1100, 1222) 장물아비와 가까워 도난품 처리가 즉각 가능합니다."
+      },
+      {
+            "id": 63,
+            "category": "crime",
+            "crimeType": "보석상 (원정)",
+            "nameKo": "웨이닝 샌즈 고급 보석상 2곳 (스칼라 & 코왈스키)",
+            "nameEn": "Skala & Kowalski Jewelers (Waning Sands)",
+            "region": "레너드 카운티 동부 웨이닝 샌즈 (1233, 750)",
+            "mission": "자유 범죄 / 북동부 해안 명품 보석상",
+            "missable": false,
+            "safeCode": null,
+            "payout": "각 $14,000~$25,000 (총 $2.8만~$5만)",
+            "x": 1233,
+            "y": 750,
+            "summary": "바이스 시티 북쪽 웨이닝 샌즈 해변가에 나란히 있는 최고 등급 보석상 2곳입니다.",
+            "guide": "경찰 병력 밀도가 도심보다 낮아 두 곳을 연달아 털고 해안 도로로 도주하기가 바이스 시티 중심부보다 훨씬 수월합니다."
+      },
+      {
+            "id": 64,
+            "category": "crime",
+            "crimeType": "장물아비 (Fence)",
+            "nameKo": "바이스 시티 & 북부 장물아비 (타이론 · 야스마니 · 랜디 · 킬텔리전스)",
+            "nameEn": "Vice City & North Fences (Tyrone / Yasmani / Randy / Killtelligence)",
+            "region": "라 페를(1157, 1058) · 리틀 쿠바(1100, 1222) · 발세로(923, 1130) · 루목스(902, 337)",
+            "mission": "장물·도난차·사냥품 매각 거점",
+            "missable": false,
+            "safeCode": null,
+            "payout": "최고가 장물 처분",
+            "x": 1157,
+            "y": 1058,
+            "summary": "바이스 시티 후반부 주요 장물아비 네트워크입니다. 타이론(라 페를), 야스마니(리틀 쿠바), 랜디(발세로 차량), 킬텔리전스(북부 사냥품)로 역할이 나뉩니다.",
+            "guide": "대형 은행/보석상에서 턴 장물과 고급 도난 차량은 각 품목별 최고가를 쳐주는 장물아비를 지도 인덱스에서 확인하고 넘기세요."
       }
 ];
 
@@ -1130,6 +1427,20 @@
             "color": "#f97316",
             "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
             "icon": "🏴‍☠️"
+      },
+      "encounter": {
+            "label": "랜덤 인카운터",
+            "badgeText": "🎲 랜덤 인카운터",
+            "color": "#10b981",
+            "bgClass": "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+            "icon": "🎲"
+      },
+      "crime": {
+            "label": "범죄/털이",
+            "badgeText": "💰 범죄/털이",
+            "color": "#ec4899",
+            "bgClass": "bg-pink-500/15 text-pink-300 border-pink-500/35",
+            "icon": "💰"
       }
 };
 
@@ -1217,6 +1528,8 @@
           if (state.activeCategory === 'weapon') {
             const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
             if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (state.activeCategory === 'crime') {
+            if (item.category !== 'crime' && !item.crimeSpot) return false;
           } else if (item.category !== state.activeCategory) {
             return false;
           }
@@ -1236,7 +1549,10 @@
             item.gang || '',
             item.security || '',
             item.weaponReward || '',
-            item.vehicleReward || ''
+            item.vehicleReward || '',
+            item.payout || '',
+            item.crimeType || '',
+            item.triggerTime || ''
           ]
             .join(' ')
             .toLowerCase();
@@ -1457,6 +1773,15 @@
         </div>
 
         ${
+          item.payout || item.triggerTime || item.crimeType
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.payout ? `<div class="bg-emerald-950/25 border border-emerald-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-emerald-300/80 block">💵 예상 보상 / 수익</span><span class="font-bold text-emerald-200">${item.payout}</span></div>` : ''}
+                ${item.crimeType || item.triggerTime ? `<div class="bg-pink-950/25 border border-pink-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-pink-300/80 block">${item.triggerTime ? '🕒 발생 조건 / 시간' : '💰 범죄 유형'}</span><span class="font-semibold text-pink-200">${item.triggerTime || item.crimeType}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
           item.gang || item.weaponReward || item.vehicleReward
             ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
                 ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
@@ -1560,6 +1885,11 @@
                   ${
                     item.weaponReward && item.category === 'outpost'
                       ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
+                      : ''
+                  }
+                  ${
+                    item.payout
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shrink-0">💵 ${item.payout.split(' (')[0]}</span>`
                       : ''
                   }
                   ${
