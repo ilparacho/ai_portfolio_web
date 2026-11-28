@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>GTA 6 챕터 4 숨겨진 요소 전술 지도 (바이스 비치 / 선다운 / 레너드)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', '"Inter"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ocean: {
+              950: '#040911',
+              900: '#08121e',
+              850: '#0c1929',
+              800: '#102236',
+              700: '#17314d',
+            },
+            radar: {
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-ocean: #08121e;
+      --accent-teal: #14b8a6;
+      --cat-weapon: #f59e0b;
+      --cat-safe: #a855f7;
+      --cat-treasure: #06b6d4;
+      --cat-missable: #f43f5e;
+      --cat-outpost: #f97316;
+      --cat-encounter: #10b981;
+      --cat-crime: #ec4899;
+      --cat-vehicle: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #08121e;
+      color: #e2e8f0;
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .tactical-grid-bg {
+      background-image:
+        radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.08) 0%, transparent 70%),
+        linear-gradient(to right, rgba(20, 184, 166, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20, 184, 166, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08121e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e3a5f;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #14b8a6;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes radarPulse {
+      0% { transform: scale(0.85); opacity: 0.95; }
+      70% { transform: scale(2.35); opacity: 0; }
+      100% { transform: scale(2.35); opacity: 0; }
+    }
+
+    .pin-pulse-ring {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: radarPulse 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    }
+
+    #map-viewport {
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+    #map-viewport.is-dragging {
+      cursor: grabbing;
+    }
+
+    .map-pin-group {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    .map-pin-group:hover .pin-core {
+      filter: brightness(1.25) drop-shadow(0 0 8px currentColor);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#08121e] text-slate-100 selection:bg-teal-500/30">
+
+  <!-- 상단 전술 헤더 & 진행도 바 -->
+  <header class="bg-[#07101b]/95 backdrop-blur-md border-b border-teal-500/20 px-3 sm:px-6 py-3 sticky top-0 z-30 shadow-lg">
+    <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-start sm:items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-teal-500/15 border border-teal-400/40 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(20,184,166,0.2)]">
+            <svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2 py-0.5 text-[11px] font-mono font-bold uppercase tracking-wider rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                CHAPTER 4 · REAL MAP
+              </span>
+              <h1 class="text-base sm:text-xl font-extrabold tracking-tight text-white">
+                GTA 6 챕터 4 숨겨진 요소 전술 지도
+              </h1>
+            </div>
+            바이스 비치(Y호텔) / 선다운 / 테퀘스타 / VCIA · 실제 지도 정밀 검수 · 총 38종 (놓치면 불가 7 · 벙커 · 키티 랩 · 희귀 보트)
+            </p>
+          </div>
+        </div>
+        <!-- 챕터 네비게이션 -->
+        <nav class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+          <a href="gta6_ch1_map.html" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-800/70 hover:bg-teal-500/15 text-slate-300 hover:text-teal-200 border border-slate-700/80 hover:border-teal-400/40 transition shrink-0">Ch.1 마리아나/키스</a>
+          <a href="gta6_ch2_map.html" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-800/70 hover:bg-teal-500/15 text-slate-300 hover:text-teal-200 border border-slate-700/80 hover:border-teal-400/40 transition shrink-0">Ch.2 포트 겔혼</a>
+          <a href="gta6_ch3_map.html" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-800/70 hover:bg-teal-500/15 text-slate-300 hover:text-teal-200 border border-slate-700/80 hover:border-teal-400/40 transition shrink-0">Ch.3 바이스 시티</a>
+          <a href="gta6_ch4_map.html" aria-current="page" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-extrabold bg-teal-500/25 text-teal-200 border border-teal-400/60 shadow-sm shrink-0">Ch.4 비치/레너드</a>
+          <a href="gta6_ch5_map.html" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-800/70 hover:bg-teal-500/15 text-slate-300 hover:text-teal-200 border border-slate-700/80 hover:border-teal-400/40 transition shrink-0">Ch.5 북부/엔딩</a>
+          <a href="index.html#guides" class="px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-semibold bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 transition shrink-0">🏠 허브</a>
+        </nav>
+      </div>
+
+      <!-- 우측 전체 수집 진행도 바 -->
+      <div class="flex items-center gap-3 bg-[#0c1a2b] border border-slate-700/70 rounded-xl px-3.5 py-2 shrink-0 self-start lg:self-center">
+        <div class="flex flex-col min-w-[180px] sm:min-w-[230px]">
+          <div class="flex items-center justify-between text-xs mb-1">
+            <span class="font-semibold text-slate-300">챕터 4 수집 진행률</span>
+            <span class="font-mono font-bold text-teal-400">
+              <span id="progress-count">0</span> / 38 (<span id="progress-percent">0%</span>)
+            </span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700/80">
+            <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-teal-500 via-cyan-400 to-amber-400 transition-all duration-300 rounded-full" style="width: 0%;"></div>
+          </div>
+        </div>
+        <button id="btn-reset-progress" type="button" title="진행도 초기화"
+          class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-rose-300 hover:bg-rose-500/15 border border-slate-700/80 hover:border-rose-500/40 transition">
+          초기화
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 필터 및 실시간 검색 컨트롤 바 -->
+  <section class="bg-[#0a1625] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 z-20">
+    <div class="max-w-[1800px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 no-scrollbar" id="category-filters">
+        <button type="button" data-category="all"
+          class="filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm">
+          전체 (38)
+        </button>
+        <button type="button" data-category="outpost"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-orange-400/50 hover:text-orange-200">
+          🏴‍☠️ 적 거점 (5)
+        </button>
+        <button type="button" data-category="crime"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-pink-400/50 hover:text-pink-200">
+          💰 범죄/털이 (3)
+        </button>
+        <button type="button" data-category="encounter"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-emerald-400/50 hover:text-emerald-200">
+          🎲 랜덤 인카운터 (4)
+        </button>
+        <button type="button" data-category="vehicle"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-sky-400/50 hover:text-sky-200">
+          🏎️ 희귀 차량 (3)
+        </button>
+        <button type="button" data-category="weapon"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-amber-400/50 hover:text-amber-200">
+          🟡 고유 무기 (8)
+        </button>
+        <button type="button" data-category="safe"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-purple-400/50 hover:text-purple-200">
+          🔐 금고/키패드 (5)
+        </button>
+        <button type="button" data-category="treasure"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-cyan-400/50 hover:text-cyan-200">
+          💎 비밀/수중/잡지 (4)
+        </button>
+        <button type="button" data-category="missable"
+          class="filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-rose-400/50 hover:text-rose-200">
+          ⭐ 놓치면 불가/분기 (6)
+        </button>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+        <button id="btn-missable-only" type="button" aria-pressed="false"
+          class="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-rose-500/35 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 flex items-center justify-center gap-1.5 shrink-0">
+          <span>⚠️ 챕터 4 놓치면 불가만 보기</span>
+          <span id="missable-badge-count" class="px-1.5 py-0.2 rounded-md text-[11px] bg-rose-500/25 text-rose-100 font-mono">7</span>
+        </button>
+
+        <div class="relative flex-1 sm:w-64 md:w-72">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input id="search-input" type="text" placeholder="한글/영문 아이템, 미션, 코드 검색..."
+            class="w-full pl-9 pr-8 py-1.5 rounded-xl text-xs sm:text-sm bg-[#0f1f33] border border-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition" />
+          <button id="btn-clear-search" type="button" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 메인 분할 워크스페이스 (좌측 65% 전술 지도 / 우측 35% 인스펙터 & 목록) -->
+  <main class="flex-1 max-w-[1800px] w-full mx-auto flex flex-col lg:flex-row overflow-hidden">
+
+    <!-- 좌측: 실제 리오나이다 지도 인터랙티브 팬/줌 SVG 뷰포트 (65%) -->
+    <section class="relative w-full lg:w-[65%] h-[52vh] sm:h-[58vh] lg:h-[calc(100vh-160px)] bg-[#061828] border-b lg:border-b-0 lg:border-r border-slate-800 overflow-hidden tactical-grid-bg">
+
+      <!-- 상단 구역 빠른 이동 칩 -->
+      <div class="absolute top-3 left-3 right-16 z-10 flex items-center gap-1.5 overflow-x-auto no-scrollbar pointer-events-auto">
+        <span class="text-[11px] font-mono uppercase tracking-wider text-teal-400/80 bg-[#08121e]/90 border border-teal-500/25 px-2 py-1 rounded-lg shrink-0">
+          섹터 이동:
+        </span>
+        <button type="button" onclick="focusSector(1220, 1030, 2.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">챕터 4 전도</button>
+        <button type="button" onclick="focusSector(1480, 1050, 3.8)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">워싱턴·오션 비치 (Y호텔)</button>
+        <button type="button" onclick="focusSector(1060, 1340, 3.2)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">VCIA 공항 · 테퀘스타</button>
+        <button type="button" onclick="focusSector(1160, 740, 2.6)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">선다운 · 레너드 카운티</button>
+        <button type="button" onclick="focusSector(1275, 650, 2.8)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">웨이닝 샌즈 · 샤크투스</button>
+        <button type="button" onclick="focusSector(800, 1145, 1.0)" class="sector-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-[#08121e]/90 hover:bg-teal-500/20 text-slate-200 border border-slate-700/80 hover:border-teal-400/50 transition shrink-0">리오나이다 전체</button>
+      </div>
+
+      <!-- 우측 상단 줌 인 / 줌 아웃 / 초기화 컨트롤 -->
+      <div class="absolute top-3 right-3 z-10 flex flex-col gap-1.5 bg-[#08121e]/90 backdrop-blur-md p-1.5 rounded-xl border border-slate-700/80 shadow-xl">
+        <button id="btn-zoom-in" type="button" title="확대 (+)"
+          class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-teal-500/25 text-slate-100 hover:text-teal-300 border border-slate-700 flex items-center justify-center font-bold text-lg transition">
+          +
+        </button>
+        <div id="zoom-level-label" class="text-[10px] font-mono text-center text-teal-400 font-bold py-0.5">
+          200%
+        </div>
+        <button id="btn-zoom-out" type="button" title="축소 (-)"
+          class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-teal-500/25 text-slate-100 hover:text-teal-300 border border-slate-700 flex items-center justify-center font-bold text-lg transition">
+          −
+        </button>
+        <button id="btn-zoom-reset" type="button" title="챕터 기본 뷰 초기화"
+          class="w-9 h-9 rounded-lg bg-slate-800/90 hover:bg-teal-500/25 text-slate-300 hover:text-teal-300 border border-slate-700 flex items-center justify-center text-[11px] font-semibold transition">
+          리셋
+        </button>
+      </div>
+
+      <!-- 좌측 하단 범례 및 조작 안내 -->
+      <div class="absolute bottom-3 left-3 z-10 bg-[#08121e]/90 backdrop-blur-md border border-slate-700/80 rounded-xl px-3 py-2 text-[11px] text-slate-300 shadow-lg pointer-events-none hidden sm:flex flex-wrap items-center gap-x-4 gap-y-1">
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b] inline-block"></span>고유 무기</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#a855f7] inline-block"></span>금고/키패드</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4] inline-block"></span>라디오/수집품</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f43f5e] inline-block"></span>놓치면 불가/비밀</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316] inline-block"></span>적 거점</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899] inline-block"></span>범죄/털이</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981] inline-block"></span>랜덤 인카운터</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#38bdf8] inline-block"></span>희귀 차량</span>
+        <span class="text-slate-500">|</span>
+        <span class="text-slate-400">드래그: 이동 · 휠/핀치: 확대·축소 · 핀 클릭: 상세보기</span>
+      </div>
+
+      <!-- 우측 하단 지도 출처 표기 -->
+      <div class="absolute bottom-3 right-3 z-10 bg-[#08121e]/80 backdrop-blur-sm border border-slate-700/70 rounded-lg px-2 py-1 text-[10px] font-mono text-slate-400 pointer-events-none">
+        Leonida Real Map (gta6map.city)
+      </div>
+
+      <!-- 마우스 호버 / 모바일 탭 툴팁 -->
+      <div id="map-tooltip" class="hidden fixed z-50 pointer-events-auto max-w-[calc(100vw-20px)] sm:max-w-xs bg-[#08121e]/95 border border-teal-400/50 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-md">
+        <div class="flex items-start justify-between gap-2 mb-0.5">
+          <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+            <span id="tooltip-cat-dot" class="w-2 h-2 rounded-full shrink-0"></span>
+            <span id="tooltip-cat-text" class="text-[10px] font-bold uppercase tracking-wider"></span>
+            <span id="tooltip-missable" class="hidden text-[10px] font-bold px-1.5 py-0.2 rounded bg-rose-500/25 text-rose-300">놓치면 불가</span>
+            <span id="tooltip-done" class="hidden text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-500/25 text-emerald-300">완료</span>
+          </div>
+          <button id="btn-close-tooltip" type="button" aria-label="팝업 닫기"
+            class="-mr-1 -mt-0.5 w-6 h-6 rounded-lg bg-slate-800/90 hover:bg-rose-500/30 active:bg-rose-500/40 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center text-xs font-bold shrink-0 transition">
+            ✕
+          </button>
+        </div>
+        <div id="tooltip-title" class="text-xs font-bold text-white leading-snug pr-1"></div>
+        <div id="tooltip-sub" class="text-[11px] text-slate-400 font-mono"></div>
+      </div>
+
+      <!-- 인터랙티브 SVG 전술 지도 뷰포트 (1600 x 2291 실제 지도 기준) -->
+      <div id="map-viewport" class="w-full h-full flex items-center justify-center">
+        <svg id="tactical-svg" viewBox="0 0 1600 2291" class="w-full h-full" preserveAspectRatio="xMidYMid meet">
+          <g id="map-camera-group">
+            <!-- 배경 심해 확장 (줌/팬 시 여백 자연스럽게 처리) -->
+            <rect x="-1200" y="-1200" width="4000" height="4700" fill="#18607e" />
+
+            <!-- 실제 리오나이다 & 바이스 시티 고해상도 지도 -->
+            <image href="assets/gta6_leonida_map.webp" x="0" y="0" width="1600" height="2291" preserveAspectRatio="none" />
+
+            <!-- 은은한 전술 좌표 그리드 오버레이 -->
+            <g id="tactical-grid" stroke="#2dd4bf" stroke-opacity="0.10" stroke-width="1" pointer-events="none">
+              <line x1="200" y1="0" x2="200" y2="2291" />
+              <line x1="400" y1="0" x2="400" y2="2291" />
+              <line x1="600" y1="0" x2="600" y2="2291" />
+              <line x1="800" y1="0" x2="800" y2="2291" />
+              <line x1="1000" y1="0" x2="1000" y2="2291" />
+              <line x1="1200" y1="0" x2="1200" y2="2291" />
+              <line x1="1400" y1="0" x2="1400" y2="2291" />
+              <line x1="0" y1="300" x2="1600" y2="300" />
+              <line x1="0" y1="600" x2="1600" y2="600" />
+              <line x1="0" y1="900" x2="1600" y2="900" />
+              <line x1="0" y1="1200" x2="1600" y2="1200" />
+              <line x1="0" y1="1500" x2="1600" y2="1500" />
+              <line x1="0" y1="1800" x2="1600" y2="1800" />
+              <line x1="0" y1="2100" x2="1600" y2="2100" />
+            </g>
+
+            <!-- 동적으로 렌더링되는 수집품 핀 레이어 -->
+            <g id="pins-layer"></g>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 우측: 선택된 항목 상세 인스펙터 & 필터링된 전체 목록 (35%) -->
+    <aside class="w-full lg:w-[35%] lg:h-[calc(100vh-160px)] flex flex-col bg-[#0a1523]">
+      <div id="inspector-panel" class="p-4 border-b border-slate-800 bg-gradient-to-b from-[#0e1e32] to-[#0a1523] shrink-0"></div>
+
+      <div class="px-4 py-2 bg-[#08111d] border-b border-slate-800/90 flex items-center justify-between text-xs shrink-0">
+        <span class="font-bold text-slate-300">
+          필터링된 수집품 목록 (<span id="filtered-count" class="text-teal-400 font-mono">38</span>건)
+        </span>
+        <span class="text-slate-400 text-[11px]">항목 클릭 시 지도 자동 포커스</span>
+      </div>
+
+      <div id="items-list" class="flex-1 overflow-y-auto divide-y divide-slate-800/70"></div>
+    </aside>
+  </main>
+
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#0d1c2e] border border-slate-700 rounded-2xl max-w-sm w-full p-5 shadow-2xl">
+      <h3 class="text-base font-bold text-white mb-1.5">수집 진행도를 초기화할까요?</h3>
+      <p class="text-xs text-slate-300 leading-relaxed mb-4">
+        브라우저에 저장된 챕터 3 수집 완료 체크 기록(46개 항목)이 모두 미획득 상태로 되돌아갑니다.
+      </p>
+      <div class="flex items-center justify-end gap-2">
+        <button id="btn-cancel-reset" type="button" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 transition">
+          취소
+        </button>
+        <button id="btn-confirm-reset" type="button" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-500 text-white transition">
+          모두 초기화
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const MAP_WIDTH = 1600;
+    const MAP_HEIGHT = 2291;
+    const VIEW_CX = MAP_WIDTH / 2;
+    const VIEW_CY = MAP_HEIGHT / 2;
+    const MIN_SCALE = 0.7;
+    const MAX_SCALE = 8.0;
+    const DEFAULT_CAM = { x: 1220, y: 1030, scale: 2.0 };
+    const CHAPTER_NUM = 4;
+    const MISSABLE_LABEL = "챕터 4 놓치면 불가";
+
+    const COLLECTIBLES = [
+      {
+            "id": 1,
+            "category": "missable",
+            "nameKo": "Y 호텔 701호 은신처 & 산티노 컨시어지",
+            "nameEn": "The Y Hotel Room 701 & Santino's Concierge",
+            "region": "워싱턴 비치 Y 호텔 701호 (1502, 989)",
+            "mission": "Ocean Beach ~ Sunset (챕터 4 거점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1502,
+            "y": 989,
+            "summary": "챕터 4의 메인 거점인 Y 호텔 스위트룸과 컨시어지 산티노의 차량·의상 서비스입니다. (챕터 4 'Sunset' 진행 전까지 이용 가능)",
+            "guide": "객실 옷장에서 챕터 4 전용 의상(얼티밋 Good Time Gear 포함)을 착용할 수 있으며, 'Making Gainz' 시작 전까지 공개 데이트 이벤트를 모두 마치는 것이 좋습니다."
+      },
+      {
+            "id": 2,
+            "category": "missable",
+            "nameKo": "클럽 VYB 헤드라이너 VIP $50,000 & 브래스 너클",
+            "nameEn": "Headliners VIP Table ($50k) & Brass Knuckles",
+            "region": "오션 비치 VYB 나이트클럽 (Y 호텔 건너편, 1494, 1068)",
+            "mission": "Headliners (챕터 4 전용 · 놓치면 불가)",
+            "missable": true,
+            "safeCode": null,
+            "payout": "$50,000 + 브래스 너클",
+            "x": 1494,
+            "y": 1068,
+            "summary": "미션 'Headliners'에서 VIP 테이블에 게임 개발자(Game Developers)를 배정해 선금 $50,000을 챙기고 2층 난투에서 브래스 너클을 얻습니다.",
+            "guide": "먼저 게임 개발자를 입장시켜 $50,000을 받은 뒤 'Free Up a Table'로 교체하면 최대 수익을 챙길 수 있습니다. 2층 거한 격투 승리 시 제이슨이 브래스 너클을 영구 보유합니다."
+      },
+      {
+            "id": 3,
+            "category": "missable",
+            "nameKo": "나쁜 운전자! 펠리페 생사 선택 (처치 $20k vs 차량)",
+            "nameEn": "Bad Driver! (Find Felipe — Choice)",
+            "region": "루목스 카운티 밀포트 술집 (1115, 453)",
+            "mission": "Bad Driver! (Power Play 이전 놓치면 불가)",
+            "missable": true,
+            "safeCode": null,
+            "payout": "$20,000 또는 펠리페의 차량",
+            "x": 1115,
+            "y": 453,
+            "summary": "'Party Hard' 이후 안드레아가 주는 선택 미션으로, 'Power Play'를 시작하면 영구 소멸하므로 즉시 처리해야 합니다.",
+            "guide": "화장실에서 도망치는 펠리페의 다리를 쏴 제압한 뒤 ① 처치 시 안드레아에게 $20,000 수령, ② 살려주면 추후 'Collect Felipe's Gift'로 희귀 차량을 획득합니다."
+      },
+      {
+            "id": 4,
+            "category": "missable",
+            "nameKo": "샤이나 긴급 픽업 (루시아 전용 · 시간제한)",
+            "nameEn": "This Is a Free Call From... (Pick Up Shayna)",
+            "region": "바이스-데일 교도소/외곽 픽업 지점 (1040, 1255)",
+            "mission": "선택 미션 (루시아 전용 · 모래시계 놓치면 불가)",
+            "missable": true,
+            "safeCode": null,
+            "triggerTime": "모래시계 시간제한 · 루시아 단독",
+            "x": 1040,
+            "y": 1255,
+            "summary": "챕터 4 중반 루시아에게 모래시계 아이콘으로 뜨는 시간제한 미션입니다. 오래 방치하면 영구 사라집니다.",
+            "guide": "지도에 모래시계 아이콘이 뜨자마자 루시아로 전환(십자키 우측+R1)해 바로 수행하세요."
+      },
+      {
+            "id": 5,
+            "category": "missable",
+            "nameKo": "메킹 게인즈 스테로이드 선택 (영구 체형 변화)",
+            "nameEn": "Making Gainz (Nate's Steroid Choice)",
+            "region": "스톡야드 라울 계획실 & 체육관 (1200, 999)",
+            "mission": "Making Gainz (루시아 전용 · 돌이킬 수 없는 선택)",
+            "missable": true,
+            "safeCode": null,
+            "x": 1200,
+            "y": 999,
+            "summary": "네이트가 루시아에게 스테로이드를 권유할 때 수락하면 게임 끝까지 루시아의 근육질 체형이 영구 변경됩니다.",
+            "guide": "원래 체형을 유지하고 싶다면 거절을 선택하고, 선택 전 수동 세이브를 남겨두는 것을 권장합니다."
+      },
+      {
+            "id": 6,
+            "category": "missable",
+            "nameKo": "에디 아코스타 파티 & 선셋(Sunset) 분기점",
+            "nameEn": "Eddie Acosta's Party & Point of No Return (Sunset)",
+            "region": "워싱턴 비치 Y 호텔 프론트 (1495, 1010)",
+            "mission": "Sunset 진입 전 수동 세이브 필수!",
+            "missable": true,
+            "safeCode": null,
+            "x": 1495,
+            "y": 1010,
+            "summary": "'VCIA Takedown' 이후 'Tie Up Loose Ends'가 마지막 자유 탐험 구간입니다. 'Sunset'을 시작하면 챕터 5 중반까지 자유 탐험이 잠깁니다.",
+            "guide": "발렌티나에게 전화하기 전 야스마니의 금고 강도('That's Where The Money Is...')와 에디 아코스타 파티(단독 방문), 챕터 4 한정 보상들을 모두 마무리하고 수동 저장하세요."
+      },
+      {
+            "id": 7,
+            "category": "weapon",
+            "nameKo": "프란시스코의 LMG-6 (공항 활주로 한정 · 놓치면 불가)",
+            "nameEn": "Francisco's LMG-6 (100-Round LMG)",
+            "region": "VCIA 공항 활주로 (982, 1330)",
+            "mission": "VCIA Takedown (안드레아 엄호 중 획득 · 놓치면 불가)",
+            "missable": true,
+            "safeCode": null,
+            "payout": "100발 특수 경기관총 (미션 보상 $250,000)",
+            "x": 982,
+            "y": 1330,
+            "summary": "챕터 4 피날레 'VCIA Takedown' 후반, 가방을 비행기에 싣고 제이슨으로 안드레아를 엄호할 때 활주로 바닥에 떨어져 있는 100발 경기관총입니다.",
+            "guide": "미션 재플레이가 없으므로 활주로 전투 중 반드시 바닥에서 직접 주워 인벤토리에 넣어야 영구 해금됩니다. (오마르를 죽이지 말고 제압하면 프로페셔널 보너스 유지)"
+      },
+      {
+            "id": 8,
+            "category": "weapon",
+            "nameKo": "록시 & 배-럭스 W-10 SMG 2종 (+$6,000)",
+            "nameEn": "Roxy's & Bae-Luxe's W-10 Variants",
+            "region": "테퀘스타 프로모션 촬영지 (1135, 1377)",
+            "mission": "Photo/Shoot (3대 목표 완료 보상)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$6,000 + 고유 SMG 2정",
+            "x": 1135,
+            "y": 1377,
+            "summary": "드레콴의 'Photo/Shoot' 미션에서 3가지 목표를 모두 완수하면 $6,000과 함께 다이메즈 듀오의 고유 W-10 SMG 2종을 획득합니다.",
+            "guide": "추격전 도중 차량이 건물로 들어가면 바이크에 탄 루시아로 전환해 추격하고, 고가 아래 좌우 매복 차량을 주의하세요."
+      },
+      {
+            "id": 9,
+            "category": "weapon",
+            "nameKo": "파일럿 피트의 KZ-59 (격납고 뒷방)",
+            "nameEn": "Pilot Pete's KZ-59",
+            "region": "레너드 카운티 선다운 개인 비행장 (1150, 697)",
+            "mission": "The Last Mile: Passing the Torch (제이슨 전용)",
+            "missable": false,
+            "safeCode": "3718",
+            "x": 1150,
+            "y": 697,
+            "summary": "'Pool Day' 이후 파일럿 피트가 제이슨에게 연락해 시작하는 Strangers & Freaks 임무 중 격납고 붉은 문 뒤 테이블에서 얻는 고유 소총입니다.",
+            "guide": "같은 뒷방에 비밀번호 3718 금고(#15)가 함께 있으므로 놓치지 말고 둘 다 챙기세요."
+      },
+      {
+            "id": 10,
+            "category": "weapon",
+            "nameKo": "리틀 프렌드 W-10 (선라이트 모텔 2층)",
+            "nameEn": "Little Friend W-10",
+            "region": "오션 비치 쇼어 드라이브 Sunlite Motel (1487, 1194)",
+            "mission": "오픈 월드 고유 무기 (2층 객실)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1487,
+            "y": 1194,
+            "summary": "오션 비치 쇼어 드라이브 선라이트 모텔 2층 객실에서 획득하는 고유 기관단총(SMG)입니다.",
+            "guide": "Y 호텔에서 남쪽 오션 비치 해안도로를 따라 내려오면 바로 찾을 수 있습니다."
+      },
+      {
+            "id": 11,
+            "category": "weapon",
+            "nameKo": "IAA SMS-01 (아이치 콘도 옥상)",
+            "nameEn": "IAA SMS-01",
+            "region": "워싱턴 비치 노스사이드 Ave Aichi Condominiums (1498, 993)",
+            "mission": "오픈 월드 고유 저격소총 (옥상 최고점)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1498,
+            "y": 993,
+            "summary": "워싱턴 비치 Y 호텔 바로 서쪽 아이치 콘도 옥상 최상단에서 얻는 첨단 IAA 특수 저격소총입니다.",
+            "guide": "오션 비치/워싱턴 비치 호텔 옥상 헬기(#32 인근)를 이용해 바로 옥상으로 착륙하면 손쉽게 획득합니다."
+      },
+      {
+            "id": 12,
+            "category": "weapon",
+            "nameKo": "인터널 어페어스 FF-SR (최고층 빌딩 옥상)",
+            "nameEn": "Internal Affairs FF-SR",
+            "region": "워싱턴 비치 노스사이드 Ave 초고층 빌딩 옥상 (1492, 996)",
+            "mission": "오픈 월드 고유 정밀소총",
+            "missable": false,
+            "safeCode": null,
+            "x": 1492,
+            "y": 996,
+            "summary": "아이치 콘도 바로 옆 노스사이드 애비뉴 최고층 스카이스크래퍼 옥상에서 회수하는 또 다른 IAA 계열 고유 무기입니다.",
+            "guide": "헬기로 옥상에 착륙해 두 개의 옥상 고유 무기를 한 번에 챙기세요."
+      },
+      {
+            "id": 13,
+            "category": "weapon",
+            "nameKo": "루소의 1922 권총 (대통령 제1벙커)",
+            "nameEn": "Russo's 1922 Pistol",
+            "region": "샤크투스 섬 대통령 제1벙커 (웨이닝 샌즈 북쪽, 1280, 586)",
+            "mission": "미스터리 벙커 & 금고 (프로토콜 #2: 2341)",
+            "missable": false,
+            "safeCode": "2341",
+            "x": 1280,
+            "y": 586,
+            "summary": "다운타운 Friends of Freedom에서 이어지는 대통령 벙커 미스터리의 제1벙커 금고(코드 2341)에서 얻는 조 루소 대통령의 1922 권총입니다.",
+            "guide": "금고 안 'OBSESS' 사진 단서는 북부 마리아나 빅 파인의 제2벙커(085355)로 이어집니다."
+      },
+      {
+            "id": 14,
+            "category": "weapon",
+            "nameKo": "머니메이커 W-10 & 콕로치 익스트림 556 (테퀘스타)",
+            "nameEn": "Moneymaker W-10 & Cockroach Xtreme 556",
+            "region": "테퀘스타 총기상(1106, 1378) · 선라이즈 모텔 차고(1135, 1377)",
+            "mission": "상점 구매($1,557) & 모텔 뒤 차고 스폰",
+            "missable": false,
+            "safeCode": null,
+            "x": 1106,
+            "y": 1378,
+            "summary": "테퀘스타 Guns & Ammo에서 구매하는 Moneymaker W-10($1,557)과, 테퀘스타 선라이즈 모텔 뒤 창고 차고의 Cockroach Xtreme 556입니다.",
+            "guide": "챕터 4 테퀘스타 미션 진행 중 두 무기를 모두 챙겨두면 화력이 크게 오릅니다."
+      },
+      {
+            "id": 15,
+            "category": "safe",
+            "nameKo": "파일럿 피트 격납고 금고 (코드 3718)",
+            "nameEn": "Pilot Pete's Hangar Safe (3718)",
+            "region": "레너드 카운티 선다운 개인 비행장 (1147, 699)",
+            "mission": "The Last Mile: Passing the Torch (제이슨 전용)",
+            "missable": false,
+            "safeCode": "3718",
+            "x": 1147,
+            "y": 699,
+            "summary": "파일럿 피트의 첫 임무에서 격납고 붉은 문 뒤 방에 있는 금고입니다. 비밀번호 3718을 입력해 현금을 챙기세요.",
+            "guide": "테이블 위 Pete's KZ-59 소총(#9)과 함께 회수하는 것을 잊지 마세요."
+      },
+      {
+            "id": 16,
+            "category": "safe",
+            "nameKo": "대통령 제1벙커 문 & 금고 (코드 2341)",
+            "nameEn": "President's Bunker Door & Safe (2341)",
+            "region": "샤크투스 섬 (웨이닝 샌즈 북쪽 작은 섬, 1274, 589)",
+            "mission": "비밀 벙커 미스터리 1단계",
+            "missable": false,
+            "safeCode": "2341",
+            "x": 1274,
+            "y": 589,
+            "summary": "샤크투스 섬 뒤편 대통령 벙커 키패드(조 루소 대통령 생일 단서)와 내부 책상 서류 기반 금고 코드 2341입니다.",
+            "guide": "보트나 헬기로 리틀 하딘 섬 남쪽 모래섬에 접근해 뒤편 울타리 벙커 입구를 찾으세요."
+      },
+      {
+            "id": 17,
+            "category": "safe",
+            "nameKo": "대통령 제2벙커 & 세뇌 퍼즐 (코드 0612 / OBSESS)",
+            "nameEn": "President's Second Bunker & Brainwashing Puzzle",
+            "region": "북부 마리아나 빅 파인 숲 (602, 1453)",
+            "mission": "비밀 벙커 2단계 (무료 탱크 + Cold War 556 + Brainwasher 1922)",
+            "missable": false,
+            "safeCode": "0612",
+            "x": 602,
+            "y": 1453,
+            "summary": "빅 파인 나무 옆 해치 키패드에 OBSESS(085355)를 입력해 진입하는 제2벙커로, 과거 구역 키패드 0612 퍼즐과 무료 탱크·고유무기 2종이 있습니다.",
+            "guide": "과거 실험실 리셉션 오른쪽 키패드와 컴퓨터에 0612(President Russo)를 입력하고 미래 실험실에서 Brainwasher 1922까지 회수하세요."
+      },
+      {
+            "id": 18,
+            "category": "safe",
+            "nameKo": "No Flusher 은신처 차고 (앤드류 노드 주소)",
+            "nameEn": "No Flusher Hideout Garage",
+            "region": "오션 비치 잠긴 차고 (1490, 1187)",
+            "mission": "No Flusher 태그 10개 스캔 후 해금",
+            "missable": false,
+            "safeCode": null,
+            "x": 1490,
+            "y": 1187,
+            "summary": "No Flusher 태그 10개를 스캔하면 문자 안내가 오는 오션 비치 차고로, 내부 컴퓨터에서 트루파드 쓰랙스 위치를 얻습니다.",
+            "guide": "문 옆 메모 뒷면에서 차고 비밀번호를 확인하고 안쪽 PC로 스타피시 섬 앤드류 노드의 주소를 해금하세요."
+      },
+      {
+            "id": 19,
+            "category": "safe",
+            "nameKo": "사우스사이드 스토리지 차고 (1010 치타 보상)",
+            "nameEn": "Southside Storage Garage (1010 Murals)",
+            "region": "살튼 남단 슬레이터 토잉 북쪽 (1074, 1373)",
+            "mission": "1010 벽화 5종 수집 완료 보상",
+            "missable": false,
+            "safeCode": null,
+            "x": 1074,
+            "y": 1373,
+            "summary": "5개의 '1010 Mural'을 모두 스캔하면 열리는 차고로, 희귀 차량 '1010 Cheetah'가 보관되어 있습니다.",
+            "guide": "벽화 5종 완료 후 키패드 차고를 열어 커스텀 치타를 확보하세요."
+      },
+      {
+            "id": 20,
+            "category": "outpost",
+            "nameKo": "드럼보이즈 갱 컴파운드 (Drumboyz)",
+            "nameEn": "Drumboyz Gang Compound",
+            "region": "레너드 카운티 벨빌 남동부 (1145, 893)",
+            "mission": "불법 작전 컴파운드 (벨빌)",
+            "missable": false,
+            "safeCode": null,
+            "gang": "드럼보이즈 (Drumboyz)",
+            "security": "높음 (High)",
+            "x": 1145,
+            "y": 893,
+            "summary": "벨빌 동부에 위치한 드럼보이즈 갱단 본거지 컴파운드입니다.",
+            "guide": "방탄복과 엄폐물을 활용해 외곽 경비를 먼저 줄인 뒤 내부 현금과 불법 화물을 탈취하세요."
+      },
+      {
+            "id": 21,
+            "category": "outpost",
+            "nameKo": "타이론 키티 랩: 테퀘스타 C자 모텔 2층",
+            "nameEn": "Kitty Lab — Tequesta",
+            "region": "테퀘스타 동쪽 C자형 모텔 2층 (1108, 1332)",
+            "mission": "타이론 불법 마약 제조실 (14곳 중 핵심)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$2,500+",
+            "gang": "키티 랩 (Kitty Lab)",
+            "security": "보통 (Medium)",
+            "x": 1108,
+            "y": 1332,
+            "summary": "테퀘스타 C자형 모텔 꼭대기 층에 숨겨진 불법 마약 제조실(Kitty Lab)입니다.",
+            "guide": "제조실 요리사를 바로 사살하지 말고 위협하면 다른 키티 랩 위치를 실토하는 경우가 있습니다."
+      },
+      {
+            "id": 22,
+            "category": "outpost",
+            "nameKo": "타이론 키티 랩: 데코 디스트릭트 & 크로스타운 3곳",
+            "nameEn": "Kitty Labs — Decor District & Crosstown",
+            "region": "데코 디스트릭트(1229, 966) · 크로스타운(1173, 1099)",
+            "mission": "타이론 불법 마약 제조실 연쇄 급습",
+            "missable": false,
+            "safeCode": null,
+            "payout": "랩당 $2,000~$2,500",
+            "gang": "키티 랩 (Kitty Lab)",
+            "security": "보통 (Medium)",
+            "x": 1229,
+            "y": 966,
+            "summary": "데코 디스트릭트 북서쪽 차고와 크로스타운 3곳(Cross My Heart 문신가게 뒤 등)에 밀집한 제조실입니다.",
+            "guide": "분홍색 연기가 피어오르는 차고나 드럼통을 표식으로 찾고, 요리사가 방을 불태우기 전 빠르게 제압하세요."
+      },
+      {
+            "id": 23,
+            "category": "outpost",
+            "nameKo": "타이론 키티 랩: 발세로 키패드(1999) & 리틀 쿠바",
+            "nameEn": "Kitty Labs — Balsero (Code 1999) & Little Cuba",
+            "region": "발세로 중앙 차고(1000, 1118) · 리틀 쿠바(1126, 1237)",
+            "mission": "타이론 불법 마약 제조실 (코드 1999)",
+            "missable": false,
+            "safeCode": "1999",
+            "payout": "랩당 $2,500",
+            "gang": "키티 랩 (Kitty Lab)",
+            "security": "보통 (Medium)",
+            "x": 1000,
+            "y": 1118,
+            "summary": "발세로 중앙 차고(인근 광고판 힌트 코드 1999)와 리틀 쿠바 중앙 건물 제조실(스냅 건 필요)입니다.",
+            "guide": "발세로 서쪽 트레일러 랩(909, 1138)도 스냅 건이나 강제 개방으로 함께 털 수 있습니다."
+      },
+      {
+            "id": 24,
+            "category": "outpost",
+            "nameKo": "타이론 키티 랩: 살튼 창문 침입 & 록리지",
+            "nameEn": "Kitty Labs — Salton & Rockridge",
+            "region": "살튼 SW 7th Ave(1068, 1386) · 중앙 록리지(1096, 1109)",
+            "mission": "타이론 불법 마약 제조실 (동쪽 열린 창문 진입)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "랩당 $2,000~$2,500",
+            "gang": "키티 랩 (Kitty Lab)",
+            "security": "보통 (Medium)",
+            "x": 1068,
+            "y": 1386,
+            "summary": "살튼의 잠긴 아파트(동쪽 열린 창문으로 침입)와 중앙 록리지 서쪽 골목 차고 제조실입니다.",
+            "guide": "타이론에게 훔친 물량을 넘기며 자금과 업적을 챙기세요."
+      },
+      {
+            "id": 25,
+            "category": "treasure",
+            "nameKo": "아작스 짐: 잡지 Remote Strike & 트라우마 룸",
+            "nameEn": "Ajax Gym — Remote Strike Magazine",
+            "region": "워싱턴 비치 펜마치 섬 Ajax Gym (1427, 1020)",
+            "mission": "탐험 수집 (잡지 · 챕터 4 스토리로 해금)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1427,
+            "y": 1020,
+            "summary": "챕터 4 미션 'Heavy Lifting' 이후 자유 출입이 열리는 Ajax Gym 라커룸 옆 당구대 위의 수집 잡지 'Remote Strike'입니다.",
+            "guide": "루시아로 체육관 트라우마 플로어 라커 구역 당구대를 확인하면 수집 카운트에 반영됩니다."
+      },
+      {
+            "id": 26,
+            "category": "treasure",
+            "nameKo": "웨이닝 샌즈 운석 & 요양원 'Sands of Time'",
+            "nameEn": "Waning Sands Meteorite & Book Swap",
+            "region": "웨이닝 샌즈 해변 요양원 책상 (1261, 687)",
+            "mission": "탐험 수집 (운석 + 책 교환 1258, 784)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1261,
+            "y": 687,
+            "summary": "바인우드 비치 인접 요양원 리셉션 데스크 위의 운석 파편과 남쪽 책 교환 포인트(Outback Gas Junkie, 1258, 784)입니다.",
+            "guide": "요양원 바로 동쪽 해변 명상 스팟(1301, 629)과 웨이닝 샌즈 드론 레이스(1210, 798)도 함께 챙기세요."
+      },
+      {
+            "id": 27,
+            "category": "treasure",
+            "nameKo": "BURG 해저 연구 시설 #2 (리틀 하딘 섬 동쪽)",
+            "nameEn": "BURG Facility #2 (East of Little Hardin Island)",
+            "region": "리틀 하딘 섬 동쪽 심해 (1354, 564)",
+            "mission": "수중 발견 33종 (운석 + 고대 팔찌)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1354,
+            "y": 564,
+            "summary": "동부 해역의 유일한 BURG 해저 시설로, 내부 운석과 시설 바로 아래 'Belpoint Strait' 세트 고대 팔찌가 있습니다.",
+            "guide": "수심이 깊으므로 스쿠버 장비를 착용하고 하강하세요. 웨이닝 샌즈/선다운 비치에서 보트로 바로 이동 가능합니다."
+      },
+      {
+            "id": 28,
+            "category": "treasure",
+            "nameKo": "크라켄 해저 조각상 & 미니 아서 모건 이스터에그",
+            "nameEn": "Kraken Sculpture & Tiny Arthur Morgan",
+            "region": "글로리아나 키 남동 심해(1553, 1445) · 프론티어 골프(1217, 777)",
+            "mission": "수중 발견 33종 & RDR2 이스터에그",
+            "missable": false,
+            "safeCode": null,
+            "x": 1553,
+            "y": 1445,
+            "summary": "글로리아나 키 남동쪽 바다 아래 거대 크라켄 조각상(수중 발견)과 웨이닝 샌즈 미니골프장의 작은 아서 모건 피규어입니다.",
+            "guide": "오션 비치 부두에서 동남쪽으로 쾌속정을 몰아 글로리아나 키 너머 심해를 잠수하세요."
+      },
+      {
+            "id": 29,
+            "category": "encounter",
+            "nameKo": "도도스 라이징 (사발 팜스 북극곰 시위)",
+            "nameEn": "Dodos Rising (Polar Bear Protest)",
+            "region": "레너드 카운티 사발 팜스 (1239, 661)",
+            "mission": "랜덤 인카운터 (동물권 시위)",
+            "missable": false,
+            "safeCode": null,
+            "x": 1239,
+            "y": 661,
+            "summary": "트럭 안에 갇힌 북극곰을 풀어달라며 동물권 활동가들이 도로를 막아선 랜덤 인카운터입니다.",
+            "guide": "웨이닝 샌즈~선다운 북상 도로에서 자주 발생하며, 트럭 문을 열면 북극곰이 뛰쳐나옵니다."
+      },
+      {
+            "id": 30,
+            "category": "encounter",
+            "nameKo": "벨빌 트럭 충돌 거짓 증언 & 소파 함정",
+            "nameEn": "Car Accident Lie & Couch Trap (Belville)",
+            "region": "벨빌 시내(1080, 891) · 동남부(1100, 873)",
+            "mission": "랜덤 인카운터 2종",
+            "missable": false,
+            "safeCode": null,
+            "x": 1080,
+            "y": 891,
+            "summary": "Sahara Mirage 트럭 기사를 위해 거짓 증언을 해주거나, 동남쪽 소파 옮기기 함정에 걸려 컨테이너에서 깨어나는 이벤트입니다.",
+            "guide": "선다운 비행장과 벨빌 사이 도로를 오갈 때 자주 조우합니다."
+      },
+      {
+            "id": 31,
+            "category": "encounter",
+            "nameKo": "오션 비치 페니와이즈 광대 & 해변 사하라 트럭",
+            "nameEn": "Pennywise Clown in Lift & Sahara Truck Crash",
+            "region": "오션 비치 리프트(1492, 1192) · 서부 오션 비치(1449, 1155)",
+            "mission": "이스터에그 & 랜덤 인카운터",
+            "missable": false,
+            "safeCode": null,
+            "x": 1492,
+            "y": 1192,
+            "summary": "바이스 비치 리프트에 숨어 있는 영화 '그것(IT)' 오마주 페니와이즈 광대 이스터에그와 해변 사하라 트럭 사고입니다.",
+            "guide": "Y 호텔 남쪽 오션 비치 거리를 도보로 탐험하면 쉽게 발견합니다."
+      },
+      {
+            "id": 32,
+            "category": "encounter",
+            "nameKo": "리프 링크스 & 마운트 헤일스 골프 챌린지",
+            "nameEn": "Leaf Links & Mount Hailes Golf Challenges",
+            "region": "리프 링크스(1323, 926) · 웨이닝 샌즈 서부(1115, 555)",
+            "mission": "레저 액티비티 & 100% 체크리스트 활동",
+            "missable": false,
+            "safeCode": null,
+            "x": 1323,
+            "y": 926,
+            "summary": "바이스 비치 명문 골프장 Leaf Links와 북부 Mount Hailes 클럽의 골프 챌린지입니다.",
+            "guide": "미니게임 활동 수치를 채울 때 요긴하며, 리프 링크스 맨션(1328, 923)은 랜디 차량 스폰지이기도 합니다."
+      },
+      {
+            "id": 33,
+            "category": "crime",
+            "crimeType": "대형 금고 연속",
+            "nameKo": "야스마니 첫 금고 $80,000 & 8대 금고 루트",
+            "nameEn": "That's Where The Money Is... ($80k Vault)",
+            "region": "오션 비치 카페 오르퀴데아 (Cafe Orquidea, 1475, 1170)",
+            "mission": "VCIA Takedown 이후 해금 (100% 필수 8개 금고)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "첫 금고 약 $80,000 + 트로피",
+            "x": 1475,
+            "y": 1170,
+            "summary": "'VCIA Takedown' 직후 오션 비치 카페 오르퀴데아 창가에서 현금수송차를 미행해 첫 대형 금고를 터는 미션으로, 이후 8개 금고 강도 루트가 열립니다.",
+            "guide": "폭약으로 뒷문을 뚫고 파트너와 함께 지폐를 쓸어 담은 뒤 별 4개 수배를 피해 차를 갈아타고 야스마니에게 매각하세요. (Classic Blitz Play 트로피)"
+      },
+      {
+            "id": 34,
+            "category": "crime",
+            "crimeType": "은행/보석상",
+            "nameKo": "워싱턴 비치 플리카 은행 & 홉스 밀포드",
+            "nameEn": "Fleeca Washington Beach & Hobbs Milford",
+            "region": "워싱턴 비치 (1436, 1012)",
+            "mission": "자유 범죄 / 은행 털이 (Y 호텔 지근거리)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "$10,000~$30,000",
+            "x": 1436,
+            "y": 1012,
+            "summary": "Y 호텔 바로 서쪽 워싱턴 비치 중심가에 있는 플리카 은행과 홉스 밀포드(1430, 1012)입니다.",
+            "guide": "워싱턴 비치 운하나 고속도로 램프를 이용해 빠르게 수배를 따돌릴 수 있습니다."
+      },
+      {
+            "id": 35,
+            "category": "crime",
+            "crimeType": "고급 보석상",
+            "nameKo": "마샬 · 아코야 · 로코코 리치 보석상 (비치 라인)",
+            "nameEn": "Marshal's / Akoya / Rococo Rich Jewelers",
+            "region": "VYB 블록(1493, 1070) · 올드비(1455, 1070) · 오션(1468, 1153)",
+            "mission": "자유 범죄 / 해변 고급 보석상 3연쇄",
+            "missable": false,
+            "safeCode": null,
+            "payout": "각 $9,000~$25,000",
+            "x": 1493,
+            "y": 1070,
+            "summary": "VYB 나이트클럽과 같은 블록의 마샬($9k~$20k)을 포함해 해변 일대에 최고급 보석상 3곳이 몰려 있습니다.",
+            "guide": "Y 호텔 거점 복귀 길에 가볍게 진열장을 쓸어 담기 좋은 라인입니다."
+      },
+      {
+            "id": 36,
+            "category": "vehicle",
+            "nameKo": "시츠 타이푼 스쿠알로 보트 (얼티밋 · 챕터 4 한정)",
+            "nameEn": "Shitzu Typhoon Squalo (Ultimate Edition)",
+            "region": "워싱턴 비치 Y 호텔 왼쪽 운하 부두 (1470, 995)",
+            "mission": "얼티밋 에디션 한정 보트 (Sunset 전 놓치면 불가!)",
+            "missable": true,
+            "safeCode": null,
+            "payout": "핑크·블루 커스텀 보트 + 폭발물 상자",
+            "x": 1470,
+            "y": 995,
+            "summary": "얼티밋 에디션 구매자가 챕터 4 동안만 Y 호텔 옆 운하 부두에서 수령할 수 있는 한정 고속 보트입니다.",
+            "guide": "지도 인덱스 'Personal' 항목에서 위치를 확인하고, 'Sunset'으로 넘어가기 전 반드시 한 번 탑승/회수하세요."
+      },
+      {
+            "id": 37,
+            "category": "vehicle",
+            "nameKo": "펠리페의 선물 차량 & 빅 샷 볼러 ST-D",
+            "nameEn": "Felipe's Gift Vehicle & Baller ST-D 'Big Shot'",
+            "region": "워싱턴 비치(1485, 1015)",
+            "mission": "Bad Driver! 펠리페 생존 선택 보상",
+            "missable": false,
+            "safeCode": null,
+            "payout": "희귀 차량 2종",
+            "x": 1485,
+            "y": 1015,
+            "summary": "'Bad Driver!'에서 펠리페를 살려주면 추후 'Collect Felipe's Gift'로 받는 차량과, 워싱턴 비치 고급 아파트 앞 XL 골드 림 볼러 ST-D입니다.",
+            "guide": "돈($20,000)이 급하지 않다면 차량 컬렉션을 위해 펠리페를 살려주는 편이 유리합니다."
+      },
+      {
+            "id": 38,
+            "category": "vehicle",
+            "nameKo": "골드 스카라브 윈저 & '64 코케트 (바인우드·선다운 비치)",
+            "nameEn": "Gold Scarab Windsor & Invetero '64 Coquette",
+            "region": "바인우드 비치(1336, 784) · 선다운 비치(1264, 624)",
+            "mission": "Standout 희귀 차량 (동부 해안)",
+            "missable": false,
+            "safeCode": null,
+            "payout": "황금 스카라브 윈저 · 클래식 코케트",
+            "x": 1336,
+            "y": 784,
+            "summary": "선다운·바인우드 해변 리조트 일대에서 스폰되는 희귀 도색 'Gold Scarab Windsor'와 클래식 '64 Coquette입니다.",
+            "guide": "선다운 비행장(파일럿 피트 임무) 오가는 길에 해변가를 따라 바로 확보할 수 있습니다."
+      }
+];
+
+    const CATEGORY_META = {
+      "weapon": {
+            "label": "고유 무기",
+            "badgeText": "🟡 고유 무기",
+            "color": "#f59e0b",
+            "bgClass": "bg-amber-500/15 text-amber-300 border-amber-500/35",
+            "icon": "🔫"
+      },
+      "safe": {
+            "label": "금고/키패드",
+            "badgeText": "🔐 금고/키패드",
+            "color": "#a855f7",
+            "bgClass": "bg-purple-500/15 text-purple-300 border-purple-500/35",
+            "icon": "🔐"
+      },
+      "treasure": {
+            "label": "라디오/수집품",
+            "badgeText": "📻 라디오/수집품",
+            "color": "#06b6d4",
+            "bgClass": "bg-cyan-500/15 text-cyan-300 border-cyan-500/35",
+            "icon": "📻"
+      },
+      "missable": {
+            "label": "놓치면 불가/비밀",
+            "badgeText": "⭐ 놓치면 불가/비밀",
+            "color": "#f43f5e",
+            "bgClass": "bg-rose-500/15 text-rose-300 border-rose-500/35",
+            "icon": "⭐"
+      },
+      "outpost": {
+            "label": "적 거점",
+            "badgeText": "🏴‍☠️ 적 거점",
+            "color": "#f97316",
+            "bgClass": "bg-orange-500/15 text-orange-300 border-orange-500/35",
+            "icon": "🏴‍☠️"
+      },
+      "encounter": {
+            "label": "랜덤 인카운터",
+            "badgeText": "🎲 랜덤 인카운터",
+            "color": "#10b981",
+            "bgClass": "bg-emerald-500/15 text-emerald-300 border-emerald-500/35",
+            "icon": "🎲"
+      },
+      "crime": {
+            "label": "범죄/털이",
+            "badgeText": "💰 범죄/털이",
+            "color": "#ec4899",
+            "bgClass": "bg-pink-500/15 text-pink-300 border-pink-500/35",
+            "icon": "💰"
+      },
+      "vehicle": {
+            "label": "희귀 차량",
+            "badgeText": "🏎️ 희귀 차량",
+            "color": "#38bdf8",
+            "bgClass": "bg-sky-500/15 text-sky-300 border-sky-500/35",
+            "icon": "🏎️"
+      }
+};
+
+    const STORAGE_KEY = "gta6_ch4_tactical_map_completed_v1";
+
+    let state = {
+      completedIds: new Set(),
+      selectedId: 1,
+      activeCategory: 'all',
+      missableOnly: false,
+      searchQuery: '',
+      panX: VIEW_CX - DEFAULT_CAM.x * DEFAULT_CAM.scale,
+      panY: VIEW_CY - DEFAULT_CAM.y * DEFAULT_CAM.scale,
+      scale: DEFAULT_CAM.scale
+    };
+
+    function loadCompletedState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            state.completedIds = new Set(parsed);
+          }
+        }
+      } catch (e) {
+        console.warn('localStorage 읽기 제한 환경:', e);
+      }
+    }
+
+    function saveCompletedState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(state.completedIds)));
+      } catch (e) {
+        console.warn('localStorage 쓰기 제한 환경:', e);
+      }
+    }
+
+    function showToast(message, type = 'teal') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const colorStyle =
+        type === 'rose'
+          ? 'border-rose-500/50 bg-[#1a0d16]/95 text-rose-200'
+          : type === 'amber'
+          ? 'border-amber-500/50 bg-[#1a150b]/95 text-amber-200'
+          : 'border-teal-500/50 bg-[#091b24]/95 text-teal-200';
+
+      toast.className = `pointer-events-auto px-4 py-2.5 rounded-xl border ${colorStyle} text-xs font-semibold shadow-2xl backdrop-blur-md transition-all duration-300 transform translate-y-2 opacity-0`;
+      toast.textContent = message;
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    function copySafeCode(codeText) {
+      const cleanCode = String(codeText).trim();
+      const tempInput = document.createElement('textarea');
+      tempInput.value = cleanCode;
+      tempInput.setAttribute('readonly', '');
+      tempInput.style.position = 'fixed';
+      tempInput.style.left = '-9999px';
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast(`📋 비밀번호 [${cleanCode}] 클립보드에 복사되었습니다!`, 'teal');
+      } catch (err) {
+        showToast(`비밀번호: ${cleanCode} (수동 입력 필요)`, 'amber');
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    function getFilteredItems() {
+      const q = state.searchQuery.trim().toLowerCase();
+      return COLLECTIBLES.filter((item) => {
+        if (state.activeCategory !== 'all') {
+          if (state.activeCategory === 'weapon') {
+            const hasOutpostWeapon = item.category === 'outpost' && item.weaponReward && !String(item.weaponReward).includes('연동');
+            if (item.category !== 'weapon' && !hasOutpostWeapon) return false;
+          } else if (state.activeCategory === 'crime') {
+            if (item.category !== 'crime' && !item.crimeSpot) return false;
+          } else if (state.activeCategory === 'vehicle') {
+            if (item.category !== 'vehicle' && !item.vehicleReward) return false;
+          } else if (item.category !== state.activeCategory) {
+            return false;
+          }
+        }
+        if (state.missableOnly && !item.missable) {
+          return false;
+        }
+        if (q) {
+          const haystack = [
+            item.nameKo,
+            item.nameEn,
+            item.region,
+            item.mission,
+            item.summary,
+            item.guide,
+            item.safeCode || '',
+            item.gang || '',
+            item.security || '',
+            item.weaponReward || '',
+            item.vehicleReward || '',
+            item.payout || '',
+            item.crimeType || '',
+            item.triggerTime || ''
+          ]
+            .join(' ')
+            .toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+    }
+
+    function updateProgressUI() {
+      const total = COLLECTIBLES.length;
+      const done = state.completedIds.size;
+      const pct = Math.round((done / total) * 100);
+
+      document.getElementById('progress-count').textContent = done;
+      document.getElementById('progress-percent').textContent = `${pct}%`;
+      document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+    }
+
+    function renderMapPins() {
+      const pinsLayer = document.getElementById('pins-layer');
+      pinsLayer.innerHTML = '';
+
+      const filtered = getFilteredItems();
+      const filteredIds = new Set(filtered.map((i) => i.id));
+
+      const sortedForRender = [...COLLECTIBLES].sort((a, b) => {
+        if (a.id === state.selectedId) return 1;
+        if (b.id === state.selectedId) return -1;
+        return a.id - b.id;
+      });
+
+      const invScale = 2.4 / Math.pow(state.scale, 0.72);
+
+      sortedForRender.forEach((item) => {
+        const isVisible = filteredIds.has(item.id);
+        const isSelected = item.id === state.selectedId;
+        const isDone = state.completedIds.has(item.id);
+        const meta = CATEGORY_META[item.category];
+
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('class', 'map-pin-group');
+        g.setAttribute('transform', `translate(${item.x}, ${item.y}) scale(${invScale.toFixed(4)})`);
+        g.style.opacity = isVisible ? (isDone && !isSelected ? '0.68' : '1') : '0.14';
+        g.style.pointerEvents = isVisible ? 'auto' : 'none';
+        g.style.filter = 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.85))';
+
+        if (isSelected) {
+          const pulseCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          pulseCircle.setAttribute('r', '15');
+          pulseCircle.setAttribute('fill', 'none');
+          pulseCircle.setAttribute('stroke', meta.color);
+          pulseCircle.setAttribute('stroke-width', '2.6');
+          pulseCircle.setAttribute('class', 'pin-pulse-ring');
+          g.appendChild(pulseCircle);
+
+          const outerRing = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          outerRing.setAttribute('r', '17');
+          outerRing.setAttribute('fill', meta.color);
+          outerRing.setAttribute('fill-opacity', '0.25');
+          outerRing.setAttribute('stroke', '#ffffff');
+          outerRing.setAttribute('stroke-width', '2.2');
+          g.appendChild(outerRing);
+        }
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('r', isSelected ? '12.5' : '10.5');
+        circle.setAttribute('fill', isDone ? '#064e3b' : '#08121e');
+        circle.setAttribute('stroke', isDone ? '#10b981' : meta.color);
+        circle.setAttribute('stroke-width', isSelected ? '3' : '2.4');
+        circle.setAttribute('class', 'pin-core');
+        circle.style.color = meta.color;
+        g.appendChild(circle);
+
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('y', '3.5');
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-family', 'JetBrains Mono, sans-serif');
+        text.setAttribute('font-size', isSelected ? '10.5' : '9.5');
+        text.setAttribute('font-weight', '800');
+        text.setAttribute('fill', isDone ? '#6ee7b7' : '#ffffff');
+        text.textContent = isDone ? '✓' : item.id;
+        g.appendChild(text);
+
+        if (item.missable && !isDone) {
+          const warnDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          warnDot.setAttribute('cx', '8.5');
+          warnDot.setAttribute('cy', '-8.5');
+          warnDot.setAttribute('r', '4');
+          warnDot.setAttribute('fill', '#f43f5e');
+          warnDot.setAttribute('stroke', '#08121e');
+          warnDot.setAttribute('stroke-width', '1.2');
+          g.appendChild(warnDot);
+        }
+
+        if (isSelected) {
+          const labelBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          const labelWidth = Math.max(115, item.nameKo.length * 10.2 + 22);
+          labelBg.setAttribute('x', -labelWidth / 2);
+          labelBg.setAttribute('y', '-39');
+          labelBg.setAttribute('width', labelWidth);
+          labelBg.setAttribute('height', '21');
+          labelBg.setAttribute('rx', '6');
+          labelBg.setAttribute('fill', '#08121e');
+          labelBg.setAttribute('fill-opacity', '0.95');
+          labelBg.setAttribute('stroke', meta.color);
+          labelBg.setAttribute('stroke-width', '1.5');
+          g.appendChild(labelBg);
+
+          const labelText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          labelText.setAttribute('y', '-25');
+          labelText.setAttribute('text-anchor', 'middle');
+          labelText.setAttribute('font-family', 'Noto Sans KR, sans-serif');
+          labelText.setAttribute('font-size', '10.5');
+          labelText.setAttribute('font-weight', '700');
+          labelText.setAttribute('fill', '#ffffff');
+          labelText.textContent = item.nameKo;
+          g.appendChild(labelText);
+        }
+
+        g.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectItem(item.id, true);
+        });
+
+        g.addEventListener('mouseenter', (e) => showTooltip(e, item));
+        g.addEventListener('mousemove', (e) => moveTooltip(e));
+        g.addEventListener('mouseleave', hideTooltip);
+
+        pinsLayer.appendChild(g);
+      });
+    }
+
+    function showTooltip(e, item) {
+      const tooltip = document.getElementById('map-tooltip');
+      const meta = CATEGORY_META[item.category];
+      const isDone = state.completedIds.has(item.id);
+
+      document.getElementById('tooltip-cat-dot').style.backgroundColor = meta.color;
+      document.getElementById('tooltip-cat-text').textContent = `#${item.id} ${meta.label}`;
+      document.getElementById('tooltip-cat-text').style.color = meta.color;
+
+      document.getElementById('tooltip-missable').classList.toggle('hidden', !item.missable);
+      document.getElementById('tooltip-done').classList.toggle('hidden', !isDone);
+
+      document.getElementById('tooltip-title').textContent = item.nameKo;
+      document.getElementById('tooltip-sub').textContent = `${item.nameEn} · ${item.region}`;
+
+      tooltip.classList.remove('hidden');
+      moveTooltip(e);
+    }
+
+    function moveTooltip(e) {
+      const tooltip = document.getElementById('map-tooltip');
+      const offset = 14;
+      const tipW = tooltip.offsetWidth || 260;
+      const tipH = tooltip.offsetHeight || 92;
+      let left = e.clientX + offset;
+      let top = e.clientY + offset;
+
+      if (left + tipW + 10 > window.innerWidth) left = e.clientX - tipW - offset;
+      if (top + tipH + 10 > window.innerHeight) top = e.clientY - tipH - offset;
+      left = Math.max(10, Math.min(left, window.innerWidth - tipW - 10));
+      top = Math.max(10, Math.min(top, window.innerHeight - tipH - 10));
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    }
+
+    function hideTooltip() {
+      document.getElementById('map-tooltip').classList.add('hidden');
+    }
+
+    function renderInspector() {
+      const panel = document.getElementById('inspector-panel');
+      const item = COLLECTIBLES.find((i) => i.id === state.selectedId) || COLLECTIBLES[0];
+      const meta = CATEGORY_META[item.category];
+      const isDone = state.completedIds.has(item.id);
+
+      panel.innerHTML = `
+        <div class="flex items-center justify-between gap-2 mb-2.5">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="px-2 py-0.5 rounded-md text-[11px] font-bold border ${meta.bgClass}">
+              #${item.id} ${meta.badgeText}
+            </span>
+            ${
+              item.missable
+                ? `<span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse">
+                    ⚠️ ${MISSABLE_LABEL}
+                  </span>`
+                : ''
+            }
+          </div>
+
+          <div class="flex items-center gap-1 shrink-0">
+            <button type="button" onclick="navigateItem(-1)" title="이전 항목"
+              class="px-2 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+              ◀
+            </button>
+            <button type="button" onclick="navigateItem(1)" title="다음 항목"
+              class="px-2 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+              ▶
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-2.5">
+          <h2 class="text-base sm:text-lg font-extrabold text-white leading-snug">
+            ${item.nameKo}
+          </h2>
+          <p class="text-xs font-mono text-slate-400 mt-0.5">${item.nameEn}</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+          <div class="bg-[#08121e] border border-slate-800 rounded-xl px-2.5 py-1.5">
+            <span class="text-[10px] text-slate-400 block">📍 상세 위치</span>
+            <span class="font-semibold text-teal-300">${item.region}</span>
+          </div>
+          <div class="bg-[#08121e] border border-slate-800 rounded-xl px-2.5 py-1.5">
+            <span class="text-[10px] text-slate-400 block">🎯 해금 / 연관 미션</span>
+            <span class="font-semibold text-slate-200">${item.mission}</span>
+          </div>
+        </div>
+
+        ${
+          item.payout || item.triggerTime || item.crimeType
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.payout ? `<div class="bg-emerald-950/25 border border-emerald-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-emerald-300/80 block">💵 예상 보상 / 수익</span><span class="font-bold text-emerald-200">${item.payout}</span></div>` : ''}
+                ${item.crimeType || item.triggerTime ? `<div class="bg-pink-950/25 border border-pink-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-pink-300/80 block">${item.triggerTime ? '🕒 발생 조건 / 시간' : '💰 범죄 유형'}</span><span class="font-semibold text-pink-200">${item.triggerTime || item.crimeType}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
+          item.gang || item.weaponReward || item.vehicleReward
+            ? `<div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mb-3 text-xs">
+                ${item.gang ? `<div class="bg-orange-950/25 border border-orange-500/30 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-orange-300/80 block">🏴‍☠️ 점거 세력 · 경비</span><span class="font-semibold text-orange-200">${item.gang}${item.security ? ` · ${item.security}` : ''}</span></div>` : ''}
+                ${item.weaponReward ? `<div class="bg-amber-950/25 border border-amber-500/35 rounded-xl px-2.5 py-1.5"><span class="text-[10px] text-amber-300/80 block">🟡 거점 고유 무기 (노란색)</span><span class="font-bold text-amber-200">${item.weaponReward}</span></div>` : ''}
+                ${item.vehicleReward ? `<div class="bg-cyan-950/25 border border-cyan-500/30 rounded-xl px-2.5 py-1.5 ${!item.weaponReward || !item.gang ? '' : 'sm:col-span-2'}"><span class="text-[10px] text-cyan-300/80 block">🚗 거점 고유 차량</span><span class="font-semibold text-cyan-200">${item.vehicleReward}</span></div>` : ''}
+              </div>`
+            : ''
+        }
+
+        ${
+          item.safeCode
+            ? `<div class="mb-3 bg-purple-950/35 border border-purple-500/40 rounded-xl px-3 py-2 flex items-center justify-between gap-2">
+                <div>
+                  <span class="text-[10px] uppercase tracking-wider font-bold text-purple-300 block">🔐 금고 / 키패드 비밀번호</span>
+                  <span class="font-mono text-base font-extrabold text-white tracking-widest">${item.safeCode}</span>
+                </div>
+                <button type="button" onclick="copySafeCode('${item.safeCode}')"
+                  class="px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md transition flex items-center gap-1.5 shrink-0">
+                  <span>코드 복사</span>
+                </button>
+              </div>`
+            : ''
+        }
+
+        <div class="bg-[#08121e]/90 border border-slate-800/90 rounded-xl p-3 mb-3">
+          <p class="text-xs font-semibold text-slate-200 mb-1.5 leading-relaxed">${item.summary}</p>
+          <p class="text-xs text-slate-300/90 leading-relaxed">${item.guide}</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="toggleComplete(${item.id})"
+            class="flex-1 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-extrabold transition flex items-center justify-center gap-2 shadow-lg ${
+              isDone
+                ? 'bg-emerald-600/25 hover:bg-emerald-600/35 text-emerald-300 border border-emerald-500/50'
+                : 'bg-teal-600 hover:bg-teal-500 text-white border border-teal-400/50'
+            }">
+            <span>${isDone ? '✅ 획득 완료됨 (클릭 시 해제)' : '⬜ 획득 완료 체크'}</span>
+          </button>
+
+          <button type="button" onclick="focusSector(${item.x}, ${item.y}, Math.max(state.scale, 3.6))"
+            title="지도에서 이 핀 위치로 확대 이동"
+            class="py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
+            🎯 위치 포커스
+          </button>
+        </div>
+      `;
+    }
+
+    function renderItemsList() {
+      const listEl = document.getElementById('items-list');
+      const filtered = getFilteredItems();
+      document.getElementById('filtered-count').textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div class="p-8 text-center text-slate-400 text-xs">
+            <p class="text-sm font-bold text-slate-300 mb-1">일치하는 수집품이 없습니다.</p>
+            <p>검색어나 필터 조건을 초기화해 보세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = filtered
+        .map((item) => {
+          const meta = CATEGORY_META[item.category];
+          const isSelected = item.id === state.selectedId;
+          const isDone = state.completedIds.has(item.id);
+
+          return `
+            <div onclick="selectItem(${item.id}, true)"
+              class="px-4 py-2.5 cursor-pointer transition flex items-start gap-3 ${
+                isSelected
+                  ? 'bg-teal-500/15 border-l-4 border-l-teal-400'
+                  : 'hover:bg-slate-800/45 border-l-4 border-l-transparent'
+              }">
+              <button type="button"
+                onclick="event.stopPropagation(); toggleComplete(${item.id})"
+                title="획득 완료 토글"
+                class="mt-0.5 w-5 h-5 rounded-md flex items-center justify-center text-xs font-bold border transition shrink-0 ${
+                  isDone
+                    ? 'bg-emerald-500/25 border-emerald-400 text-emerald-300'
+                    : 'bg-slate-900 border-slate-600 text-transparent hover:border-teal-400'
+                }">
+                ✓
+              </button>
+
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-mono text-[11px] font-bold" style="color: ${meta.color}">#${item.id}</span>
+                  <span class="text-xs sm:text-sm font-bold truncate ${
+                    isDone ? 'line-through text-slate-400' : 'text-slate-100'
+                  }">
+                    ${item.nameKo}
+                  </span>
+                  ${
+                    item.missable
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/35 shrink-0">놓치면 불가</span>`
+                      : ''
+                  }
+                  ${
+                    item.weaponReward && item.category === 'outpost'
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/35 shrink-0">🟡 ${item.weaponReward.split(' (')[0]}</span>`
+                      : ''
+                  }
+                  ${
+                    item.payout
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shrink-0">💵 ${item.payout.split(' (')[0]}</span>`
+                      : ''
+                  }
+                  ${
+                    item.safeCode
+                      ? `<span class="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/35 shrink-0">${item.safeCode}</span>`
+                      : ''
+                  }
+                </div>
+                <div class="text-[11px] text-slate-400 truncate mt-0.5">
+                  ${item.nameEn} · <span class="text-slate-300/80">${item.region}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function selectItem(id, shouldPan = true) {
+      state.selectedId = id;
+      const item = COLLECTIBLES.find((i) => i.id === id);
+      renderInspector();
+      renderItemsList();
+      renderMapPins();
+
+      if (item && shouldPan) {
+        const targetZoom = Math.max(state.scale, 3.2);
+        focusSector(item.x, item.y, targetZoom);
+      }
+    }
+
+    function navigateItem(delta) {
+      const filtered = getFilteredItems();
+      if (filtered.length === 0) return;
+      const idx = filtered.findIndex((i) => i.id === state.selectedId);
+      const nextIdx = idx === -1 ? 0 : (idx + delta + filtered.length) % filtered.length;
+      selectItem(filtered[nextIdx].id, true);
+    }
+
+    function toggleComplete(id) {
+      const item = COLLECTIBLES.find((i) => i.id === id);
+      if (state.completedIds.has(id)) {
+        state.completedIds.delete(id);
+        if (item) showToast(`⬜ [${item.nameKo}] 미획득 상태로 변경됨`, 'amber');
+      } else {
+        state.completedIds.add(id);
+        if (item) showToast(`✅ [${item.nameKo}] 획득 완료!`, 'teal');
+      }
+      saveCompletedState();
+      updateProgressUI();
+      renderInspector();
+      renderItemsList();
+      renderMapPins();
+    }
+
+    let cameraAnimFrame = null;
+
+    function applyCameraTransform() {
+      const camGroup = document.getElementById('map-camera-group');
+      camGroup.setAttribute(
+        'transform',
+        `translate(${state.panX.toFixed(2)}, ${state.panY.toFixed(2)}) scale(${state.scale.toFixed(4)})`
+      );
+      document.getElementById('zoom-level-label').textContent = `${Math.round(state.scale * 100)}%`;
+      renderMapPins();
+    }
+
+    function focusSector(mapX, mapY, targetScale = 2.6) {
+      if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
+
+      const clampedScale = Math.min(Math.max(targetScale, MIN_SCALE), MAX_SCALE);
+      const targetPanX = VIEW_CX - mapX * clampedScale;
+      const targetPanY = VIEW_CY - mapY * clampedScale;
+
+      const startPanX = state.panX;
+      const startPanY = state.panY;
+      const startScale = state.scale;
+      const duration = 420;
+      const startTime = performance.now();
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 3);
+
+        state.panX = startPanX + (targetPanX - startPanX) * ease;
+        state.panY = startPanY + (targetPanY - startPanY) * ease;
+        state.scale = startScale + (clampedScale - startScale) * ease;
+
+        applyCameraTransform();
+
+        if (t < 1) {
+          cameraAnimFrame = requestAnimationFrame(step);
+        } else {
+          cameraAnimFrame = null;
+        }
+      }
+
+      cameraAnimFrame = requestAnimationFrame(step);
+    }
+
+    function zoomByFactor(factor) {
+      if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
+      const newScale = Math.min(Math.max(state.scale * factor, MIN_SCALE), MAX_SCALE);
+      const ratio = newScale / state.scale;
+
+      state.panX = VIEW_CX - (VIEW_CX - state.panX) * ratio;
+      state.panY = VIEW_CY - (VIEW_CY - state.panY) * ratio;
+      state.scale = newScale;
+      applyCameraTransform();
+    }
+
+    function initMapInteractions() {
+      const viewport = document.getElementById('map-viewport');
+      const svg = document.getElementById('tactical-svg');
+
+      let isDragging = false;
+      let dragStartClientX = 0;
+      let dragStartClientY = 0;
+      let dragStartPanX = 0;
+      let dragStartPanY = 0;
+
+      function clientDeltaToSvgDelta(dx, dy) {
+        const rect = svg.getBoundingClientRect();
+        const scaleX = MAP_WIDTH / Math.max(rect.width, 1);
+        const scaleY = MAP_HEIGHT / Math.max(rect.height, 1);
+        const uniform = Math.max(scaleX, scaleY);
+        return { svgDx: dx * uniform, svgDy: dy * uniform };
+      }
+
+      const closeTooltipBtn = document.getElementById('btn-close-tooltip');
+      if (closeTooltipBtn) {
+        closeTooltipBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          hideTooltip();
+        });
+        closeTooltipBtn.addEventListener('touchend', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          hideTooltip();
+        }, { passive: false });
+      }
+
+      viewport.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        if (!e.target.closest('.map-pin-group')) hideTooltip();
+        if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
+        isDragging = true;
+        viewport.classList.add('is-dragging');
+        dragStartClientX = e.clientX;
+        dragStartClientY = e.clientY;
+        dragStartPanX = state.panX;
+        dragStartPanY = state.panY;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartClientX;
+        const dy = e.clientY - dragStartClientY;
+        const { svgDx, svgDy } = clientDeltaToSvgDelta(dx, dy);
+        state.panX = dragStartPanX + svgDx;
+        state.panY = dragStartPanY + svgDy;
+        applyCameraTransform();
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.classList.remove('is-dragging');
+      });
+
+      viewport.addEventListener(
+        'wheel',
+        (e) => {
+          e.preventDefault();
+          hideTooltip();
+          const zoomFactor = e.deltaY < 0 ? 1.18 : 0.85;
+          zoomByFactor(zoomFactor);
+        },
+        { passive: false }
+      );
+
+      let initialPinchDist = null;
+      let initialPinchScale = 1;
+
+      viewport.addEventListener(
+        'touchstart',
+        (e) => {
+          if (!e.target.closest('.map-pin-group')) hideTooltip();
+          if (cameraAnimFrame) cancelAnimationFrame(cameraAnimFrame);
+          if (e.touches.length === 1) {
+            isDragging = true;
+            dragStartClientX = e.touches[0].clientX;
+            dragStartClientY = e.touches[0].clientY;
+            dragStartPanX = state.panX;
+            dragStartPanY = state.panY;
+          } else if (e.touches.length === 2) {
+            isDragging = false;
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            initialPinchDist = Math.hypot(dx, dy);
+            initialPinchScale = state.scale;
+          }
+        },
+        { passive: false }
+      );
+
+      viewport.addEventListener(
+        'touchmove',
+        (e) => {
+          e.preventDefault();
+          if (e.touches.length === 1 && isDragging) {
+            const dx = e.touches[0].clientX - dragStartClientX;
+            const dy = e.touches[0].clientY - dragStartClientY;
+            const { svgDx, svgDy } = clientDeltaToSvgDelta(dx, dy);
+            state.panX = dragStartPanX + svgDx;
+            state.panY = dragStartPanY + svgDy;
+            applyCameraTransform();
+          } else if (e.touches.length === 2 && initialPinchDist) {
+            const dx = e.touches[0].clientX - e.touches[1].clientX;
+            const dy = e.touches[0].clientY - e.touches[1].clientY;
+            const currentDist = Math.hypot(dx, dy);
+            const targetScale = Math.min(
+              Math.max(initialPinchScale * (currentDist / initialPinchDist), MIN_SCALE),
+              MAX_SCALE
+            );
+            const ratio = targetScale / state.scale;
+            state.panX = VIEW_CX - (VIEW_CX - state.panX) * ratio;
+            state.panY = VIEW_CY - (VIEW_CY - state.panY) * ratio;
+            state.scale = targetScale;
+            applyCameraTransform();
+          }
+        },
+        { passive: false }
+      );
+
+      viewport.addEventListener('touchend', () => {
+        isDragging = false;
+        initialPinchDist = null;
+      });
+
+      document.getElementById('btn-zoom-in').addEventListener('click', () => zoomByFactor(1.3));
+      document.getElementById('btn-zoom-out').addEventListener('click', () => zoomByFactor(0.76));
+      document.getElementById('btn-zoom-reset').addEventListener('click', () => focusSector(DEFAULT_CAM.x, DEFAULT_CAM.y, DEFAULT_CAM.scale));
+    }
+
+    function initFilterControls() {
+      const filterButtons = document.querySelectorAll('.filter-pill');
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.activeCategory = btn.dataset.category;
+          filterButtons.forEach((b) => {
+            b.className =
+              'filter-pill shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-700/80 bg-slate-800/60 text-slate-300 hover:border-teal-400/50 hover:text-teal-200';
+          });
+          btn.className =
+            'filter-pill active shrink-0 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-teal-400/50 bg-teal-500/20 text-teal-200 shadow-sm';
+
+          renderItemsList();
+          renderMapPins();
+        });
+      });
+
+      const missableBtn = document.getElementById('btn-missable-only');
+      missableBtn.addEventListener('click', () => {
+        state.missableOnly = !state.missableOnly;
+        missableBtn.setAttribute('aria-pressed', String(state.missableOnly));
+        if (state.missableOnly) {
+          missableBtn.className =
+            'px-3 py-1.5 rounded-xl text-xs sm:text-sm font-extrabold transition border border-rose-400 bg-rose-600/35 text-white shadow-md shadow-rose-950/50 flex items-center justify-center gap-1.5 shrink-0';
+        } else {
+          missableBtn.className =
+            'px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition border border-rose-500/35 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20 flex items-center justify-center gap-1.5 shrink-0';
+        }
+        renderItemsList();
+        renderMapPins();
+      });
+
+      const searchInput = document.getElementById('search-input');
+      const clearBtn = document.getElementById('btn-clear-search');
+
+      searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        clearBtn.classList.toggle('hidden', state.searchQuery.length === 0);
+        renderItemsList();
+        renderMapPins();
+      });
+
+      clearBtn.addEventListener('click', () => {
+        state.searchQuery = '';
+        searchInput.value = '';
+        clearBtn.classList.add('hidden');
+        renderItemsList();
+        renderMapPins();
+      });
+
+      const resetModal = document.getElementById('reset-modal');
+      document.getElementById('btn-reset-progress').addEventListener('click', () => {
+        resetModal.classList.remove('hidden');
+      });
+      document.getElementById('btn-cancel-reset').addEventListener('click', () => {
+        resetModal.classList.add('hidden');
+      });
+      document.getElementById('btn-confirm-reset').addEventListener('click', () => {
+        state.completedIds.clear();
+        saveCompletedState();
+        updateProgressUI();
+        renderInspector();
+        renderItemsList();
+        renderMapPins();
+        resetModal.classList.add('hidden');
+        showToast(`🔄 챕터 ${CHAPTER_NUM} 수집 진행도가 초기화되었습니다.`, 'rose');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadCompletedState();
+      updateProgressUI();
+      initFilterControls();
+      initMapInteractions();
+      renderInspector();
+      renderItemsList();
+      applyCameraTransform();
+    });
+  </script>
+</body>
+</html>
